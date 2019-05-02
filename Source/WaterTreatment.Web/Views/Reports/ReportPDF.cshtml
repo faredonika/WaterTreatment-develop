@@ -1,0 +1,213 @@
+﻿@using WaterTreatment.Web.Models
+@model ViewReportModel
+@{
+    BundleTable.EnableOptimizations = false;
+    Layout = "~/Views/Shared/_LayoutPDF.cshtml";
+    var buildingName = "";
+}
+<div class="row">
+    <div class="row">
+        <div class="col-md-6 header pull-left" style="margin-bottom: 50px; padding-left: 0px">
+            <span class="logo"><span class="logo-primary">WATER</span> TREATMENT</span><br />
+            <span class="sub-logo">Water System Management</span>
+        </div>
+        <div class="pull-right text-right">
+            <div><b>Report Review</b></div>
+            <div>@DateTime.UtcNow.ToString("MM/dd.yyyy")</div>
+        </div>
+    </div>
+    <div class="row" style="padding-bottom: 10px;">
+        <div class="col-md-12 site-name">
+            <span>Site: @Model.SiteName</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table table-outer">
+                <thead>
+                    <tr>
+                        <th class="col-md-4 text-left">Measurement Date</th>
+                        <th class="col-md-4 text-left">Created On</th>
+                        <th class="col-md-4 text-left">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-left">@Model.MeasurementDate</td>
+                        <td class="text-left">@Model.CreatedDate.ToShortDateString()</td>
+                        <td class="text-left">@Html.Raw(Model.SubmittedDate.HasValue ? "Submitted" : "Draft")</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @foreach (var building in Model.Buildings)
+    {
+        if (buildingName.Trim() != building.Name.Trim())
+        {
+            <div class="row">
+                <div class="building-name">@building.Name</div>
+            </div>
+        }
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table table-outer" style="margin-top: 15px;margin-bottom: 0px !important;">
+                    <tbody>
+                        @foreach (var system in building.Systems.Where(s => s.ReasonSkipped == null))
+                        {
+                            <tr>
+                                <td style="padding: 0px; border: 0px !important">
+                                    <table class="table table-bordered" style="margin-bottom: 0px !important; border: 0px !important">
+                                        <thead>
+                                            <tr style="background-color: #eee;">
+                                                <th class="col-md-4 text-left">System Type</th>
+                                                <th class="col-md-4 text-left">Description</th>
+                                                <th class="col-md-4 text-left">Location</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-left">@system.SystemName</td>
+                                                <td class="text-left">@system.Description</td>
+                                                <td class="text-left">@system.Location</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 15px; border-top: 0px !important;">
+                                    <table class="table table-inner">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-left">MEASUREMENT</th>
+                                                <th colspan="2" class="text-left">VALUE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var measurement in system.Measurements)
+                                            {
+                                                double minVal, maxVal, measurementVal;
+                                                var bound = string.Empty;
+                                                var oobDescription = string.Empty;
+
+                                                if (measurement.MinValue == null)
+                                                {
+                                                    minVal = 0;
+                                                }
+                                                else
+                                                {
+                                                    minVal = Convert.ToDouble(measurement.MinValue);
+                                                }
+                                                //minVal = (measurement.MinValue == null) ? 0 : Convert.ToDouble(measurement.MinValue);
+
+                                                if (measurement.MaxDescription == null)
+                                                {
+                                                    maxVal = 20000;
+                                                }
+                                                else
+                                                {
+                                                    double.TryParse(measurement.MaxDescription, out maxVal);
+                                                }
+                                                //(measurement.MaxDescription == null) ? maxVal = 0 : double.TryParse(measurement.MaxDescription, out maxVal);
+                                                if (measurement.Type == "Value")
+                                                {
+                                                    measurementVal = Convert.ToDouble(measurement.Value);
+                                                }
+                                                else
+                                                {
+                                                    measurementVal = Convert.ToDouble(measurement.Value);
+                                                }
+
+                                                if (measurement.Range != "Maximum" && measurementVal < minVal)
+                                                {
+                                                    bound = "Minimum";
+                                                    if (!string.IsNullOrWhiteSpace(measurement.MinDescription))
+                                                    {
+                                                        oobDescription = measurement.MinDescription;
+                                                    }
+                                                }
+                                                if (measurement.Range != "Minimum" && measurementVal > maxVal)
+                                                {
+                                                    bound = "Maximum";
+                                                    if (!string.IsNullOrWhiteSpace(measurement.MaxDescription))
+                                                    {
+                                                        oobDescription = measurement.MaxDescription;
+                                                    }
+                                                }
+
+                                                bool isOOB = !string.IsNullOrWhiteSpace(bound);
+
+                                                <tr class="measurement">
+                                                    <td class="text-left">@measurement.Name</td>
+                                                    <td @Html.Raw(isOOB ? string.Empty : "colspan=\"2") class="text-left">
+                                                        @if (!measurement.HasBounds || measurement.Type == "Value")
+                                                        {
+                                                            @Html.Raw(measurement.IsApplicable ? measurement.Value + " " + measurement.Unit : "N/A")
+                                                        }
+                                                        else
+                                                        {
+                                                            switch (measurement.Value)
+                                                            {
+                                                                case "1":
+                                                                    <span>Light</span>
+                                                                    break;
+                                                                case "2":
+                                                                <span>Medium</span>
+                                                                    break;
+                                                                case "3":
+                                                                <span>Dark</span>
+                                                                    break;
+                                                                default:
+                                                                <span>N/A</span>
+                                                                    break;
+                                                            }
+                                                        }
+                                                    </td>
+                                                    @if (isOOB)
+                                                    {
+                                                        <td class="text-left">Out of Acceptable Range</td>
+                                                    }
+                                                </tr>
+                                                {
+                                                    bool hasComment = !string.IsNullOrWhiteSpace(measurement.Comment);
+
+                                                    if (isOOB || hasComment)
+                                                    {
+                                                        <tr>
+                                                            <td colspan="3" class="measurement-info">
+                                                                @if (isOOB && !string.IsNullOrWhiteSpace(oobDescription))
+                                                                {
+                                                                    <div class="oob">
+                                                                        <i class="fa fa-warning"></i><strong>Out of Acceptable Range:</strong> @oobDescription
+                                                                    </div>
+                                                                }
+                                                                @if (hasComment)
+                                                                {
+                                                                    <div><strong>Comments:</strong> @measurement.Comment</div>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        if (buildingName.Trim() != building.Name.Trim())
+        {
+            <div class="row">
+                <div style="margin: 0px 0px 3px 0px; width: 100%;">
+                    <hr style="border: 3px solid black;" />
+                </div>
+            </div>
+        }
+        buildingName = @building.Name;
+    }
+</div>

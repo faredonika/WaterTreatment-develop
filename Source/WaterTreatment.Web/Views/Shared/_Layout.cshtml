@@ -1,0 +1,113 @@
+﻿@using WaterTreatment.Web.Entities
+@using WaterTreatment.Web.Models
+@{ 
+    var NavBar = ViewData["NavBar"] as IEnumerable<SubSection>;
+    var PathNodes = ViewData["PathNodes"] as IEnumerable<NavSection>;
+    var UserInfo = ViewData["userInfo"] as UserInfoModel;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/jsTree/themes/default/bundle")
+    @Scripts.Render("~/bundles/app")
+    @RenderSection("styles", required: false)
+</head>
+<body class="sessioned-layout" style="margin-top: 50px;">
+    <div class="container">
+        <div class="row">
+            <div class="header pull-left">
+                <span class="logo"><span class="logo-primary">WATER</span> TREATMENT</span><br/>
+                <span class="sub-logo">Water System Management</span>
+                <span class="small">Version 2.0</span>
+            </div>
+            <div class="pull-right account">
+                @Html.ActionLink("My Account", "UserProfile", "Account")&nbsp;&nbsp;&nbsp;@Html.ActionLink("Logout", "Logout", "Account")
+                &nbsp;&nbsp;&nbsp;<a href="mailto:afmsawtrsupport@nikasolutions.com">Contact Support</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="navbar pull-right">
+                <div class="nav-main-content">
+                    <div>
+                        @Html.Partial("_MainNavbar", NavBar)
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if (PathNodes != null)
+        {
+            <div class="row">
+                <div class="col-md-12 breadcrumbs">
+                    <div class="breadcrumbs-content">
+                        <span>
+                            @Html.Raw(PathNodes.First().Name)
+                        </span>
+                        @if (PathNodes.Count() > 1)
+                        {
+                            <span class="breadcrumb-inner"> / @Html.Raw(PathNodes.Skip(1).First().Name)</span>
+                        }
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <hr class="underline" />
+                        </div>
+                        @if (ViewContext.RouteData.Values["controller"].ToString() != "Home")
+                        {
+                            <div class="col-md-4">
+                                <div class="pull-right">
+                                    <h3 style="margin-top: 0px;">@Html.Raw(PathNodes.Last().Name)</h3>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="row body-content">
+            <div id="bannerContainer" class="center-block" style="padding-bottom: 1.0em">
+                @Html.Partial("_Banner")
+            </div>
+            @RenderBody()
+            <div id="knockout-area-footer">
+                <div class="footer">
+                    <div class="container">
+                        <div class="col-sm-12 text-center navbar-text">
+                            <span class="pull-left"><a href="#" data-toggle="modal" data-target="#modalDialog" data-bind="click: showTerms">Terms and conditions | Privacy Policy</a></span><span class="pull-right">&copy; @DateTime.Now.Year NIKA</span>
+                        </div>
+                    </div>
+                </div>
+                @Html.Partial("_Modal")
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        require(['jquery', 'knockout', 'modal', 'bootstrap'], function ($, ko, modal)
+        {
+            $('.dropdown-toggle').click(function () {
+                var location = $(this).attr('href');
+                window.location.href = location;
+                return false;
+            });
+
+            var vm = function () {
+                var self = this;
+
+                self.modal = new modal();
+
+                self.showTerms = function () {
+                    self.modal.populate('Terms and Conditions', 'Text Needed', 'Close', true, function () {
+                    }, function () {
+                    }, false);
+                };
+            };
+
+            ko.applyBindings(new vm(), $('#knockout-area-footer')[0]);
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

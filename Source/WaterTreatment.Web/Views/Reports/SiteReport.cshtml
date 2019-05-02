@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "Site Report";
+}
+<div style="padding-top: 1.0em" id="knockout-area">
+    <div class="row" style="padding-bottom: 1.0em">
+        <div class="col-md-2" style="padding-top: 0.4em">
+            <label class="control-label">Site</label>
+        </div>
+        <div class="col-md-6">
+            <select class="form-control" data-bind="options: sites, value: selectedSite, optionsText: 'Name', optionsValue: 'Id', optionsCaption: 'Please Select Site'"></select>
+        </div>
+    </div>
+    <div class="row" style="padding-bottom: 1.0em">
+        <div class="col-md-2" style="padding-top: 0.4em">
+            <label class="control-label">Building</label>
+        </div>
+        <div class="col-md-6">
+            <select class="form-control" data-bind="enable: buildDropdownEnabled, options: buildings, value: selectedBuilding, optionsText: 'Name', optionsValue: 'Id', optionsCaption:'None'"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>Submitted From</label>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group has-feedback">
+                <input type="text" id="submittedFrom" class="input-sm form-control datepicker" data-bind="datepicker: submitFrom" />
+                <i class="glyphicon glyphicon-calendar form-control-feedback" style="line-height: 45px;"></i>
+            </div>
+        </div>
+        <div class="col-md-1"><label>To</label></div>
+        <div class="col-md-3">
+            <div class="form-group has-feedback">
+                <input type="text" id="submittedTo" class="input-sm form-control datepicker" data-bind="datepicker: submitTo" />
+                <i class="glyphicon glyphicon-calendar form-control-feedback" style="line-height: 45px;"></i>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="ajaxFeedback" data-bind="visible: isProcessingRequest">
+            <img src="~/Content/images/spin.gif" />
+        </div>
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table striped-grid">
+                    <thead>
+                        <tr class="branded-header">
+                            <th  scope="colgroup"></th>
+                            <th colspan="2" scope="colgroup">Required Range</th>
+                            <th colspan="5"></th>
+                        </tr>
+                        <tr class="branded-header">
+                            <th>Category</th>
+                            <th>Minimum</th>
+                            <th>Maximum</th>
+                            <th>Units</th>
+                            <th>Entered Value</th>
+                            @*<th>Days Since Last Measured</th>*@
+                            <th>Date of Report</th>
+                            <th>Parameter UFC Frequency</th>
+                            <th>Report Comments</th>
+                        </tr>
+                    </thead>
+                    <tbody style="display: none;" data-bind="foreach: { data: systems, as: '$system' }, visible: selectedSite() != undefined">
+                        <tr data-bind="click: $root.toggleShowHistory, css: { 'clickable': $system.Measurements.length > 0 }">
+                            <td data-bind="text: $system.SystemType" style="background-color: #DDD; border: 1px solid #FFF;"></td>
+                            <td style="background-color: #DDD; border: 1px solid #FFF;"></td>
+                            <td style="background-color: #DDD; border: 1px solid #FFF;"></td>
+                            <td style="background-color: #DDD; border: 1px solid #FFF;"></td>
+                            <td data-bind="text: '(' + $system.OutOfBoundsCount + ' Out of Acceptable Range)', css: {'oob-error': $system.OutOfBoundsCount > 0}" style="background-color: #DDD; border: 1px solid #FFF;"></td>
+                            @*<td data-bind="text: '(' + $system.LateCount + ' Late; ' + $system.NeverMeasuredCount + ' Not Collected)', css: {'oob-error': $system.LateCount > 0 || $system.NeverMeasuredCount > 0}" style="background-color: #DDD; border: 1px solid #FFF;"></td>*@
+                            <td data-bind="text: $system.DateRange" style="background-color: #DDD; border: 1px solid #FFF;"></td>
+                            <td style="background-color: #DDD; border: 1px solid #FFF;"></td>
+                            <td style="background-color: #DDD; border: 1px solid #FFF;"></td>
+                        </tr>
+                        <!-- ko if: $system.showChildren -->
+                            <tr style="height: 10px;"></tr>
+                            <!-- ko foreach: { data: $system.Measurements, as: '$measurement' } -->
+                                <tr>
+                                    <td data-bind="text: $measurement.ParameterName"></td>
+                                    <td data-bind="text: $measurement.MinBound"></td>
+                                    <td data-bind="text: $measurement.MaxBound"></td>
+                                    <td data-bind="text: $measurement.Units"></td>
+                                    <td data-bind="text: $measurement.Value, css: {'oob-error': $measurement.IsOutOfBounds}"></td>
+                                    @*<td data-bind="text: $measurement.DaysElapsed, css: {'oob-error': $measurement.IsLate || !$measurement.Value}"></td>*@
+                                    <td data-bind="text: $measurement.ReportDate"></td>
+                                    <td data-bind="text: $measurement.Frequency"></td>
+                                    <td data-bind="text: $measurement.HasComments ? 'Yes' : 'No'"></td>
+                                </tr>
+                            <!-- /ko -->
+                            <tr style="height: 10px;"></tr>
+                        <!-- /ko -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+<script type="text/javascript">
+require(['jquery', 'knockout', 'App/ViewModels/Report/siteReport', 'bootstrap', 'moment', 'bootstrap-datepicker'], function ($, ko, ViewModel) {
+    $(document).ready(function () {
+        ko.applyBindings(new ViewModel(@Html.Raw(ViewBag.Sites), @Html.Raw(ViewBag.BuildingsPerSite)), $('#knockout-area')[0]);
+    });
+});
+</script>
+}

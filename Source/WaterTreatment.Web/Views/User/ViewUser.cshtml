@@ -1,0 +1,162 @@
+﻿@model WaterTreatment.Web.Models.UserEditModel
+@using WaterTreatment.Web.Entities
+@{
+    ViewBag.Title = "View User";
+}
+<div class="container-fluid">
+    @using (Html.BeginForm("ReactivateUser", "User", new { }, FormMethod.Post, new { @class = "form-horizontal", id = "reactivateForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                <label>Username</label>
+            </div>
+            <div class="col-md-10">
+                @Model.Username
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                <label>First Name</label>
+            </div>
+            <div class="col-md-10">
+                @Model.FirstName
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                <label>Last Name</label>
+            </div>
+            <div class="col-md-10">
+                @Model.LastName
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                <label class="control-label">Email</label>
+            </div>
+            <div class="col-md-10">
+                @Model.Email
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                <label class="control-label">Role</label>
+            </div>
+            <div class="col-md-10" data-bind="text: roleList"></div>
+        </div>
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                <label class="control-label">Vendor</label>
+            </div>
+            <div class="col-md-10" data-bind="text: vendorList"></div>
+        </div>
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                <label class="control-label">Location</label>
+            </div>
+            <div class="col-md-5" >@(Model.SelectedState != null? Model.SelectedState: "Not available" )</div>
+            <div class="col-md-5">
+                @if(Model.IsInternational)
+                {
+                    <label class="control-label" > International User @Html.CheckBoxFor(m => m.IsInternational, new { @disabled = "disabled" })</label>
+                }
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                <label class="control-label">Access</label>
+            </div>
+            <div class="col-md-10" id="tree" style="padding-top: 0.4em">
+                <div id="accessTree"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label class="control-label">Status</label>
+            </div>
+            <div class="col-md-6">
+                This user is currently deactivated.
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 pull-right">
+                <button type="submit" class="btn btn-default pull-right">Reactivate</button>
+            </div>
+        </div>
+    }
+</div>
+@section Scripts
+{
+    <script type="text/javascript">
+require(['jquery', 'knockout', 'jsTree3/jstree'], function ($, ko) {
+    var tree = @Html.Raw(ViewBag.AccessTree);
+
+    var $access = $('#accessTree');
+
+    $access.bind('loaded.jstree', function() {
+        var initialState = @Html.Raw(Json.Encode(Model)),
+            tree = $('#accessTree').jstree(true);
+
+        if (initialState) {
+            var siteIds = initialState.SiteList.split(','),
+                systemIds = initialState.SystemList.split(',');
+
+            systemIds.forEach(function (id) {
+                tree.select_node('T-' + id);
+            });
+
+            siteIds = siteIds.map(function (id) {
+                return 'S-' + id;
+            });
+
+            var systems = tree.get_bottom_selected();
+
+            $(systems).each(function (index, system) {
+                var building = tree.get_parent(system);
+                var site = tree.get_parent(building);
+
+                var i = siteIds.indexOf(site);
+                if (i !== -1) {
+                    siteIds.splice(i, 1);
+                }
+            })
+
+            siteIds.forEach(function (id) {
+                tree.select_node(id);
+            });
+        }
+
+        // Tree readonly
+        $('#tree .jstree-anchor').on('click', function(event) {
+            return false;
+        });
+        tree.close_node = $.noop;
+    })
+    .jstree({
+        "core": {
+            "data": tree,
+            "themes": {
+                "dots": false,
+                "icons": false
+            }
+        },
+        "plugins": ["themes", "checkbox"]
+    });
+
+    ko.applyBindings({
+        'roleList': $.grep(@Html.Raw(ViewBag.Roles), function (role) {
+            return role.Id == @Model.RoleId;
+        }).map(function (role) {
+            return role.Name;
+        }).join(', '),
+        'vendorList': $.grep(@Html.Raw(ViewBag.Vendors), function (vendor) {
+            return vendor.Id == @Model.VendorId;
+        }).map(function (vendor) {
+            return vendor.Name;
+        }).join(', ')
+    }, $('#reactivateForm')[0]);
+});
+</script>
+}

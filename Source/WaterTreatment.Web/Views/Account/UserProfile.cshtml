@@ -1,0 +1,83 @@
+﻿@model WaterTreatment.Web.Models.UserEditModel
+@{
+    ViewBag.Title = "My Account";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8" style="margin-bottom: 1.0em">
+            <h3>Update My Profile</h3>
+        </div>
+    </div>
+    @using (Html.BeginForm("UserProfile", "Account", new { }, FormMethod.Post, new { @class = "form-horizontal", id = "updateProfile" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+        <div class="row" style="padding-bottom: 1.0em">
+            <div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                <label>Username</label>
+            </div>
+            <div class="col-md-6" data-bind="validationElement: name">
+                @Html.TextBoxFor(m => m.Username, new { @class = "form-control", data_bind = "textInput: name" })
+                @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                <label>First Name</label>
+            </div>
+            <div class="col-md-6">
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", data_bind = "textInput: firstName" })
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                <label>Last Name</label>
+            </div>
+            <div class="col-md-6">
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", data_bind = "textInput: lastName" })
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                @Html.LabelFor(m => m.Email)
+            </div>
+            <div class="col-md-6" data-bind="validationElement: email">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", data_bind = "textInput: email" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                <label>Set New Password</label>
+            </div>
+            <div class="col-md-6">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <button type="submit" class="btn btn-default pull-right" data-bind="enable: canSave">Update</button>
+            </div>
+        </div>
+    }
+</div>
+@section Scripts
+{
+<script type="text/javascript">
+require(['jquery', 'knockout', 'App/ViewModels/Account/profile'], function ($, ko, vm) {
+    var initialState = @Html.Raw(Json.Encode(Model));
+
+    ko.applyBindingsWithValidation(new vm(initialState), $('#updateProfile')[0], {
+        errorMessageClass: "text-danger",
+        decorateInputElement: true,
+        errorElementClass: 'has-error'
+    });
+});
+</script>
+}

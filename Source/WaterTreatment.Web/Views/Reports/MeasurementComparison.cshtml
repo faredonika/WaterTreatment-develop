@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Measurement Comparison";
+}
+<div style="padding-top: 1.0em" id="knockout-area">
+    <div class="row" style="padding-bottom: 1.0em">
+        <div class="col-md-2" style="padding-top: 0.4em">
+            <label class="control-label">Measurement Type</label>
+        </div>
+        <div class="col-md-6">
+            <select class="form-control" data-bind="options: parameters, value: selectedParameterId, optionsText: 'Name', optionsValue: 'Id', optionsCaption: 'Please Select Measurement Type'"></select>
+        </div>
+    </div>
+    <div class="row" style="padding-bottom: 1.0em">
+        <div class="col-md-2" style="padding-top: 0.4em">
+            <label class="control-label">Sites</label>
+        </div>
+        <div class="col-md-6">
+            <select class="form-control" multiple="multiple" data-bind="options: sites, selectedOptions: selectedSites, optionsText: 'Name', optionsValue: 'Id', multiselect: msOptions"></select>
+        </div>
+        <div class="col-md-4">
+            <span><u>Note</u>: Sites relevant to the selected System are displayed. (The Site configuration determines the Systems that are measured.)</span>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>Submitted From</label>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group has-feedback">
+                <input type="text" id="submittedFrom" class="input-sm form-control datepicker" data-bind="datepicker: submitFrom" />
+                <i class="glyphicon glyphicon-calendar form-control-feedback" style="line-height: 45px;"></i>
+            </div>
+        </div>
+        <div class="col-md-1"><label>To</label></div>
+        <div class="col-md-3">
+            <div class="form-group has-feedback">
+                <input type="text" id="submittedTo" class="input-sm form-control datepicker" data-bind="datepicker: submitTo" />
+                <i class="glyphicon glyphicon-calendar form-control-feedback" style="line-height: 45px;"></i>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="padding-bottom: 1.0em">
+        <div class="col-md-2" style="padding-top: 0.4em">
+            <label class="control-label" style="display: none;" data-bind="visible: systemType">System Type:</label>
+        </div>
+        <div class="col-md-6">
+            <span data-bind="text: systemType, visible: systemType"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="ajaxFeedback" data-bind="visible: isProcessingRequest">
+            <img src="~/Content/images/spin.gif" />
+        </div>
+        <div class="col-md-12">
+            <label data-bind="visible: showNoDataMessage" style="display: none;">No latest measurements to display.</label>
+            <div id="measurement-bar-chart" data-bind="visible: !showNoDataMessage()"></div>
+        </div>
+        <div data-bind="visible: missingLatestValue().length > 0" class="col-md-12" style="margin-top: 10px; display: none;">
+            <label>The following systems do not have any data for this measurement:</label>
+            <ul>
+            <!-- ko foreach: { data: missingLatestValue, as: '$datum' } -->
+                <li data-bind="text: $datum.SiteName + ': ' + $datum.BuildingName + ' - ' + $datum.Location"></li>
+            <!-- /ko -->
+            </ul>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+<script type="text/javascript">
+require(['jquery', 'knockout', 'App/ViewModels/Report/measurementComparison', 'bootstrap', 'moment', 'bootstrap-datepicker'], function ($, ko, ViewModel) {
+    $(document).ready(function () {
+        ko.applyBindings(new ViewModel(@Html.Raw(ViewBag.Parameters), @Html.Raw(ViewBag.SitesByParameter)), $('#knockout-area')[0]);
+    });
+});
+</script>
+}

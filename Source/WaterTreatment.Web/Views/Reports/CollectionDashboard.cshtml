@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Collection Dashboard";
+}
+<div style="padding-top: 1.0em" id="knockout-area">
+    <div class="row" style="padding-bottom: 1.0em">
+        <div class="col-md-1" style="padding-top: 0.4em">
+            <label class="control-label">Sites</label>
+        </div>
+        <div class="col-md-6">
+            <select class="form-control" multiple="multiple" data-bind="options: sites, selectedOptions: selectedSites, optionsText: 'Name', optionsValue: 'Id', multiselect: msOptions, disable: isProcessingRequest"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>Submitted From</label>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group has-feedback">
+                <input type="text" id="submittedFrom" class="input-sm form-control datepicker" data-bind="datepicker: submitFrom" />
+                <i class="glyphicon glyphicon-calendar form-control-feedback" style="line-height: 45px;"></i>
+            </div>
+        </div>
+        <div class="col-md-1"><label>To</label></div>
+        <div class="col-md-3">
+            <div class="form-group has-feedback">
+                <input type="text" id="submittedTo" class="input-sm form-control datepicker" data-bind="datepicker: submitTo" />
+                <i class="glyphicon glyphicon-calendar form-control-feedback" style="line-height: 45px;"></i>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="ajaxFeedback" data-bind="visible: isProcessingRequest">
+            <img src="~/Content/images/spin.gif" />
+        </div>
+        <div class="col-md-12" data-bind="visible: !showNoDataMessage()">
+            <div id="collection-bar-chart"></div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-6" data-bind="visible: showNoDataMessage()">
+                <h4><span class="label label-default">No measurements to display.</span></h4>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script type="text/javascript">
+        require(['jquery', 'knockout', 'App/ViewModels/Report/collectionDashboard', 'bootstrap', 'bootstrap-datepicker'], function ($, ko, ViewModel) {
+            $(document).ready(function () {
+                ko.applyBindings(new ViewModel(@Html.Raw(ViewBag.Sites)), $('#knockout-area')[0]);
+            });
+        });
+    </script>
+}

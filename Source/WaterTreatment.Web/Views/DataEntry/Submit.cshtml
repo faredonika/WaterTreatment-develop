@@ -1,0 +1,38 @@
+﻿@model WaterTreatment.Web.Models.ViewReportModel
+@{
+    ViewBag.Title = "Continue Report";
+}
+<div class="container-fluid">
+    @using (Html.BeginForm("Submit", "DataEntry", new { }, FormMethod.Post, new { @class = "form", id = "submitForm" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.AntiForgeryToken()
+        <div class="row" style="padding-bottom: 1.0em;" id="knockout-submit-top">
+            <div class="btn-group pull-right" role="group">
+                <button type="button" class="btn btn-secondary" data-bind="click: edit, disable: isProcessingRequest">Edit</button>
+                <button type="button" class="btn btn-primary" style="margin-left: 5px;" data-bind="click: submit, disable: isProcessingRequest">Submit</button>
+            </div>
+        </div>
+        @Html.Partial("_ReportViewer", Model)
+        <div class="row" style="padding-bottom: 1.0em;">
+            <div class="btn-group pull-right" role="group" id="knockout-submit-bottom">
+                <button type="button" class="btn btn-secondary" data-bind="click: edit, disable: isProcessingRequest">Edit</button>
+                <button type="button" class="btn btn-primary" style="margin-left: 5px;" data-bind="click: submit, disable: isProcessingRequest">Submit</button>
+            </div>
+        </div>
+    }
+</div>
+@section Scripts
+{
+    <script type="text/javascript">
+    require(["jquery", "knockout", "App/ViewModels/DataEntry/Submit"], function ($, ko, ViewModel) {
+
+        $(document).ready(function () {
+            var vm = new ViewModel(@Html.Raw(Model.Id));
+
+            ko.applyBindings(vm, $('#knockout-submit-top')[0]);
+            ko.applyBindings(vm, $('#knockout-submit-bottom')[0]);
+        });
+    });
+    </script>
+}

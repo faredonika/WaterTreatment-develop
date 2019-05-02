@@ -1,0 +1,3689 @@
+﻿---
+Whitelist:
+    - &pdf
+      Id: 1
+      Name: .pdf
+    - &doc
+      Id: 2
+      Name: .doc
+    - &docx
+      Id: 3
+      Name: .docx
+    - &png
+      Id: 4
+      Name: .png
+    - &jpg
+      Id: 5
+      Name: .jpg
+    - &jpeg
+      Id: 6
+      Name: .jpeg
+    - &txt
+      Id: 7
+      Name: .txt
+    - &rtx
+      Id: 8
+      Name: .rtx
+    - &gif
+      Id: 9
+      Name: .gif
+    - &bmp
+      Id: 10
+      Name: .bmp
+    - &xml
+      Id: 11
+      Name: .xml
+LandingActions:
+    - &LandingAction_ConfigureUsers
+      Id: 1
+      Name: User Administration
+      Description: Create, edit and delete users<br/>Assign permissions
+      Controller: User
+      Action: Index
+      Image: user-administration.png
+      HoverImage: user-administration-hover.png
+    - &LandingAction_ConfigureSites
+      Id: 2
+      Name: Configure Sites
+      Description: Create, edit and delete sites<br/>Add buildings and systems
+      Controller: Site
+      Action: Index
+      Image: configure-sites.png
+      HoverImage: configure-sites-hover.png
+    - &LandingAction_ConfigureSystems
+      Id: 3
+      Name: Configure System Types
+      Description: Create and edit water system types
+      Controller: System
+      Action: Index
+      Image: configure-system-types.png
+      HoverImage: configure-system-types-hover.png
+    - &LandingAction_NewReport
+      Id: 4
+      Name: New Data Entry Report
+      Description: Submit measurement data and supporting documents
+      Controller: DataEntry
+      Action: Create
+      Image: new-data-report.png
+      HoverImage: new-data-report-hover.png
+    - &LandingAction_ContinueReport
+      Id: 5
+      Name: Continue Data Entry Report
+      Description: Complete a report that has been started but not submitted
+      Controller: DataEntry
+      Action: Index
+      Image: continue-data-report.png
+      HoverImage: continue-data-report-hover.png
+    - &LandingAction_ViewReport
+      Id: 6
+      Name: View Data Reports
+      Description: View recently submitted reports
+      Controller: Reports
+      Action: Index
+      Image: view-data-reports.png
+      HoverImage: view-data-reports-hover.png
+SubSections:
+    - &SingleReport
+      Id: 1
+      Name: View Report
+      Order: 1
+      Controller: Reports
+      Action: View
+      Enabled: false
+    - &NewReport
+      Id: 3
+      Name: Start New Report
+      Order: 1
+      Controller: DataEntry
+      Action: Create
+      Enabled: true
+    - &ContinueReport
+      Id: 4
+      Name: Continue Report
+      Order: 2
+      Controller: DataEntry
+      Action: Edit
+      Enabled: false
+    - &SubmitReport
+      Id: 5
+      Name: Submit Report
+      Order: 3
+      Controller: DataEntry
+      Action: Submit
+      Enabled: false
+    - &ViewSites
+      Id: 6
+      Name: View Sites
+      Order: 1
+      Controller: Site 
+      Action: Index
+      Enabled: false
+    - &CreateSite
+      Id: 7
+      Name: Create Site 
+      Order: 2
+      Controller: Site 
+      Action: Create
+      Enabled: true
+    - &EditSite
+      Id: 8
+      Name: Edit Site
+      Order: 3
+      Controller: Site
+      Action: Edit
+      Enabled: false
+    - &ViewSystems
+      Id: 9
+      Name: View System Types 
+      Order: 1
+      Controller: System 
+      Action: Index
+      Enabled: false
+    - &CreateSystem
+      Id: 10
+      Name: Create System Type
+      Order: 2
+      Controller: System 
+      Action: Create
+      Enabled: true
+    - &EditSystem
+      Id: 11
+      Name: Edit System Type
+      Order: 3
+      Controller: System 
+      Action: Edit
+      Enabled: false
+    - &ViewUsers
+      Id: 12
+      Name: View Users
+      Order: 1
+      Controller: User 
+      Action: Index
+      Enabled: false
+    - &CreateUsers
+      Id: 13
+      Name:  Create User
+      Order: 2
+      Controller: User 
+      Action: Createuser
+      Enabled: true
+    - &ViewVendors
+      Id: 14
+      Name: View Vendors
+      Order: 3
+      Controller: User 
+      Action: ViewVendors
+      Enabled: true
+    - &CreateVendors
+      Id: 15
+      Name: Create Vendor
+      Order: 4
+      Controller: User 
+      Action: CreateVendor
+      Enabled: true
+    - &LandingPage
+      Id: 16
+      Name: Landing Page
+      Order: 1
+      Controller: Home
+      Action: Index
+      Enabled: true
+    - &OutofBounds
+      Id: 17
+      Name: Out of Bounds Report
+      Order: 3
+      Controller: Reports
+      Action: OutOfBounds
+      Enabled: false
+    - &ReportList
+      Id: 18
+      Name: View Submitted Reports
+      Order: 1
+      Controller: Reports
+      Action: Index
+      Enabled: true
+    - &ReportAnalytics
+      Id: 19
+      Name: Report Analytics
+      Order: 2
+      Controller: Reports
+      Action: AnalyticsLanding
+      Enabled: false
+    - &SiteReport
+      Id: 20
+      Name: Site Report
+      Order: 4
+      Controller: Reports
+      Action: SiteReport
+      Enabled: true
+    - &FrequencyReport
+      Id: 21
+      Name: Frequency Report
+      Order: 5
+      Controller: Reports
+      Action: Frequency
+      Enabled: false
+    - &CollectionDashboard
+      Id: 22
+      Name: Collection Dashboard
+      Order: 6
+      Controller: Reports
+      Action: CollectionDashboard
+      Enabled: true
+    - &SystemComparison
+      Id: 23
+      Name: System Comparison Report
+      Order: 7
+      Controller: Reports
+      Action: SystemComparison
+      Enabled: true
+    - &MeasurementComparison
+      Id: 24
+      Name: Measurement Comparison Report
+      Order: 8
+      Controller: Reports
+      Action: MeasurementComparison
+      Enabled: true
+MainSections:
+    - &Home
+      Id: 1
+      Name: Home
+      Order: 1
+      Controller: Home
+      Action: Index
+      Clickable: True
+      SubSections:
+       - *LandingPage
+    - &Reports
+      Id: 2
+      Name: Reports
+      Order: 2
+      Controller: Reports
+      Action: Index
+      Clickable: True
+      SubSections:
+        - *SingleReport
+        - *OutofBounds
+        - *ReportList
+        - *ReportAnalytics
+        - *SiteReport
+        - *FrequencyReport
+        - *CollectionDashboard
+        - *SystemComparison
+        - *MeasurementComparison
+    - &DataEntry
+      Id: 3
+      Name: Data Entry
+      Order: 3
+      Controller: DataEntry
+      Action: Index
+      Clickable: True
+      SubSections:
+        - *NewReport
+        - *ContinueReport
+        - *SubmitReport
+    - &ConfigureSites
+      Id: 4
+      Name: Configure Sites
+      Order: 4
+      Controller: Site
+      Action: Index
+      Clickable: True
+      SubSections:
+        - *ViewSites
+        - *CreateSite
+        - *EditSite
+    - &ConfigureSystems
+      Id: 5
+      Name: Configure System Types
+      Order: 5
+      Controller: System
+      Action: Index
+      Clickable: True
+      SubSections:
+        - *ViewSystems
+        - *CreateSystem
+        - *EditSystem
+    - &UserAdministration
+      Id: 6
+      Name: User Administration
+      Order: 6
+      Controller: User
+      Action: Index
+      Clickable: True
+      SubSections:
+        - *ViewUsers
+        - *CreateUsers
+        - *ViewVendors
+        - *CreateVendors
+Parameters:
+    - &TotalCalcium
+      Id: 1
+      Name: Total Calcium Concentration in Supply Water to Facility
+      Unit: PPM
+      Use: Measurement
+      Source: UFC 4-510-01 Section 9-2.4
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalMagnesium
+      Id: 2
+      Name: Total Magnesium Concentration in Supply Water to Facility
+      Unit: PPM
+      Use: Measurement
+      Source: UFC 4-510-01 Section 9-2.4
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessMedicalGPG
+      Id: 3
+      Name: Total Hardness of Supply Water to Medical Facility
+      Unit: GPG
+      Use: Measurement
+      Source: UFC 4-510-01 Section 9-2.4.1
+      ParameterBounds:
+        - *MinMedicalSupplyWaterHardnessGPG
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessMedicalPPM
+      Id: 4
+      Name: Total Hardness of Supply Water to Medical Facility (PPM)
+      Unit: PPM
+      Use: Measurement
+      Source: UFC 4-510-01 Section 9-2.4.1
+      ParameterBounds:
+        - *MinMedicalSupplyWaterHardnessPPM
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessDentalGPG
+      Id: 5
+      Name: Total Hardness of Supply Water to Dental Facility
+      Unit: GPG
+      Use: Measurement
+      Source: UFC 4-510-01 Section 9-2.4.1
+      ParameterBounds:
+        - *MaxDentalSupplyWaterHardnessGPG
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessDentalPPM
+      Id: 6
+      Name: Total Hardness of Supply Water to Dental Facility (PPM)
+      Unit: PPM
+      Use: Measurement
+      Source: UFC 4-510-01 Section 9-2.4.1
+      ParameterBounds:
+        - *MaxDentalSupplyWaterHardnessPPM
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessMedicalSoftGPG
+      Id: 7
+      Name: Total Hardness of Soft Water to Medical Facility (GPG)
+      Unit: GPG
+      Use: Measurement
+      Source: UFC 4-510-01 Section 9-2.4.1  
+      ParameterBounds:
+        - *RangeMedicalSoftWaterHardnessGPG    
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessDentalSoftGPG
+      Id: 8
+      Name: Total Hardness of Soft Water to Dental Facility (GPG)
+      Unit: GPG
+      Use: Measurement
+      Source: UFC 4-510-01 Section 9-2.4.1    
+      ParameterBounds:
+        - *RangeMedicalSoftWaterHardnessPPM  
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessMedicalSoftPPM
+      Id: 9
+      Name: Total Hardness of Soft Water to Medical Facility (PPM)
+      Unit: PPM
+      Use: Measurement
+      Source: UFC 4-510-01 Section 9-2.4.1     
+      ParameterBounds:
+        - *MaxDentalSoftWaterHardness 
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessDentalSoftPPM
+      Id: 10
+      Name: Total Hardness of Soft Water to Dental Facility (PPM)
+      Unit: PPM
+      Use: Measurement
+      Source: UFC 4-510-01 Section 9-2.4.1
+      ParameterBounds:
+        - *RangeDentalSoftWaterHardness
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &CondenserTemperature
+      Id: 11
+      Name: Temperature of the Condenser Make-up Water Supply
+      Unit: Degrees Celsius
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraph 2.5 and ASTM D596
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalSilica
+      Id: 12
+      Name: Total Silica (SiO2) Concentration
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraph 2.5 and ASTM D596
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalInsoluble
+      Id: 13
+      Name: Total Insoluble Concentration
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraph 2.5 and ASTM D596
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalIron
+      Id: 14
+      Name: Total Iron (Fe) Concentration
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraph 2.5 and ASTM D596
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalAluminum
+      Id: 15
+      Name: Total Aluminum Concentration
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraph 2.5 and ASTM D596
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &LangelierIndex
+      Id: 16
+      Name: Langelier Index (Condenser Small)
+      Unit: LSI
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraph 2.6.1
+      ParameterBounds:
+        - *MaxLangelierIndex
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalDissolved
+      Id: 17
+      Name: Total Dissolved Solids (Condenser Small)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraph 2.6.1
+      ParameterBounds:
+        - *MaxDissolved
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalCalciumCondenser
+      Id: 18
+      Name: Total Calcium Hardness (Condenser Small)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraph 2.6.1
+      ParameterBounds:
+        - *MaxCalciumCondenser
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalSilicaCondenser
+      Id: 19
+      Name: Total Silica (SiO2) Concentration (Condenser Small)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraph 2.6.1
+      ParameterBounds:
+        - *MaxSilicaCondenser
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpH
+      Id: 20
+      Name: Total pH (Condenser Small)
+      Unit: pH
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraph 2.6.1
+      ParameterBounds:
+        - *RangeTotalpH
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &Alkalinity
+      Id: 21
+      Name: Total Alkalinity (Condenser Small)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraphs 2.6.1 and 3.5.1.2
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &Conductivity
+      Id: 22
+      Name: Conductivity (Condenser Small)
+      Unit: MHO/CM
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraph 2.5.1.2
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &PuckoriusIndex
+      Id: 23
+      Name: Puckorius Index (Condenser Large)
+      Unit: PSI
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraph 2.6.1
+      ParameterBounds:
+        - *MinPuckorius
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalPhosphate
+      Id: 24
+      Name: Total Phosphate Concentration (Condenser Large)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraph 2.6.4
+      ParameterBounds:
+        - *RangePhosphate
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalZinc
+      Id: 25
+      Name: Total Zinc (Zn) if used Concentration (Condenser Large)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraph 2.6.4
+      ParameterBounds:
+        - *RangeZinc
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalMolybdate
+      Id: 26
+      Name: Total Molybdate (Mo) if used Concentration (Condenser Large)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraph 2.6.4
+      ParameterBounds:
+        - *RangeMolybdate
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalPolymer
+      Id: 27
+      Name: Total Polymer Concentration (Condenser Large)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraph 2.6.4
+      ParameterBounds:
+        - *RangePolymer
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalTT
+      Id: 28
+      Name: Total TT Concentration (Condenser Large)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraph 2.6.4
+      ParameterBounds:
+        - *RangeTT
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalBiocides
+      Id: 29
+      Name: Total Biocides Concentration (Condenser Large)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraph 2.6.4
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHBoraxChilled
+      Id: 30
+      Name: Total pH (Borax Nitrite Treatment) (Chilled Water)
+      Unit: pH
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 01 Paragraphs 2.7.2 and 3.5.1
+      ParameterBounds:
+        - *RangeTotalpHBoraxChilled
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHMolybdateChilled
+      Id: 31
+      Name: Total pH (Molybdate Treatment) (Chilled Water)
+      Unit: pH
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 02 Paragraphs 2.7.2 and 3.5.1
+      ParameterBounds:
+        - *RangeTotalpHMolybdateChilled
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalNitriteChilled
+      Id: 32
+      Name: Total Nitrite (for Borax/Nitrite System) (Chilled Water)
+      Unit: pH
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 02 Paragraphs 2.7.2 and 3.5.1
+      ParameterBounds:
+        - *RangeTotalNitriteChilled
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalMolybdateChilled
+      Id: 33
+      Name: Total Molybdate (for Molybdate Treatment) (Chilled Water)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 02 Paragraphs 2.7.2 and 3.5.1
+      ParameterBounds:
+        - *RangeTotalMolybdateChilled
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalTTChilled
+      Id: 34
+      Name: Total TT or MBT Copper Corrosion Inhibitor Concentration (Chilled Water)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 02 Paragraph 2.7.2
+      ParameterBounds:
+        - *RangeTTChilled
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &ConductivityChilled
+      Id: 35
+      Name: Conductivity (Chilled Water)
+      Unit: MHO/CM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraph 2.7.2
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalGycolChilled
+      Id: 36
+      Name: Total Glycol Concentration mils per year (Chilled Water)
+      Unit: mils per year
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraph 2.7.2 and ASTM D1384
+      ParameterBounds:
+        - *MaxGlycolChilled
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHBoraxHot
+      Id: 37
+      Name: Total pH (Borax Nitrite Treatment) (Low/Med Temp Hot Water)
+      Unit: pH
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 01 Paragraphs 2.8.3 and 3.5.3.1
+      ParameterBounds:
+        - *RangeTotalpHBoraxLMHW
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHMolyHot
+      Id: 38
+      Name: Total pH (for Molybdate Treatment) (Low/Med Temp Hot Water)
+      Unit: pH
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 01 Paragraphs 2.8.3 and 3.5.3.1
+      ParameterBounds:
+        - *RangeTotalpHMolybdateLMHW
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalNitriteHot
+      Id: 39
+      Name: Total Nitrite (for Borax/Nitrite System) (Low/Med Temp Hot Water)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 01 Paragraphs 2.8.3 and 3.5.3.1
+      ParameterBounds:
+        - *RangeTotalNitriteLMHW
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalMolyHot
+      Id: 40
+      Name: Total Molybdate (for Molybdate Treatment) (Low/Med Temp Hot Water)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 01 Paragraphs 2.8.3 and 3.5.3.1
+      ParameterBounds:
+        - *RangeTotalMolybdateLMHW
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalTTHot
+      Id: 41
+      Name: Total TT or MBT Copper Inhibitor Concentration (Low/Med Temp Hot Water)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 01 Paragraphs 2.8.3 and 3.5.3.1
+      ParameterBounds:
+        - *RangeTTLMHW
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHHighHot
+      Id: 42
+      Name: Total pH (High Temp Hot Water)
+      Unit: pH
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.9.4 and 3.5.3.2
+      ParameterBounds:
+        - *RangeTotalpHHW
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalSulfiteHighHot
+      Id: 43
+      Name: Total Sulfite (High Temp Hot Water)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.9.4 and 3.5.3.2
+      ParameterBounds:
+        - *RangeTotalSulfiteHHW
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessHighHot
+      Id: 44
+      Name: Total Hardness (High Temp Hot Water)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.9.4 and 3.5.3.2
+      ParameterBounds:
+        - *MaxHardnessHHW
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &AlkalinityBoilerSmall
+      Id: 45
+      Name: Total Alkalinity (CaCO3) Concentration of the Boiler Water (Small Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *RangeAkalinityBoilerSmall
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalPhosphateBoilerSmall
+      Id: 46
+      Name: Total Phosphate (PO4) Concentration of the Boiler Water (Small Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *RangeTotalPhosephateBoilerSmall
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalPolymerBoilerSmall
+      Id: 47
+      Name: Total Polymer Concentration of the Boiler Water (Small Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *RangeTotalPolymerBoilerSmall
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalDissolvedBoilerSmall
+      Id: 48
+      Name: Total Dissolved Solids (Water Tube Boilers) Concentration of the Boiler Water (Small Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *RangeTotalDissolvedBoilerSmall
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalIronBoilerSmall
+      Id: 49
+      Name: Total Iron (Fe) Concentration of the Boiler Water (Small Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *MaxIronBoilerSmall
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHBoilerSmall
+      Id: 50
+      Name: Total pH (Condensate) (Small Systems)
+      Unit: pH
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *RangeTotalpHBoilerSmall
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &ConductivityBoilerSmall
+      Id: 51
+      Name: Conductivity of Condensate (Small Systems)
+      Unit: MHO/CM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *MaxConductivityBoilerSmall
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessCondensateBoilerSmall
+      Id: 52
+      Name: Total Hardness of Condensate (Small Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *MaxHardnessCondensateBoilerSmall
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessMakeupBoilerSmall
+      Id: 53
+      Name: Total Hardness of Make-up Water (Small Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *MaxHardnessMakeupBoilerSmall
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalSulfiteBoilerSmall
+      Id: 54
+      Name: Total Sulfite (NaSO3) Concentration of the Boiler Water (Small Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &AlkalinityBoilerMedium
+      Id: 55
+      Name: Total Alkalinity (CaCO3) Concentration of the Boiler Water (Medium Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *RangeAkalinityBoilerMedium
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalPhosphateBoilerMedium
+      Id: 56
+      Name: Total Phosphate (PO4) Concentration of the Boiler Water (Medium Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *RangeTotalPhosephateBoilerMedium
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalDissolvedWaterBoilerMedium
+      Id: 57
+      Name: Total Dissolved Solids (Water Tube Boilers) Concentration of the Boiler Water (Medium Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *RangeDissolvedWaterBoilerMedium
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalDissolvedFireBoilerMedium
+      Id: 58
+      Name: Total Dissolved Solids (Fire Tube Boilers) Concentration of the Boiler Water (Medium Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *RangeDissolvedFireBoilerMedium
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalDissolvedOxygenBoilerMedium
+      Id: 59
+      Name: Total Dissolved Oxygen Concentration of the Boiler Water (Medium Systems)
+      Unit: PPB
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *MaxDissolvedOxygenBoilerMedium
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalIronBoilerMedium
+      Id: 60
+      Name: Total Iron (Fe) Concentration of the Boiler Water (Medium Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *MaxIronBoilerMedium
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHBoilerMedium
+      Id: 61
+      Name: Total pH (Condensate) (Medium Systems)
+      Unit: pH
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *RangeTotalpHBoilerMedium
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &ConductivityBoilerMedium
+      Id: 62
+      Name: Conductivity of Condensate (Medium Systems)
+      Unit: MHO/CM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *MaxConductivityBoilerMedium
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessCondensateBoilerMedium
+      Id: 63
+      Name: Total Hardness of Condensate (Medium Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *MaxHardnessCondensateBoilerMedium
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessMakeupBoilerMedium
+      Id: 64
+      Name: Total Hardness of Make-up Water (Medium Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *MaxHardnessMakeupBoilerMedium
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalSulfiteBoilerMedium
+      Id: 65
+      Name: Total Sulfite (NaSO3) Concentration of the Boiler Water (Medium Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalCausticityBoilerLarge
+      Id: 66
+      Name: Total Causticity (OH) of Make-up Water (Large Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *RangeCausticityBoilerLarge
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &AlkalinityBoilerLarge
+      Id: 67
+      Name: Total Alkalinity (CaCO3) Concentration of the Boiler Water (Large Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *RangeAkalinityBoilerLarge
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalPhosphateBoilerLarge
+      Id: 68
+      Name: Total Phosphate (PO4) Concentration of the Boiler Water (Large Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *RangeTotalPhosephateBoilerLarge
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalPolymerBoilerLarge
+      Id: 69
+      Name: Total Polymer Concentration of the Boiler Water (Large Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *RangeTotalPolymerBoilerLarge
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalDissolvedWaterBoilerLarge
+      Id: 70
+      Name: Total Dissolved Solids (Water Tube Boilers) Concentration of the Boiler Water (Large Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *RangeDissolvedWaterBoilerLarge
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalDissolvedFireBoilerLarge
+      Id: 71
+      Name: Total Dissolved Solids (Fire Tube Boilers) Concentration of the Boiler Water (Large Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *RangeDissolvedFireBoilerLarge
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalSuspendedBoilerLarge
+      Id: 72
+      Name: Total Suspended Solids Concentration of the Boiler Water (Large Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *MaxSuspendedBoilerLarge
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalSodiumSulfiteBoilerLarge
+      Id: 73
+      Name: Total Sodium Sulfate Concentration of the Boiler Water (Large Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *RangeSodiumSulfiteBoilerLarge
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalSilicaBoilerLarge
+      Id: 74
+      Name: Total Silica Concentration of the Boiler Water (Large Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *MaxSilicaBoilerLarge
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalDissolvedOxygenBoilerLarge
+      Id: 75
+      Name: Total Dissolved Oxygen Concentration of the Boiler Water (Large Systems)
+      Unit: PPB
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *MaxDissolvedOxygenBoilerLarge
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalIronBoilerLarge
+      Id: 76
+      Name: Total Iron (Fe) Concentration of the Boiler Water (Large Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2 and, 3.5.4.3
+      ParameterBounds:
+        - *MaxIronBoilerLarge
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHBoilerLarge
+      Id: 77
+      Name: Total pH (Condensate) (Large Systems)
+      Unit: pH
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *RangeTotalpHBoilerLarge
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &ConductivityMakeupBoilerLarge
+      Id: 78
+      Name: Conductivity of the Make-up Water (Large Systems)
+      Unit: MHO/CM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &ConductivityCondensateBoilerLarge
+      Id: 79
+      Name: Conductivity of Condensate (Large Systems)
+      Unit: MHO/CM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *MaxConductivityCondensateBoilerLarge
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &NeutralizedConductivityBoilerLarge
+      Id: 80
+      Name: Neutralized Conductivity (Large Systems)
+      Unit: MHO/CM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessCondensateBoilerLarge
+      Id: 81
+      Name: Total Hardness of Condensate (Large Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *MaxHardnessCondensateBoilerLarge
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessMakeupBoilerLarge
+      Id: 82
+      Name: Total Hardness of Make-up Water (Large Systems)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *MaxHardnessMakeupBoilerLarge
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalSulfiteBoilerLarge
+      Id: 83
+      Name: Total Sulfite (NaSO3) Concentration of the Boiler Water (Large System)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &LangelierIndexLarge
+      Id: 84
+      Name: Langelier Index (Condenser Large)
+      Unit: LSI
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraph 2.6.1
+      ParameterBounds:
+        - *MaxLangelierIndexLarge
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalDissolvedLarge
+      Id: 85
+      Name: Total Dissolved Solids PPM of the Condenser Water (Large System)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraph 2.6.1
+      ParameterBounds:
+        - *MaxDissolvedLarge
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalCalciumCondenserLarge
+      Id: 86
+      Name: Total Calcium Hardness PPM of the Condenser Water (Large System)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraph 2.6.1
+      ParameterBounds:
+        - *MaxCalciumCondenserLarge
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalSilicaCondenserLarge
+      Id: 87
+      Name: Total Silica (SiO2) Concentration PPM of the Condenser Water (Large System)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraph 2.6.1
+      ParameterBounds:
+        - *MaxSilicaCondenserLarge
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHLarge
+      Id: 88
+      Name: Total pH (Large System)
+      Unit: pH
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraph 2.6.1
+      ParameterBounds:
+        - *RangeTotalpHLarge
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &AlkalinityLarge
+      Id: 89
+      Name: Total Alkalinity of the Condenser Water (Large System)
+      Unit: PPM
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraphs 2.6.1 & 3.5.1.2
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &ConductivityLarge
+      Id: 90
+      Name: Conductivity of the Condenser Water (Large System)
+      Unit: MHO/CM
+      Use: Measurement
+      Source: UFGS Section 23 25 00 Paragraph 2.5.1.2
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHCoolingQA
+      Id: 91
+      Name: Total pH (Cooling Tower) (QA)
+      Unit: pH
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.5, 3.5.5, and ASTM D596
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalSilicaCoolingQA
+      Id: 92
+      Name: Total Silica Concentration (Cooling Tower) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.5, 3.5.5, and ASTM D596
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalIronCoolingQA
+      Id: 93
+      Name: Total Iron (Fe) Concentration (Cooling Tower) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.5, 3.5.5, and ASTM D596
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalCalciumCoolingQA
+      Id: 94
+      Name: Total Calcium Hardness (Cooling Tower) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.5, 3.5.5, and ASTM D596
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessCoolingQA
+      Id: 95
+      Name: Total Hardness (Cooling Tower) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.5, 3.5.5, and ASTM D596
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalChlorideCoolingQA
+      Id: 96
+      Name: Total Chloride Concentration (Cooling Tower) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.5, 3.5.5, and ASTM D596
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalAlkalinityCoolingQA
+      Id: 97
+      Name: Total Alkalinity (Cooling Tower) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.5, 3.5.5, and ASTM D596
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &ConductivityCoolingQA
+      Id: 98
+      Name: Conductivity (Cooling Tower) (QA)
+      Unit: MHO/CM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.5, 3.5.5, and ASTM D596
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &ScaleCorrosionCondenserSmallQA
+      Id: 99
+      Name: Presence of Scale/Corrosion (Condenser Small) (QA)
+      Unit: MILS/YEAR
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraph 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalPhosphateCondenserSmallQA
+      Id: 100
+      Name: Total Phosphate Concentration (Condenser Small) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraph 3.5.5
+      ParameterBounds:
+        - *RangeTotalPhosphateCondenserSmallQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalBiocidesCondenserSmallQA
+      Id: 101
+      Name: Total Biocides Concentration (Condenser Small) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraph 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHCondenserSmallQA
+      Id: 102
+      Name: Total pH (Condenser Small) (QA)
+      Unit: pH
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.6.1 and 3.5.5
+      ParameterBounds:
+        - *RangeTotalpHCondenserSmallQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalCalciumCondenserSmallQA
+      Id: 103
+      Name: Total Calcium Hardness (Condenser Small) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.6.1 and 3.5.5
+      ParameterBounds:
+        - *MaxCalciumCondenserSmallQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalAlkalinityCondenserSmallQA
+      Id: 104
+      Name: Total Alkalinity (Condenser Small) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 3.5.1 and 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &ConductivityCondenserSmallQA
+      Id: 105
+      Name: Conductivity (Condenser Small) (QA)
+      Unit: MHO/CM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 3.5.1 and 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TemperatureCondenserLargeQA
+      Id: 106
+      Name: Temperature (Condenser Large) (QA)
+      Unit: Degrees Celsius
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraph 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHCondenserLargeQA
+      Id: 107
+      Name: Total pH (Condenser Large) (QA)
+      Unit: pH
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.6.1 and 3.5.5
+      ParameterBounds:
+        - *RangeTotalpHCondenserLargeQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalSilicaCondenserLargeQA
+      Id: 108
+      Name: Total Silica Concentration (Condenser Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.6.1 and 3.5.5
+      ParameterBounds:
+        - *MaxSilicaCondenserLargeQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalIronCondenserLargeQA
+      Id: 109
+      Name: Total Iron (as Fe(2)O(3)) Concentration (Condenser Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraph 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalCopperCondenserLargeQA
+      Id: 110
+      Name: Total Copper (Cu) Concentration (Condenser Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraph 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &CalciumHardnessCondenserLargeQA
+      Id: 111
+      Name: Calcium Hardness (as CaCO3) Concentration (Condenser Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraph 3.5.5
+      ParameterBounds:
+        - *MaxCalciumCondenserLargeQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessCondenserLargeQA
+      Id: 112
+      Name: Total Hardness (as CaCO3) Concentration (Condenser Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraph 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalChlorideCondenserLargeQA
+      Id: 113
+      Name: Total Chloride (CL) Concentration (Condenser Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraph 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalAlkalinityCondenserLargeQA
+      Id: 114
+      Name: Total Alkalinity (Condenser Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 3.5.1 and 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &ConductivityCondenserLargeQA
+      Id: 115
+      Name: Conductivity (Condenser Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 3.5.1 and 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalDissolvedCondenserLargeQA
+      Id: 116
+      Name: Total Dissolved Solids (Condenser Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.6.1 and 3.5.5
+      ParameterBounds:
+        - *MaxDissolvedCondenserLargeQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalPhosphateCondenserLargeQA
+      Id: 117
+      Name: Total Phosphate Concentration (Condenser Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.6.1, 3.5.1, and 3.5.5
+      ParameterBounds:
+        - *RangePhosphateCondenserLargeQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalZincCondenserLargeQA
+      Id: 118
+      Name: Total Zinc (Zn) Concentration (Condenser Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.6.4, 3.5.1, and 3.5.5
+      ParameterBounds:
+        - *RangeZincCondenserLargeQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalMolyCondenserLargeQA
+      Id: 119
+      Name: Total Molybdate (Mo) Concentration (Condenser Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.6.4, 3.5.1, and 3.5.5
+      ParameterBounds:
+        - *RangeMolyCondenserLargeQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalTTCondenserLargeQA
+      Id: 120
+      Name: Total TT Concentration (Condenser Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.6.4 and 3.5.5
+      ParameterBounds:
+        - *RangeTTCondenserLargeQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalBiocidesCondenserLargeQA
+      Id: 121
+      Name: Total Biocides Concentration (Condenser Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.6.4 and 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &BacteriaCondenserLargeQA
+      Id: 122
+      Name: Bacteria Colony Count (Condenser Large) (QA)
+      Unit: colonies/ML
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraph 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHChilledQA
+      Id: 123
+      Name: Total pH (for Borax/Nitrite Treatment) (Chilled Water) (QA)
+      Unit: pH
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.7.2, 3.5.2, and 3.5.5
+      ParameterBounds:
+        - *RangeTotalpHChilledQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHMolyChilledQA
+      Id: 124
+      Name: Total pH (for Molybdate Treatment) (Chilled Water) (QA)
+      Unit: pH
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.7.2, 3.5.2, and 3.5.5
+      ParameterBounds:
+        - *RangeTotalpHMolyChilledQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalNitriteChilledQA
+      Id: 125
+      Name: Total Nitrite Concentration (Chilled Water) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.7.2, 3.5.2, and 3.5.5
+      ParameterBounds:
+        - *RangeTotalNitriteChilledQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalMolyChilledQA
+      Id: 126
+      Name: Total Molybdate Concentration (Chilled Water) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.7.2, 3.5.2, and 3.5.5
+      ParameterBounds:
+        - *RangeTotalMolyChilledQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalIronChilledQA
+      Id: 127
+      Name: Total Iron (as Fe(2)O(3)) Concentration (Chilled Water) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraph 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &ConductivityChilledQA
+      Id: 128
+      Name: Total Conductivity (Chilled Water) (QA)
+      Unit: MHO/CM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.7.2, 3.5.2, and 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHLMHWQA
+      Id: 129
+      Name: Total pH (Borax Nitrite Treatment) (Low/Medium Temperature Hot Water) (QA)
+      Unit: pH
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.8.3, 3.5.3, and 3.5.5
+      ParameterBounds:
+        - *RangeTotalpHLMHWQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHMolyLMHWQA
+      Id: 130
+      Name: Total pH (Molybdate Treatment) (Low/Medium Temperature Hot Water) (QA)
+      Unit: pH
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.8.3, 3.5.3, and 3.5.5
+      ParameterBounds:
+        - *RangeTotalpHMolyLMHWQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalNitriteLMHWQA
+      Id: 131
+      Name: Total Nitrite (for Borax/Nitrite System) (Low/Medium Temperature Hot Water) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.8.3, 3.5.3, and 3.5.5
+      ParameterBounds:
+        - *RangeTotalNitriteLMHWQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalMolyLMHWQA
+      Id: 132
+      Name: Total Molybdate Concentration (Low/Medium Temperature Hot Water) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.8.3, 3.5.3, and 3.5.5
+      ParameterBounds:
+        - *RangeTotalMolyLMHWQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalIronLMHWQA
+      Id: 133
+      Name: Total Iron (as Fe(2)O(3)) Concentration (Low/Medium Temperature Hot Water) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.8.3, 3.5.3, and 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHHHWQA
+      Id: 134
+      Name: Total pH (High Temperature Hot Water) (QA)
+      Unit: pH
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.9.4, 3.5.3, and 3.5.5 and ASTM D596
+      ParameterBounds:
+        - *RangeTotalpHHHWQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalSulfiteHHWQA
+      Id: 135
+      Name: Total Sulfite (High Temperature Hot Water) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraphs 2.9.4, 3.5.3, and 3.5.5 and ASTM D596
+      ParameterBounds:
+        - *RangeTotalSulfiteHHWQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessHHWQA
+      Id: 136
+      Name: Total Hardness (High Temperature Hot Water) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraph 3.5.5 and ASTM D596
+      ParameterBounds:
+        - *MaxHardnessHHWQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalIronHHWQA
+      Id: 137
+      Name: Total Iron (as Fe(2)O(3)) Concentration (High Temperature Hot Water) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Section 23 25 00 Paragraph 3.5.5 and ASTM D596
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHBoilerSmallQA
+      Id: 138
+      Name: Total pH (Boiler Small) (QA)
+      Unit: pH
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraph 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalSulfiteBoilerSmallQA
+      Id: 139
+      Name: Total Sulfite (NaSO3) Concentration (Boiler Small) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4, and 3.5.5
+      ParameterBounds:
+        - *RangeTotalSulfiteBoilerSmallQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalAlkalinityBoilerSmallQA
+      Id: 140
+      Name: Total Alkalinity (CaCO3) Concentration (Boiler Small) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4, and 3.5.5
+      ParameterBounds:
+        - *RangeAlkalinityBoilerSmallQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalDissolvedWaterBoilerSmallQA
+      Id: 141
+      Name: Total Dissolved Solids (Water Tube Boiler) Concentration (Boiler Small) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.5
+      ParameterBounds:
+        - *RangeDissolvedWaterBoilerSmallQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalDissolvedFireBoilerSmallQA
+      Id: 142
+      Name: Total Dissolved Solids (Fire Tube Boiler) Concentration (Boiler Small) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.5
+      ParameterBounds:
+        - *RangeDissolvedFireBoilerSmallQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalPhospateBoilerSmallQA
+      Id: 143
+      Name: Total Phosphate (PO4) Concentration (Boiler Small) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4 and 3.5.5
+      ParameterBounds:
+        - *RangePhosphateBoilerSmallQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalPolymerBoilerSmallQA
+      Id: 144
+      Name: Total Polymer or Tannin Concentration (Boiler Small) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.5
+      ParameterBounds:
+        - *RangePolymerBoilerSmallQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalIronBoilerSmallQA
+      Id: 145
+      Name: Total Iron (Fe) Concentration (Boiler Small) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.4.3
+      ParameterBounds:
+        - *MaxIronBoilerSmallQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHCondensateBoilerSmallQA
+      Id: 146
+      Name: Total pH (Condensate) (Boiler Small) (QA)
+      Unit: pH
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2 and 3.5.4.3
+      ParameterBounds:
+        - *RangeCondensatepHBoilerSmallQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &ConductivityBoilerSmallQA
+      Id: 147
+      Name: Conductivity Condensate (Boiler Small) (QA)
+      Unit: MHO/CM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.4.3
+      ParameterBounds:
+        - *MaxConductivityBoilerSmallQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessBoilerSmallQA
+      Id: 148
+      Name: Total Hardness (CaCO3) of Condensate (Boiler Small) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.5
+      ParameterBounds:
+        - *MaxHardnessBoilerSmallQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalIronCondensateBoilerSmallQA
+      Id: 149
+      Name: Total Iron (Fe) Concentration Condensate (Boiler Small) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraph 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessMakeUpBoilerSmallQA
+      Id: 150
+      Name: Total Hardness (CaCO3) of Make-up Water (Boiler Small) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.4.3
+      ParameterBounds:
+        - *MaxHardnessMakeupBoilerSmallQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHBoilerMediumQA
+      Id: 151
+      Name: Total pH (Boiler Medium) (QA)
+      Unit: pH
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraph 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalSulfiteBoilerMediumQA
+      Id: 152
+      Name: Total Sulfite (NaSO3) Concentration (Boiler Medium) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4, and 3.5.5
+      ParameterBounds:
+        - *RangeTotalSulfiteBoilerMediumQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalAlkalinityBoilerMediumQA
+      Id: 153
+      Name: Total Alkalinity (CaCO3) Concentration (Boiler Medium) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4, and 3.5.5
+      ParameterBounds:
+        - *RangeAlkalinityBoilerMediumQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalDissolvedWaterBoilerMediumQA
+      Id: 154
+      Name: Total Dissolved Solids (Water Tube Boiler) Concentration (Boiler Medium) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.5
+      ParameterBounds:
+        - *RangeDissolvedWaterBoilerMediumQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalDissolvedFireBoilerMediumQA
+      Id: 155
+      Name: Total Dissolved Solids (Fire Tube Boiler) Concentration (Boiler Medium) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.5
+      ParameterBounds:
+        - *RangeDissolvedFireBoilerMediumQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalPhospateBoilerMediumQA
+      Id: 156
+      Name: Total Phosphate (PO4) Concentration (Boiler Medium) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4, and 3.5.5
+      ParameterBounds:
+        - *RangePhosphateBoilerMediumQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalPolymerBoilerMediumQA
+      Id: 157
+      Name: Total Polymer or Tannin Concentration (Boiler Medium) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.5
+      ParameterBounds:
+        - *RangePolymerBoilerMediumQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalIronBoilerMediumQA
+      Id: 158
+      Name: Total Iron (Fe) Concentration (Boiler Medium) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.4.3
+      ParameterBounds:
+        - *MaxIronBoilerMediumQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHCondensateBoilerMediumQA
+      Id: 159
+      Name: Total pH (Condensate) (Boiler Medium) (QA)
+      Unit: pH
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *RangeCondensatepHBoilerMediumQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &ConductivityBoilerMediumQA
+      Id: 160
+      Name: Conductivity of Condensate (Boiler Medium) (QA)
+      Unit: MHO/CM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.4.3
+      ParameterBounds:
+        - *MaxConductivityBoilerMediumQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessBoilerMediumQA
+      Id: 161
+      Name: Total Hardness (CaCO3) of Condensate (Boiler Medium) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.5
+      ParameterBounds:
+        - *MaxHardnessBoilerMediumQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalIronCondensateBoilerMediumQA
+      Id: 162
+      Name: Total Iron (Fe) Concentration Condensate (Boiler Medium) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraph 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessMakeUpBoilerMediumQA
+      Id: 163
+      Name: Total Hardness (CaCO3) of Make-up Water (Boiler Medium) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.4.3
+      ParameterBounds:
+        - *MaxHardnessMakeupBoilerMediumQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHBoilerLargeQA
+      Id: 164
+      Name: Total pH (Boiler Large) (QA)
+      Unit: pH
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraph 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalSulfiteBoilerLargeQA
+      Id: 165
+      Name: Total Sulfite (NaSO3) Concentration (Boiler Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4, and 3.5.5
+      ParameterBounds:
+        - *RangeTotalSulfiteBoilerLargeQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalAlkalinityBoilerLargeQA
+      Id: 166
+      Name: Total Alkalinity (CaCO3) Concentration (Boiler Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4, and 3.5.5
+      ParameterBounds:
+        - *RangeAlkalinityBoilerLargeQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalDissolvedWaterBoilerLargeQA
+      Id: 167
+      Name: Total Dissolved Solids (Water Tube Boiler) Concentration (Boiler Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.5
+      ParameterBounds:
+        - *RangeDissolvedWaterBoilerLargeQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalDissolvedFireBoilerLargeQA
+      Id: 168
+      Name: Total Dissolved Solids (Fire Tube Boiler) Concentration (Boiler Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.5
+      ParameterBounds:
+      - *RangeDissolvedFireBoilerLargeQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &ConductivityBoilerLargeQA
+      Id: 169
+      Name: Conductivity (Boiler Large) (QA)
+      Unit: MHO/CM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 3.5.4.2 and 3.5.4.3
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &NeutralizedConductivityBoilerLargeQA
+      Id: 170
+      Name: Neutralized Conductivity (Boiler Large) (QA)
+      Unit: MHO/CM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 3.5.4.2 and 3.5.4.3
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalPhospateBoilerLargeQA
+      Id: 171
+      Name: Total Phosphate (PO4) Concentration (Boiler Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4, and 3.5.5
+      ParameterBounds:
+        - *RangePhosphateBoilerLargeQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalPolymerBoilerLargeQA
+      Id: 172
+      Name: Total Polymer or Tannin Concentration (Boiler Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.5
+      ParameterBounds:
+        - *RangePolymerBoilerLargeQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalSilicaBoilerLargeQA
+      Id: 173
+      Name: Total Silica (SiO2) Concentration (Boiler Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.5
+      ParameterBounds:
+        - *MaxSilicaBoilerLargeQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalIronBoilerLargeQA
+      Id: 174
+      Name: Total Iron (Fe) Concentration (Boiler Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.4.3
+      ParameterBounds:
+        - *MaxIronBoilerLargeQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalpHCondensateBoilerLargeQA
+      Id: 175
+      Name: Total pH (Condensate) (Boiler Large) (QA)
+      Unit: pH
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1, 3.5.4.2, and 3.5.4.3
+      ParameterBounds:
+        - *RangeCondensatepHBoilerLargeQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &ConductivityCondensateBoilerLargeQA
+      Id: 176
+      Name: Conductivity Condensate (Boiler Large) (QA)
+      Unit: MHO/CM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.4.3
+      ParameterBounds:
+        - *MaxConductivityBoilerLargeQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessBoilerLargeQA
+      Id: 177
+      Name: Total Hardness (CaCO3) of Condensate (Boiler Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.5
+      ParameterBounds:
+        - *MaxHardnessBoilerLargeQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalIronCondensateBoilerLargeQA
+      Id: 178
+      Name: Total Iron (Fe) Concentration Condensate (Boiler Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraph 3.5.5
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+    - &TotalHardnessMakeUpBoilerLargeQA
+      Id: 179
+      Name: Total Hardness (CaCO3) of Make-up Water (Boiler Large) (QA)
+      Unit: PPM
+      Use: Independent Quality Assurance
+      Source: UFGS Specification Section 23 25 00 Paragraphs 2.11.1 and 3.5.4.3
+      ParameterBounds:
+        - *MaxHardnessMakeupBoilerLargeQA
+      Type: *NumberType
+      Frequency: 30
+      Link: http://google.com
+ParameterBounds:
+    - &MinMedicalSupplyWaterHardnessGPG
+      Id: 1
+      Type: Value
+      Range: Minimum
+      MinValue: 10
+      IsEnforced: true
+    - &MinMedicalSupplyWaterHardnessPPM
+      Id: 2
+      Type: Value
+      Range: Minimum
+      MinValue: 171
+      IsEnforced: true    
+    - &MaxDentalSupplyWaterHardnessGPG
+      Id: 3
+      Type: Value
+      Range: Maximum
+      MaxValue: 5
+      IsEnforced: true    
+    - &MaxDentalSupplyWaterHardnessPPM
+      Id: 4
+      Type: Value
+      Range: Maximum
+      MaxValue: 85.5
+      IsEnforced: true    
+    - &RangeMedicalSoftWaterHardnessGPG
+      Id: 5
+      Type: Value
+      Range: Both
+      MinValue: 3
+      MaxValue: 5
+      IsEnforced: true    
+    - &RangeMedicalSoftWaterHardnessPPM
+      Id: 6
+      Type: Value
+      Range: Both
+      MinValue: 51.3
+      MaxValue: 85.5
+      IsEnforced: true    
+    - &MaxDentalSoftWaterHardness
+      Id: 7
+      Type: Value
+      Range: Maximum
+      MaxValue: 5
+      IsEnforced: true    
+    - &RangeDentalSoftWaterHardness
+      Id: 8
+      Type: Value
+      Range: Both
+      MinValue: 51.3
+      MaxValue: 85.5
+      IsEnforced: true
+    - &MaxLangelierIndex
+      Id: 9
+      Type: Value
+      Range: Maximum
+      MaxValue: 4
+      IsEnforced: true
+    - &MaxDissolved
+      Id: 10
+      Type: Value
+      Range: Maximum
+      MaxValue: 5000
+      IsEnforced: true
+    - &MaxCalciumCondenser
+      Id: 11
+      Type: Value
+      Range: Maximum
+      MaxValue: 1200
+      IsEnforced: true
+    - &MaxSilicaCondenser
+      Id: 12
+      Type: Value
+      Range: Maximum
+      MaxValue: 150
+      IsEnforced: true
+    - &RangeTotalpH
+      Id: 13
+      Type: Value
+      Range: Both
+      MinValue: 7.5
+      MaxValue: 8.5
+      IsEnforced: true
+    - &MinPuckorius
+      Id: 14
+      Type: Value
+      Range: Minimum
+      MinValue: 4
+      IsEnforced: true
+    - &RangePhosphate
+      Id: 15
+      Type: Value
+      Range: Both
+      MinValue: 3
+      MaxValue: 5
+      IsEnforced: true
+    - &RangeZinc
+      Id: 16
+      Type: Value
+      Range: Both
+      MinValue: 1
+      MaxValue: 2
+    - &RangeMolybdate
+      Id: 17
+      Type: Value
+      Range: Both
+      MinValue: 10
+      MaxValue: 15
+      IsEnforced: true
+    - &RangePolymer
+      Id: 18
+      Type: Value
+      Range: Both
+      MinValue: 3
+      MaxValue: 4
+      IsEnforced: true
+    - &RangeTT
+      Id: 19
+      Type: Value
+      Range: Both
+      MinValue: 1
+      MaxValue: 2
+      IsEnforced: true
+    - &RangeTotalpHBoraxChilled
+      Id: 20
+      Type: Value
+      Range: Both
+      MinValue: 8.5
+      MaxValue: 9.5
+      IsEnforced: true
+    - &RangeTotalpHMolybdateChilled
+      Id: 21
+      Type: Value
+      Range: Both
+      MinValue: 8
+      MaxValue: 9
+      IsEnforced: true
+    - &RangeTotalNitriteChilled
+      Id: 22
+      Type: Value
+      Range: Both
+      MinValue: 600
+      MaxValue: 1000
+      IsEnforced: true
+    - &RangeTotalMolybdateChilled
+      Id: 23
+      Type: Value
+      Range: Both
+      MinValue: 100
+      MaxValue: 125
+      IsEnforced: true
+    - &RangeTTChilled
+      Id: 24
+      Type: Value
+      Range: Both
+      MinValue: 40
+      MaxValue: 50
+      IsEnforced: true
+    - &MaxGlycolChilled
+      Id: 25
+      Type: Value
+      Range: Maximum
+      MaxValue: 0.5
+      IsEnforced: true
+    - &RangeTotalpHHW
+      Id: 26
+      Type: Value
+      Range: Both
+      MinValue: 9.3
+      MaxValue: 9.9
+      IsEnforced: true
+    - &RangeTotalSulfiteHHW
+      Id: 27
+      Type: Value
+      Range: Both
+      MinValue: 30
+      MaxValue: 60
+      IsEnforced: true
+    - &MaxHardnessHHW
+      Id: 28
+      Type: Value
+      Range: Maximum
+      MaxValue: 2
+      IsEnforced: true
+    - &RangeAkalinityBoilerLarge
+      Id: 29
+      Type: Value
+      Range: Both
+      MinValue: 200
+      MaxValue: 800
+      IsEnforced: true
+    - &RangeTotalPhosephateBoilerLarge
+      Id: 30
+      Type: Value
+      Range: Both
+      MinValue: 30
+      MaxValue: 60
+      IsEnforced: true
+    - &RangeTotalPolymerBoilerLarge
+      Id: 31
+      Type: Value
+      Range: Both
+      MinValue: 5
+      MaxValue: 10
+      IsEnforced: true
+    - &RangeTotalDissolvedBoilerLarge
+      Id: 32
+      Type: Value
+      Range: Both
+      MinValue: 3000
+      MaxValue: 3500
+      IsEnforced: true
+    - &MaxIronBoilerLarge
+      Id: 33
+      Type: Value
+      Range: Maximum
+      MaxValue: 10
+      IsEnforced: true
+    - &RangeTotalpHBoilerLarge
+      Id: 34
+      Type: Value
+      Range: Both
+      MinValue: 7.5
+      MaxValue: 8
+      IsEnforced: true
+    - &MaxConductivityBoilerLarge
+      Id: 35
+      Type: Value
+      Range: Maximum
+      MaxValue: 35
+      IsEnforced: true
+    - &MaxHardnessCondensateBoilerLarge
+      Id: 36
+      Type: Value
+      Range: Maximum
+      MaxValue: 2
+      IsEnforced: true
+    - &MaxHardnessMakeupBoilerLarge
+      Id: 37
+      Type: Value
+      Range: Maximum
+      MaxValue: 2
+      IsEnforced: true
+    - &RangeDissolvedWaterBoilerLarge
+      Id: 38
+      Type: Value
+      Range: Both
+      MinValue: 3000
+      MaxValue: 3500
+      IsEnforced: true
+    - &RangeDissolvedFireBoilerLarge
+      Id: 39
+      Type: Value
+      Range: Both
+      MinValue: 3500
+      MaxValue: 5000
+      IsEnforced: true
+    - &MaxDissolvedOxygenBoilerLarge
+      Id: 40
+      Type: Value
+      Range: Maximum
+      MaxValue: 7
+      IsEnforced: true
+    - &RangeCausticityBoilerLarge
+      Id: 41
+      Type: Value
+      Range: Both
+      MinValue: 20
+      MaxValue: 200
+      IsEnforced: true
+    - &MaxSuspendedBoilerLarge
+      Id: 42
+      Type: Value
+      Range: Maximum
+      MaxValue: 15
+      IsEnforced: true
+    - &RangeSodiumSulfiteBoilerLarge
+      Id: 43
+      Type: Value
+      Range: Both
+      MinValue: 20
+      MaxValue: 40
+      IsEnforced: true
+    - &MaxSilicaBoilerLarge
+      Id: 44
+      Type: Value
+      Range: Maximum
+      MaxValue: 200
+      IsEnforced: true
+    - &MaxConductivityCondensateBoilerLarge
+      Id: 45
+      Type: Value
+      Range: Maximum
+      MaxValue: 35
+      IsEnforced: true
+    - &MaxLangelierIndexLarge
+      Id: 46
+      Type: Value
+      Range: Maximum
+      MaxValue: 4
+      IsEnforced: true
+    - &MaxDissolvedLarge
+      Id: 47
+      Type: Value
+      Range: Maximum
+      MaxValue: 5000
+      IsEnforced: true
+    - &MaxCalciumCondenserLarge
+      Id: 48
+      Type: Value
+      Range: Maximum
+      MaxValue: 1200
+      IsEnforced: true
+    - &MaxSilicaCondenserLarge
+      Id: 49
+      Type: Value
+      Range: Maximum
+      MaxValue: 150
+      IsEnforced: true
+    - &RangeTotalpHLarge
+      Id: 50
+      Type: Value
+      Range: Both
+      MinValue: 7.5
+      MaxValue: 8.5
+      IsEnforced: true
+    - &RangeAkalinityBoilerMedium
+      Id: 51
+      Type: Value
+      Range: Both
+      MinValue: 200
+      MaxValue: 800
+      IsEnforced: true
+    - &RangeTotalPhosephateBoilerMedium
+      Id: 52
+      Type: Value
+      Range: Both
+      MinValue: 30
+      MaxValue: 60
+      IsEnforced: true
+    - &MaxIronBoilerMedium
+      Id: 53
+      Type: Value
+      Range: Maximum
+      MaxValue: 10
+      IsEnforced: true
+    - &RangeTotalpHBoilerMedium
+      Id: 54
+      Type: Value
+      Range: Both
+      MinValue: 7.5
+      MaxValue: 8
+      IsEnforced: true
+    - &MaxConductivityBoilerMedium
+      Id: 55
+      Type: Value
+      Range: Maximum
+      MaxValue: 35
+      IsEnforced: true
+    - &MaxHardnessCondensateBoilerMedium
+      Id: 56
+      Type: Value
+      Range: Maximum
+      MaxValue: 2
+      IsEnforced: true
+    - &MaxHardnessMakeupBoilerMedium
+      Id: 57
+      Type: Value
+      Range: Maximum
+      MaxValue: 2
+      IsEnforced: true
+    - &RangeDissolvedWaterBoilerMedium
+      Id: 58
+      Type: Value
+      Range: Both
+      MinValue: 3000
+      MaxValue: 3500
+      IsEnforced: true
+    - &RangeDissolvedFireBoilerMedium
+      Id: 59
+      Type: Value
+      Range: Both
+      MinValue: 3500
+      MaxValue: 5000
+      IsEnforced: true
+    - &MaxDissolvedOxygenBoilerMedium
+      Id: 60
+      Type: Value
+      Range: Maximum
+      MaxValue: 7
+      IsEnforced: true
+    - &RangeAkalinityBoilerSmall
+      Id: 61
+      Type: Value
+      Range: Both
+      MinValue: 200
+      MaxValue: 800
+      IsEnforced: true
+    - &RangeTotalPhosephateBoilerSmall
+      Id: 62
+      Type: Value
+      Range: Both
+      MinValue: 30
+      MaxValue: 60
+      IsEnforced: true
+    - &RangeTotalPolymerBoilerSmall
+      Id: 63
+      Type: Value
+      Range: Both
+      MinValue: 5
+      MaxValue: 10
+      IsEnforced: true
+    - &RangeTotalDissolvedBoilerSmall
+      Id: 64
+      Type: Value
+      Range: Both
+      MinValue: 3000
+      MaxValue: 3500
+      IsEnforced: true
+    - &MaxIronBoilerSmall
+      Id: 65
+      Type: Value
+      Range: Maximum
+      MaxValue: 10
+      IsEnforced: true
+    - &RangeTotalpHBoilerSmall
+      Id: 66
+      Type: Value
+      Range: Both
+      MinValue: 7.5
+      MaxValue: 8
+      IsEnforced: true
+    - &MaxConductivityBoilerSmall
+      Id: 67
+      Type: Value
+      Range: Maximum
+      MaxValue: 35
+      IsEnforced: true
+    - &MaxHardnessCondensateBoilerSmall
+      Id: 68
+      Type: Value
+      Range: Maximum
+      MaxValue: 2
+      IsEnforced: true
+    - &MaxHardnessMakeupBoilerSmall
+      Id: 69
+      Type: Value
+      Range: Maximum
+      MaxValue: 2
+      IsEnforced: true
+    - &RangeTotalpHBoraxLMHW
+      Id: 70
+      Type: Value
+      Range: Both
+      MinValue: 8.5
+      MaxValue: 9.5
+      IsEnforced: true
+    - &RangeTotalpHMolybdateLMHW
+      Id: 71
+      Type: Value
+      Range: Both
+      MinValue: 8
+      MaxValue: 9
+      IsEnforced: true
+    - &RangeTotalNitriteLMHW
+      Id: 72
+      Type: Value
+      Range: Both
+      MinValue: 600
+      MaxValue: 1000
+      IsEnforced: true
+    - &RangeTotalMolybdateLMHW
+      Id: 73
+      Type: Value
+      Range: Both
+      MinValue: 100
+      MaxValue: 125
+      IsEnforced: true
+    - &RangeTTLMHW
+      Id: 74
+      Type: Value
+      Range: Both
+      MinValue: 40
+      MaxValue: 50
+      IsEnforced: true
+    - &RangeTotalPhosphateCondenserSmallQA
+      Id: 75
+      Type: Value
+      Range: Both
+      MinValue: 3
+      MaxValue: 5
+      IsEnforced: true
+    - &RangeTotalpHCondenserSmallQA
+      Id: 76
+      Type: Value
+      Range: Both
+      MinValue: 7.5
+      MaxValue: 8.5
+      IsEnforced: true
+    - &MaxCalciumCondenserSmallQA
+      Id: 77
+      Type: Value
+      Range: Maximum
+      MaxValue: 1200
+      IsEnforced: true
+    - &RangeTotalpHCondenserLargeQA
+      Id: 78
+      Type: Value
+      Range: Both
+      MinValue: 7.5
+      MaxValue: 8.5
+      IsEnforced: true
+    - &MaxSilicaCondenserLargeQA
+      Id: 79
+      Type: Value
+      Range: Maximum
+      MaxValue: 150
+      IsEnforced: true
+    - &MaxCalciumCondenserLargeQA
+      Id: 80
+      Type: Value
+      Range: Maximum
+      MaxValue: 1200
+      IsEnforced: true
+    - &MaxDissolvedCondenserLargeQA
+      Id: 81
+      Type: Value
+      Range: Maximum
+      MaxValue: 5000
+      IsEnforced: true
+    - &RangePhosphateCondenserLargeQA
+      Id: 82
+      Type: Value
+      Range: Both
+      MinValue: 3
+      MaxValue: 5
+      IsEnforced: true
+    - &RangeZincCondenserLargeQA
+      Id: 83
+      Type: Value
+      Range: Both
+      MinValue: 1
+      MaxValue: 2
+      IsEnforced: true
+    - &RangeMolyCondenserLargeQA
+      Id: 84
+      Type: Value
+      Range: Both
+      MinValue: 10
+      MaxValue: 15
+      IsEnforced: true
+    - &RangeTTCondenserLargeQA
+      Id: 85
+      Type: Value
+      Range: Both
+      MinValue: 1
+      MaxValue: 2
+      IsEnforced: true
+    - &RangeTotalpHChilledQA
+      Id: 86
+      Type: Value
+      Range: Both
+      MinValue: 8
+      MaxValue: 9
+      IsEnforced: true
+    - &RangeTotalpHMolyChilledQA
+      Id: 87
+      Type: Value
+      Range: Both
+      MinValue: 8.5
+      MaxValue: 9.5
+      IsEnforced: true
+    - &RangeTotalNitriteChilledQA
+      Id: 88
+      Type: Value
+      Range: Both
+      MinValue: 600
+      MaxValue: 1000
+      IsEnforced: true
+    - &RangeTotalMolyChilledQA
+      Id: 89
+      Type: Value
+      Range: Both
+      MinValue: 100
+      MaxValue: 125
+      IsEnforced: true
+    - &RangeTotalpHLMHWQA
+      Id: 90
+      Type: Value
+      Range: Both
+      MinValue: 8.5
+      MaxValue: 9.5
+      IsEnforced: true
+    - &RangeTotalpHMolyLMHWQA
+      Id: 91
+      Type: Value
+      Range: Both
+      MinValue: 8
+      MaxValue: 9
+      IsEnforced: true
+    - &RangeTotalNitriteLMHWQA
+      Id: 92
+      Type: Value
+      Range: Both
+      MinValue: 600
+      MaxValue: 1000
+      IsEnforced: true
+    - &RangeTotalMolyLMHWQA
+      Id: 93
+      Type: Value
+      Range: Both
+      MinValue: 100
+      MaxValue: 125
+      IsEnforced: true
+    - &RangeTotalpHHHWQA
+      Id: 94
+      Type: Value
+      Range: Both
+      MinValue: 9.3
+      MaxValue: 9.9
+      IsEnforced: true
+    - &RangeTotalSulfiteHHWQA
+      Id: 95
+      Type: Value
+      Range: Both
+      MinValue: 30
+      MaxValue: 60
+      IsEnforced: true
+    - &MaxHardnessHHWQA
+      Id: 96
+      Type: Value
+      Range: Maximum
+      MaxValue: 2
+      IsEnforced: true
+    - &RangeTotalSulfiteBoilerSmallQA
+      Id: 97
+      Type: Value
+      Range: Both
+      MinValue: 20
+      MaxValue: 40
+      IsEnforced: true
+    - &RangeAlkalinityBoilerSmallQA
+      Id: 98
+      Type: Value
+      Range: Both
+      MinValue: 200
+      MaxValue: 800
+      IsEnforced: true
+    - &RangeDissolvedWaterBoilerSmallQA
+      Id: 99
+      Type: Value
+      Range: Both
+      MinValue: 3000
+      MaxValue: 3500
+      IsEnforced: true
+    - &RangeDissolvedFireBoilerSmallQA
+      Id: 100
+      Type: Value
+      Range: Both
+      MinValue: 3000
+      MaxValue: 3500
+      IsEnforced: true
+    - &RangePhosphateBoilerSmallQA
+      Id: 101
+      Type: Value
+      Range: Both
+      MinValue: 30
+      MaxValue: 60
+      IsEnforced: true
+    - &RangePolymerBoilerSmallQA
+      Id: 102
+      Type: Value
+      Range: Both
+      MinValue: 5
+      MaxValue: 10
+      IsEnforced: true
+    - &MaxIronBoilerSmallQA
+      Id: 103
+      Type: Value
+      Range: Maximum
+      MaxValue: 10
+      IsEnforced: true
+    - &RangeCondensatepHBoilerSmallQA
+      Id: 104
+      Type: Value
+      Range: Both
+      MinValue: 7.5
+      MaxValue: 8
+      IsEnforced: true
+    - &MaxConductivityBoilerSmallQA
+      Id: 105
+      Type: Value
+      Range: Maximum
+      MaxValue: 35
+      IsEnforced: true
+    - &MaxHardnessBoilerSmallQA
+      Id: 106
+      Type: Value
+      Range: Maximum
+      MaxValue: 2
+      IsEnforced: true
+    - &MaxHardnessMakeupBoilerSmallQA
+      Id: 107
+      Type: Value
+      Range: Maximum
+      MaxValue: 2
+      IsEnforced: true
+    - &RangeTotalSulfiteBoilerMediumQA
+      Id: 97
+      Type: Value
+      Range: Both
+      MinValue: 20
+      MaxValue: 40
+      IsEnforced: true
+    - &RangeAlkalinityBoilerMediumQA
+      Id: 98
+      Type: Value
+      Range: Both
+      MinValue: 200
+      MaxValue: 800
+      IsEnforced: true
+    - &RangeDissolvedWaterBoilerMediumQA
+      Id: 99
+      Type: Value
+      Range: Both
+      MinValue: 3000
+      MaxValue: 3500
+      IsEnforced: true
+    - &RangeDissolvedFireBoilerMediumQA
+      Id: 100
+      Type: Value
+      Range: Both
+      MinValue: 3000
+      MaxValue: 3500
+      IsEnforced: true
+    - &RangePhosphateBoilerMediumQA
+      Id: 101
+      Type: Value
+      Range: Both
+      MinValue: 30
+      MaxValue: 60
+      IsEnforced: true
+    - &RangePolymerBoilerMediumQA
+      Id: 102
+      Type: Value
+      Range: Both
+      MinValue: 5
+      MaxValue: 10
+      IsEnforced: true
+    - &MaxIronBoilerMediumQA
+      Id: 103
+      Type: Value
+      Range: Maximum
+      MaxValue: 10
+      IsEnforced: true
+    - &RangeCondensatepHBoilerMediumQA
+      Id: 104
+      Type: Value
+      Range: Both
+      MinValue: 7.5
+      MaxValue: 8
+      IsEnforced: true
+    - &MaxConductivityBoilerMediumQA
+      Id: 105
+      Type: Value
+      Range: Maximum
+      MaxValue: 35
+      IsEnforced: true
+    - &MaxHardnessBoilerMediumQA
+      Id: 106
+      Type: Value
+      Range: Maximum
+      MaxValue: 2
+      IsEnforced: true
+    - &MaxHardnessMakeupBoilerMediumQA
+      Id: 107
+      Type: Value
+      Range: Maximum
+      MaxValue: 2
+      IsEnforced: true
+    - &RangeTotalSulfiteBoilerLargeQA
+      Id: 108
+      Type: Value
+      Range: Both
+      MinValue: 20
+      MaxValue: 40
+      IsEnforced: true
+    - &RangeAlkalinityBoilerLargeQA
+      Id: 109
+      Type: Value
+      Range: Both
+      MinValue: 200
+      MaxValue: 800
+      IsEnforced: true
+    - &RangeDissolvedWaterBoilerLargeQA
+      Id: 110
+      Type: Value
+      Range: Both
+      MinValue: 3000
+      MaxValue: 3500
+      IsEnforced: true
+    - &RangeDissolvedFireBoilerLargeQA
+      Id: 111
+      Type: Value
+      Range: Both
+      MinValue: 3000
+      MaxValue: 3500
+      IsEnforced: true
+    - &RangePhosphateBoilerLargeQA
+      Id: 112
+      Type: Value
+      Range: Both
+      MinValue: 30
+      MaxValue: 60
+      IsEnforced: true
+    - &RangePolymerBoilerLargeQA
+      Id: 113
+      Type: Value
+      Range: Both
+      MinValue: 5
+      MaxValue: 10
+      IsEnforced: true
+    - &MaxSilicaBoilerLargeQA
+      Id: 114
+      Type: Value
+      Range: Maximum
+      MaxValue: 200
+      IsEnforced: true
+    - &MaxIronBoilerLargeQA
+      Id: 115
+      Type: Value
+      Range: Maximum
+      MaxValue: 10
+      IsEnforced: true
+    - &RangeCondensatepHBoilerLargeQA
+      Id: 116
+      Type: Value
+      Range: Both
+      MinValue: 7.5
+      MaxValue: 8
+      IsEnforced: true
+    - &MaxConductivityBoilerLargeQA
+      Id: 117
+      Type: Value
+      Range: Maximum
+      MaxValue: 35
+      IsEnforced: true
+    - &MaxHardnessBoilerLargeQA
+      Id: 118
+      Type: Value
+      Range: Maximum
+      MaxValue: 2
+      IsEnforced: true
+    - &MaxHardnessMakeupBoilerLargeQA
+      Id: 119
+      Type: Value
+      Range: Maximum
+      MaxValue: 2
+      IsEnforced: true
+ParameterTypes:
+    - &NoType
+      Id: 1
+      Name: N/A
+    - &NumberType
+      Id: 2
+      Name: Number
+Roles:
+    - &SystemAdministrator
+      Id: 1
+      Name: System Administrator
+      SubSections:
+        - *LandingPage
+        - *SingleReport
+        - *NewReport
+        - *ContinueReport
+        - *SubmitReport
+        - *ViewSites
+        - *CreateSite
+        - *EditSite
+        - *ViewSystems
+        - *CreateSystem
+        - *EditSystem
+        - *ViewUsers
+        - *CreateUsers
+        - *ViewVendors
+        - *CreateVendors
+        - *OutofBounds
+        - *ReportList
+        - *ReportAnalytics
+        - *SiteReport
+        - *FrequencyReport
+        - *CollectionDashboard
+        - *SystemComparison
+        - *MeasurementComparison
+      Actions:
+        - Order: 1
+          Action: *LandingAction_ConfigureUsers
+        - Order: 2
+          Action: *LandingAction_ConfigureSites
+        - Order: 3
+          Action: *LandingAction_ConfigureSystems
+        - Order: 4
+          Action: *LandingAction_NewReport
+        - Order: 5
+          Action: *LandingAction_ContinueReport
+        - Order: 6
+          Action: *LandingAction_ViewReport
+    - &ExecutiveReportViewer
+      Id: 2
+      Name: Executive Report Viewer
+      SubSections:
+        - *LandingPage
+        - *SingleReport
+        - *OutofBounds
+        - *ReportList
+        - *ReportAnalytics
+        - *SiteReport
+        - *FrequencyReport
+        - *CollectionDashboard
+        - *SystemComparison
+        - *MeasurementComparison
+      Actions:
+        - Order: 1
+          Action: *LandingAction_ViewReport
+    - &SiteAdministrator
+      Id: 3
+      Name: Site Administrator
+      SubSections:
+        - *LandingPage
+        - *SingleReport
+        - *NewReport
+        - *ContinueReport
+        - *SubmitReport
+        - *ViewSites
+        - *EditSite
+        - *ViewUsers
+        - *CreateUsers
+        - *ViewVendors
+        - *CreateVendors
+        - *OutofBounds
+        - *ReportList
+        - *ReportAnalytics
+        - *CollectionDashboard
+        - *SystemComparison
+        - *MeasurementComparison
+      Actions:
+        - Order: 1
+          Action: *LandingAction_ConfigureUsers
+        - Order: 2
+          Action: *LandingAction_ConfigureSites
+        - Order: 3
+          Action: *LandingAction_NewReport
+        - Order: 4
+          Action: *LandingAction_ContinueReport
+        - Order: 5
+          Action: *LandingAction_ViewReport
+    - &DataRecorder
+      Id: 4
+      Name: Data Recorder
+      SubSections:
+        - *LandingPage
+        - *SingleReport
+        - *NewReport
+        - *ContinueReport
+        - *SubmitReport
+        - *ReportList
+      Actions:
+        - Order: 1
+          Action: *LandingAction_NewReport
+        - Order: 2
+          Action: *LandingAction_ContinueReport
+        - Order: 3
+          Action: *LandingAction_ViewReport
+    - &ReportViewer
+      Id: 5
+      Name: Report Viewer
+      SubSections:
+        - *LandingPage
+        - *SingleReport
+        - *OutofBounds
+        - *ReportList
+        - *ReportAnalytics
+        - *CollectionDashboard
+        - *SystemComparison
+        - *MeasurementComparison
+      Actions:
+        - Order: 1
+          Action: *LandingAction_ViewReport
+    - &AuditRecorder
+      Id: 6
+      Name: Audit Recorder
+      SubSections:
+        - *LandingPage
+        - *SingleReport
+        - *NewReport
+        - *ContinueReport
+        - *SubmitReport
+        - *ReportList
+      Actions:
+        - Order: 1
+          Action: *LandingAction_NewReport
+        - Order: 2
+          Action: *LandingAction_ContinueReport
+        - Order: 3
+          Action: *LandingAction_ViewReport
+SystemTypes:
+    - &PotableWater
+      Id: 1
+      Name: Potable Water Measurement
+      IsActive: true
+      Parameters:
+        - *TotalCalcium
+        - *TotalMagnesium
+        - *TotalHardnessMedicalGPG
+        - *TotalHardnessMedicalPPM
+        - *TotalHardnessDentalGPG
+        - *TotalHardnessDentalPPM
+        - *TotalHardnessMedicalSoftGPG
+        - *TotalHardnessMedicalSoftPPM
+        - *TotalHardnessDentalSoftGPG
+        - *TotalHardnessDentalSoftPPM
+    - &CoolingTower
+      Id: 2
+      Name: Cooling Tower Make-up Water Supply Measurement
+      IsActive: true
+      Parameters:
+        - *CondenserTemperature
+        - *TotalSilica
+        - *TotalInsoluble
+        - *TotalIron
+        - *TotalAluminum
+    - &CondenserWaterLessThan50
+      Id: 3
+      Name: Condenser Water Measurements (Less Than 50 Tons)
+      IsActive: true
+      Parameters:
+        - *LangelierIndex
+        - *TotalDissolved
+        - *TotalCalciumCondenser
+        - *TotalSilicaCondenser
+        - *TotalpH
+        - *Alkalinity
+        - *Conductivity
+    - &CondenserWaterMoreThan50
+      Id: 4
+      Name: Condenser Water Measurements (Larger Than 50 Tons)
+      IsActive: true
+      Parameters:
+        - *PuckoriusIndex
+        - *LangelierIndexLarge
+        - *TotalDissolvedLarge
+        - *TotalCalciumCondenserLarge
+        - *TotalSilicaCondenserLarge
+        - *TotalpHLarge
+        - *AlkalinityLarge
+        - *ConductivityLarge
+        - *TotalPhosphate
+        - *TotalZinc
+        - *TotalMolybdate
+        - *TotalPolymer
+        - *TotalTT
+        - *TotalBiocides
+    - &ChilledWater
+      Id: 5
+      Name: Chilled Water Measurements
+      IsActive: true
+      Parameters:
+        - *TotalpHBoraxChilled
+        - *TotalpHMolybdateChilled
+        - *TotalNitriteChilled
+        - *TotalMolybdateChilled
+        - *TotalTTChilled
+        - *ConductivityChilled
+        - *TotalGycolChilled
+    - &LowMedTemp
+      Id: 6
+      Name: Low and Medium Temperature Hot Water Measurements
+      IsActive: true
+      Parameters:
+        - *TotalpHBoraxHot
+        - *TotalpHMolyHot
+        - *TotalNitriteHot
+        - *TotalMolyHot
+        - *TotalTTHot
+    - &HighTemp
+      Id: 7
+      Name: High Temperature Hot Water Measurements
+      IsActive: true
+      Parameters:
+        - *TotalpHHighHot
+        - *TotalSulfiteHighHot
+        - *TotalHardnessHighHot
+    - &BoilerSmall
+      Id: 8
+      Name: Steam Boiler Less than 25HP - Small System (15psi-300psi) Measurements
+      IsActive: true
+      Parameters:
+        - *AlkalinityBoilerSmall
+        - *TotalPhosphateBoilerSmall
+        - *TotalPolymerBoilerSmall
+        - *TotalDissolvedBoilerSmall
+        - *TotalIronBoilerSmall
+        - *TotalpHBoilerSmall
+        - *ConductivityBoilerSmall
+        - *TotalHardnessCondensateBoilerSmall
+        - *TotalHardnessMakeupBoilerSmall
+        - *TotalSulfiteBoilerSmall
+    - &BoilerMedium
+      Id: 9
+      Name: Steam Boiler 25HP-100HP - Medium System (15psi-300psi) Measurements
+      IsActive: true
+      Parameters:
+        - *AlkalinityBoilerMedium
+        - *TotalPhosphateBoilerMedium
+        - *TotalDissolvedWaterBoilerMedium
+        - *TotalDissolvedFireBoilerMedium
+        - *TotalDissolvedOxygenBoilerMedium
+        - *TotalIronBoilerMedium
+        - *TotalpHBoilerMedium
+        - *ConductivityBoilerMedium
+        - *TotalHardnessCondensateBoilerMedium
+        - *TotalHardnessMakeupBoilerMedium
+        - *TotalSulfiteBoilerMedium
+    - &BoilerLarge
+      Id: 10
+      Name: Steam Boiler Greater Than 100HP - Large System (15psi-300psi) Measurements
+      IsActive: true
+      Parameters:
+        - *TotalCausticityBoilerLarge
+        - *AlkalinityBoilerLarge
+        - *TotalPhosphateBoilerLarge
+        - *TotalPolymerBoilerLarge
+        - *TotalDissolvedWaterBoilerLarge
+        - *TotalDissolvedFireBoilerLarge
+        - *TotalSuspendedBoilerLarge
+        - *TotalSodiumSulfiteBoilerLarge
+        - *TotalSilicaBoilerLarge
+        - *TotalDissolvedOxygenBoilerLarge
+        - *TotalIronBoilerLarge
+        - *TotalpHBoilerLarge
+        - *ConductivityMakeupBoilerLarge
+        - *ConductivityCondensateBoilerLarge
+        - *NeutralizedConductivityBoilerLarge
+        - *TotalHardnessCondensateBoilerLarge
+        - *TotalHardnessMakeupBoilerLarge
+        - *TotalSulfiteBoilerLarge
+    - &CoolingQA
+      Id: 11
+      Name: Cooling Tower Make-up Water Supply Measurement (QA)
+      IsActive: true
+      Parameters:
+        - *TotalpHCoolingQA
+        - *TotalSilicaCoolingQA
+        - *TotalIronCoolingQA
+        - *TotalCalciumCoolingQA
+        - *TotalHardnessCoolingQA
+        - *TotalChlorideCoolingQA
+        - *TotalAlkalinityCoolingQA
+        - *ConductivityCoolingQA
+    - &CondenserSmallQA
+      Id: 12
+      Name: Condenser (Less Than 50 Tons) (QA)
+      IsActive: true
+      Parameters:
+        - *ScaleCorrosionCondenserSmallQA
+        - *TotalPhosphateCondenserSmallQA
+        - *TotalBiocidesCondenserSmallQA
+        - *TotalpHCondenserSmallQA
+        - *TotalCalciumCondenserSmallQA
+        - *TotalAlkalinityCondenserSmallQA
+        - *ConductivityCondenserSmallQA
+    - &CondenserLargeQA
+      Id: 13
+      Name: Condenser (Larger Than 50 Tons) (QA)
+      IsActive: true
+      Parameters:
+        - *TemperatureCondenserLargeQA
+        - *TotalpHCondenserLargeQA
+        - *TotalSilicaCondenserLargeQA
+        - *TotalIronCondenserLargeQA
+        - *TotalCopperCondenserLargeQA
+        - *CalciumHardnessCondenserLargeQA
+        - *TotalHardnessCondenserLargeQA
+        - *TotalChlorideCondenserLargeQA
+        - *TotalAlkalinityCondenserLargeQA
+        - *ConductivityCondenserLargeQA
+        - *TotalDissolvedCondenserLargeQA
+        - *TotalPhosphateCondenserLargeQA
+        - *TotalZincCondenserLargeQA
+        - *TotalMolyCondenserLargeQA
+        - *TotalTTCondenserLargeQA
+        - *TotalBiocidesCondenserLargeQA
+        - *BacteriaCondenserLargeQA
+    - &ChilledQA
+      Id: 14
+      Name: Chilled Water (QA)
+      IsActive: true
+      Parameters:
+        - *TotalpHChilledQA
+        - *TotalpHMolyChilledQA
+        - *TotalNitriteChilledQA
+        - *TotalMolyChilledQA
+        - *TotalIronChilledQA
+        - *ConductivityChilledQA
+    - &LowMedHWQA
+      Id: 15
+      Name: Low/Medium Temperature Hot Water (QA)
+      IsActive: true
+      Parameters:
+        - *TotalpHLMHWQA
+        - *TotalpHMolyLMHWQA
+        - *TotalNitriteLMHWQA
+        - *TotalMolyLMHWQA
+        - *TotalIronLMHWQA
+    - &HighHWQA
+      Id: 16
+      Name: High Temperature Hot Water (QA)
+      IsActive: true
+      Parameters:
+        - *TotalpHHHWQA
+        - *TotalSulfiteHHWQA
+        - *TotalHardnessHHWQA
+        - *TotalIronHHWQA
+    - &BoilerSmallQA
+      Id: 17
+      Name: Steam Boiler Less than 25HP - Small System (15psi-300psi) (QA)
+      IsActive: true
+      Parameters:
+        - *TotalpHBoilerSmallQA
+        - *TotalSulfiteBoilerSmallQA
+        - *TotalAlkalinityBoilerSmallQA
+        - *TotalDissolvedWaterBoilerSmallQA
+        - *TotalDissolvedFireBoilerSmallQA
+        - *TotalPhospateBoilerSmallQA
+        - *TotalPolymerBoilerSmallQA
+        - *TotalIronBoilerSmallQA
+        - *TotalpHCondensateBoilerSmallQA
+        - *ConductivityBoilerSmallQA
+        - *TotalHardnessBoilerSmallQA
+        - *TotalIronCondensateBoilerSmallQA
+        - *TotalHardnessMakeUpBoilerSmallQA
+    - &BoilerMediumQA
+      Id: 18
+      Name: Steam Boiler 25HP-100HP - Medium System (15psi-300psi) (QA)
+      IsActive: true
+      Parameters:
+        - *TotalpHBoilerMediumQA
+        - *TotalSulfiteBoilerMediumQA
+        - *TotalAlkalinityBoilerMediumQA
+        - *TotalDissolvedWaterBoilerMediumQA
+        - *TotalDissolvedFireBoilerMediumQA
+        - *TotalPhospateBoilerMediumQA
+        - *TotalPolymerBoilerMediumQA
+        - *TotalIronBoilerMediumQA
+        - *TotalpHCondensateBoilerMediumQA
+        - *ConductivityBoilerMediumQA
+        - *TotalHardnessBoilerMediumQA
+        - *TotalIronCondensateBoilerMediumQA
+        - *TotalHardnessMakeUpBoilerMediumQA
+    - &BoilerLargeQA
+      Id: 19
+      Name: Steam Boiler Greater Than 100HP - Large System (15psi-300psi) (QA)
+      IsActive: true
+      Parameters:
+        - *TotalpHBoilerLargeQA
+        - *TotalSulfiteBoilerLargeQA
+        - *TotalAlkalinityBoilerLargeQA
+        - *TotalDissolvedWaterBoilerLargeQA
+        - *TotalDissolvedFireBoilerLargeQA
+        - *ConductivityBoilerLargeQA
+        - *NeutralizedConductivityBoilerLargeQA
+        - *TotalPhospateBoilerLargeQA
+        - *TotalPolymerBoilerLargeQA
+        - *TotalSilicaBoilerLargeQA
+        - *TotalIronBoilerLargeQA
+        - *TotalpHCondensateBoilerLargeQA
+        - *ConductivityCondensateBoilerLargeQA
+        - *TotalHardnessBoilerLargeQA
+        - *TotalIronCondensateBoilerLargeQA
+        - *TotalHardnessMakeUpBoilerLargeQA
+Users:
+    - &NIKA
+      Id: 1
+      UserName: NIKA
+      Email:
+      EmailConfirmed: false
+      PasswordHash: ANckSk7CTrlDqaEmY24/ag+NIirfuba7WRcyXcoTs02dGDIYbZRIIajwL1BsnUo70Q==
+      SecurityStamp: 0bfbe117-0104-4e02-b311-02bb163cb783
+      PhoneNumber:
+      PhoneNumberConfirmed: false
+      TwoFactorEnabled: false
+      LockoutEndDateUtc:
+      LockoutEnabled: true
+      AccessFailedCount: 0
+      FirstName: Nika
+      LastName: Engineer
+      IsActive: true
+      Vendor: *TestVendor
+    - &NIKATest
+      Id: 2
+      UserName: NIKATest
+      Email:
+      EmailConfirmed: false
+      PasswordHash: AOjaxZtEkWzQwEj76CINbfwjQ5QLLcIgIiQCae5lBtJogn6Y5RVzBTQkh7084B8TFg==
+      SecurityStamp: b4769c45-d6cb-4082-9774-25ce1698c1de
+      PhoneNumber:
+      PhoneNumberConfirmed: false
+      TwoFactorEnabled: false
+      LockoutEndDateUtc:
+      LockoutEnabled: true
+      AccessFailedCount: 0
+      FirstName: Nika Test
+      LastName: Engineer
+      IsActive: true
+      Vendor: *TestVendor
+    - &DR
+      Id: 3
+      UserName: DR
+      Email:
+      EmailConfirmed: false
+      PasswordHash: AGJCQJ7m3Hu7fD2XCZMIHZ6GRKTrlbooiyzLUZml0xMLe6q+7k1jWq/3GAnpTCWPEw==
+      SecurityStamp: 7d743d97-1e0c-400b-b79c-da3788f07fee
+      PhoneNumber:
+      PhoneNumberConfirmed: false
+      TwoFactorEnabled: false
+      LockoutEndDateUtc:
+      LockoutEnabled: true
+      AccessFailedCount: 0
+      FirstName: Data
+      LastName: Recorder
+      IsActive: true
+      Vendor: *TestVendor
+    - &ERV
+      Id: 4
+      UserName: ERV
+      Email:
+      EmailConfirmed: false
+      PasswordHash: AER7tNZ7GZmtSaoVBIXWOsb/2J4j/CmtC8IlWRO+rhyO5ti9IQFWxJsUpSDPsDc9Eg==
+      SecurityStamp: d541c2d4-f278-4e18-8267-2ad9a596dadf
+      PhoneNumber:
+      PhoneNumberConfirmed: false
+      TwoFactorEnabled: false
+      LockoutEndDateUtc:
+      LockoutEnabled: true
+      AccessFailedCount: 0
+      FirstName: Executive
+      LastName: Report Viewer
+      IsActive: true
+      Vendor: *TestVendor
+    - &RV
+      Id: 5
+      UserName: RV
+      Email:
+      EmailConfirmed: false
+      PasswordHash: ACrfa99x8G451os007wv/4as+7yPMeoBfz4e8IRF7+Af2TaUgQjcuNopZlTWJWCrOA==
+      SecurityStamp: a154aeff-087a-4fc3-9a46-a71d9491e2d7
+      PhoneNumber:
+      PhoneNumberConfirmed: false
+      TwoFactorEnabled: false
+      LockoutEndDateUtc:
+      LockoutEnabled: true
+      AccessFailedCount: 0
+      FirstName: Report
+      LastName: Viewer
+      IsActive: true
+      Vendor: *TestVendor
+    - &SA
+      Id: 6
+      UserName: SA
+      Email:
+      EmailConfirmed: false
+      PasswordHash: AIAiuG/ZMRHLZRwu4MwHwpgu0B4YDbJHDnzEmAH79h5eBGc0Xny5TCDzWdwaFQez7w==
+      SecurityStamp: d7a2e480-8a61-408f-909e-fb6802c9080a
+      PhoneNumber:
+      PhoneNumberConfirmed: false
+      TwoFactorEnabled: false
+      LockoutEndDateUtc:
+      LockoutEnabled: true
+      AccessFailedCount: 0
+      FirstName: Site
+      LastName: Administrator
+      IsActive: true
+      Vendor: *TestVendor
+    - &AuditEngineer
+      Id: 7
+      UserName: AuditEngineer
+      Email:
+      EmailConfirmed: false
+      PasswordHash: ANckSk7CTrlDqaEmY24/ag+NIirfuba7WRcyXcoTs02dGDIYbZRIIajwL1BsnUo70Q==
+      SecurityStamp: 0bfbe117-0104-4e02-b311-02bb163cb783
+      PhoneNumber:
+      PhoneNumberConfirmed: false
+      TwoFactorEnabled: false
+      LockoutEndDateUtc:
+      LockoutEnabled: true
+      AccessFailedCount: 0
+      FirstName: Audit
+      LastName: Engineer
+      IsActive: true
+      Vendor: *TestVendor
+    - &AuditDataEngineer
+      Id: 8
+      UserName: AuditDataEngineer
+      Email:
+      EmailConfirmed: false
+      PasswordHash: ANckSk7CTrlDqaEmY24/ag+NIirfuba7WRcyXcoTs02dGDIYbZRIIajwL1BsnUo70Q==
+      SecurityStamp: 0bfbe117-0104-4e02-b311-02bb163cb783
+      PhoneNumber:
+      PhoneNumberConfirmed: false
+      TwoFactorEnabled: false
+      LockoutEndDateUtc:
+      LockoutEnabled: true
+      AccessFailedCount: 0
+      FirstName: Audit & Data
+      LastName: Engineer
+      IsActive: true
+      Vendor: *TestVendor
+UserSiteAccess:
+    - &TestAccessData
+      Id: 1
+      User: *DR
+      Site: *TestSite
+      BuildingSystems:
+        - *System1
+        - *System2
+    - &TestAccessAudit
+      Id: 2
+      User: *AuditEngineer
+      Site: *TestSite
+      BuildingSystems:
+        - *System3
+    - &TestAccessBoth
+      Id: 3
+      User: *AuditDataEngineer
+      Site: *TestSite
+      BuildingSystems:
+        - *System1
+        - *System2
+        - *System3
+    - &TestAccessSiteAdmin
+      Id: 4
+      User: *SA
+      Site: *TestSite
+      BuildingSystems:
+        - *System1
+        - *System2
+        - *System3
+BuildingSystems:
+    - &System1
+      Id: 1
+      Location: Area 1
+      Description: Area 1
+      Building: *TestBuilding
+      SystemType: *PotableWater
+    - &System2
+      Id: 2
+      Location: Area 2
+      Description: Area 2
+      Building: *TestBuilding
+      SystemType: *ChilledWater
+    - &System3
+      Id: 3
+      Location: Area 3
+      Description: Area 3
+      Building: *TestBuilding
+      SystemType: *ChilledQA
+Buildings:
+    - &TestBuilding
+      Id: 1
+      Name: Test Building
+      IsActive: true
+      Systems:
+        - *System1
+        - *System2
+        - *System3
+Sites:
+    - &TestSite
+      Id: 1
+      Name: Test Site
+      Location: Unknown
+      IsActive: true
+      Buildings:
+        - *TestBuilding
+Vendors:
+   - &TestVendor
+     Id: 1
+     Name: Test Vendor
+     Address: Unknown Address
+     City: Unknown
+     State: MA
+     ZipCode: 00000
+     Phone: 000-000-0000
+     PointOfContact: Nika
+Settings:
+   - &DigestMailText
+     Id: 1
+     Name: SiteDigestMailText
+     Value: This is a water treatment site digest report mail.
+   - &DebugQAEmail
+     Id: 2
+     Name: DebugQAEmail
+     Value: stephanie.muise@123ligence.com
+...

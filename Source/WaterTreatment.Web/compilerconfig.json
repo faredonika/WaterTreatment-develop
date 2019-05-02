@@ -1,0 +1,12 @@
+[
+  {
+    "outputFile": "Content/site.css",
+    "inputFile": "Content/site.scss",
+    "sourceMap": false
+  },
+  {
+    "outputFile": "Content/ReportPDF.css",
+    "inputFile": "Content/ReportPDF.scss",
+    "sourceMap": false
+  }
+]

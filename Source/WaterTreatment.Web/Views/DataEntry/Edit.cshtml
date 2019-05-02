@@ -1,0 +1,384 @@
+﻿@model WaterTreatment.Web.Models.ReportModel
+@{
+    ViewBag.Title = "Fitsum Report";
+}
+<div class="container-fluid" id="knockoutArea" data-bind="visible: true" style="display: none;">
+    @Html.AntiForgeryToken()
+    <!-- ko foreach: { data: $data.attachments.feedback, as: '$result' } -->
+    <div class="row">
+        <div data-bind="css: 'alert ' + $result.css">
+            <span data-bind="text: $result.message"></span>
+            <i class="fa fa-close pull-right" style="padding-top: 0.2em; cursor: pointer" data-bind="click: $parent.attachments.hideFeedback"></i>
+        </div>
+    </div>
+    <!-- /ko -->
+    <div data-bind="template: { name: 'main-actions', data: $root }"></div>
+    <div class="row" style="margin-top:10px;">
+        <div class="col-md-2" style="padding-left: 0px;">
+            <label class="control-label">Measurement Date:</label>
+            <div class="form-group has-feedback" data-bind="validationElement: measurementDate">
+                <input type="text" id="measurementDate" class="form-control datepicker" data-bind="datepicker: measurementDate" />
+                <i class="glyphicon glyphicon-calendar form-control-feedback"></i>
+                <div class="text-danger" data-bind="validationMessage: measurementDate"></div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group container-fluid" data-bind="foreach: { data: buildings, as: '$building' }">
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="row">
+                <h3 style="font-weight: bold;">Building: <span class="branded inherit" data-bind="text: name"></span></h3>
+                <hr class="underline" />
+            </div>
+            <div class="row">
+                <div class="accordion" id="accordian-systems" data-bind="foreach: { data: systems, as: '$system' }">
+                    <div class="accordion-group panel panel-default">
+                        <div class="accordion-heading panel-heading">
+                            <a class="accordion-toggle"
+                               data-toggle="collapse"
+                               data-parent="accordian-systems"
+                               data-bind="attr: { href : collapseAnchor, 'data-target': collapseAnchor }">
+                                <i style="color: #000" class="fa fa-pencil-square-o"></i>
+                                <span data-bind="text: systemName"></span>
+                                <span data-bind="text: '(' + location() + ')'" style="color: black;"></span>
+                                <span data-bind="css: {'glyphicon-resize-full': isCollapsed, 'glyphicon-resize-small': !isCollapsed()}" class="glyphicon pull-right" style="color: black; margin-left: 5px;"></span>
+                                <!-- ko foreach: displayStatuses -->
+                                <!-- ko if: $data == 'Complete' -->
+                                <div class="pull-right circle-status status-complete"></div>
+                                <!-- /ko -->
+                                <!-- ko if: $data == 'Invalid' -->
+                                <div class="pull-right circle-status status-invalid"></div>
+                                <!-- /ko -->
+                                <!-- ko if: $data == 'Incomplete' -->
+                                <div class="pull-right circle-status status-incomplete"></div>
+                                <!-- /ko -->
+                                <!-- ko if: $data == 'Skipped' -->
+                                <div class="pull-right circle-status status-skipped"></div>
+                                <!-- /ko -->
+                                <!-- /ko -->
+                            </a>
+                        </div>
+                        <div data-bind="attr: { id: collapseId }, collapsed: isCollapsed" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <div class="container-fluid panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6" style="padding-top: 15px;">
+                                            <div class="row" style="padding-left: 19px;">
+                                                <div class="col-md-4">
+                                                    <label class="branded">System Type:</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <span data-bind="text: systemName"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-left: 19px;">
+                                                <div class="col-md-4">
+                                                    <label class="branded">Description:</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <span data-bind="text: description"></span>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-left: 19px;">
+                                                <div class="col-md-4">
+                                                    <label class="branded">Location:</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <span data-bind="text: location"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.Partial("_NotesBox", new ViewDataDictionary { { "context", "skipNotesBox" } })
+                                        </div>
+                                    </div>
+                                    <div style="padding: 0px 15px;">
+                                        <div class="row">
+                                            <div class="col-md-3 branded-header">
+                                                Measurement
+                                            </div>
+                                            <div class="col-md-3 branded-header">
+                                                Measurement Instructions
+                                            </div>
+                                            <div class="col-md-4 branded-header">
+                                                Recorded Value
+                                            </div>
+                                            <div style="text-align:center" class="col-md-2 branded-header">
+                                                Action
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-bind="foreach: { data: measurements, as: '$measurement' }" class="striped-grid">
+                                        <!-- ko ifnot: isAdhoc -->
+                                        <div class="grid-row" style="height: 75px;">
+                                            <div class="col-md-3 grid-cell">
+                                                <div data-bind="text: name, attr: { class: textClass }"></div>
+                                            </div>
+                                            <div class="col-md-3 grid-cell">
+                                                <div data-bind="text: source, attr: { class: textClass }"></div>
+                                            </div>
+                                            <div class="col-md-4 grid-cell">
+                                                <div class="form-group has-feedback" data-bind="validationElement: value">
+                                                    <!-- ko if: valueType -->
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control data-entry-input" data-bind="textInput: value, enable: isSkipped" />
+                                                        <span class="input-group-addon data-entry-invalid" data-bind="visible: showError">
+                                                            <i class="glyphicon glyphicon-warning-sign"></i>
+                                                        </span>
+                                                        <span class="input-group-addon" data-bind="text: unit"></span>
+                                                    </div>
+                                                    <!-- /ko -->
+                                                    <!-- ko ifnot: valueType -->
+                                                    <div class="btn-group" data-toggle="buttons">
+                                                        <label class="btn btn-default active">
+                                                            <input type="radio" name="value" value="1" data-bind="bsChecked: value, enable: isSkipped" />Light
+                                                        </label>
+                                                        <label class="btn btn-default">
+                                                            <input type="radio" name="value" value="2" data-bind="bsChecked: value, enable: isSkipped" />Medium
+                                                        </label>
+                                                        <label class="btn btn-default">
+                                                            <input type="radio" name="value" value="3" data-bind="bsChecked: value, enable: isSkipped" />Dark
+                                                        </label>
+                                                    </div>
+                                                    <div class="text-danger" data-bind="validationMessage: value">Must be a number</div>
+                                                    <!-- /ko -->
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1 grid-cell">
+                                                <div class="vertical-center">
+                                                    <div style="text-align: center; width:100%">
+                                                        <i data-bind="click: showCommentDialog, attr: { class: icon }"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1 grid-cell">
+                                                <div class="vertical-center">
+                                                    <div style="text-align: center; width:100%">
+                                                        <div data-bind="attr: { class: skip }">
+                                                            <label>
+                                                                <input type="checkbox" data-bind="checked: isApplicable"><span></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /ko -->
+                                    </div>
+                                    <div class="row " style="padding-left: 19px;">
+                                    </div>
+                                    <div class="row " style="padding-left: 19px;">
+                                        <div class="col-md-4">
+                                            <label class="branded"> </label>
+                                        </div>
+                                    </div>
+                                    <div class="row " style="padding-left: 19px;">
+                                        <div class="col-md-4">
+                                            <label class="branded">Ad-Hoc Measurements:</label>
+                                        </div>
+                                    </div>
+
+                                    <div style="padding: 0px 15px;">
+                                        <div class="row">
+                                            <div class="col-md-3 branded-header">
+                                                Measurement<br />&nbsp; &nbsp;
+                                            </div>
+                                            <div class="col-md-3 branded-header">
+                                                Measurement <br />Instructions
+                                            </div>
+                                            <div style="text-align:center" class="col-md-2 branded-header">
+                                                Recorded
+                                                <div class="row">
+                                                    <div class="col-sm-6" style="text-align:center; font-size:small;">
+                                                        Value
+                                                    </div>
+                                                    <div class="col-sm-6" style="text-align:center; font-size:small;">
+                                                        Unit
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*<div class="row">*@
+                                            <div style="text-align:center" class="col-md-2 branded-header">
+                                                Measure. Range
+                                                <div class="row">
+                                                    <div class="col-sm-6" style="text-align:center; font-size:small;">
+                                                        Min
+                                                    </div>
+                                                    <div class="col-sm-6" style="text-align:center; font-size:small ;">
+                                                        Max
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*</div>*@
+                                            <div style="text-align:center" class="col-md-2 branded-header">
+                                                Action
+                                                <div class="row">
+                                                    <div class="col-sm-6" style="text-align:center; font-size:small;">
+                                                        Comment
+                                                    </div>
+                                                    <div class="col-sm-6" style="text-align:center; font-size:small;">
+                                                        Delete
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-bind="foreach: { data: measurements, as: '$measurement' }" class="striped-grid">
+                                        <!-- ko if: isAdhoc -->
+                                        <div class="grid-row" style="height: 75px;">
+                                            <div class="col-md-3 grid-cell">
+                                                <input title="" class="form-control" type="text" data-bind="textInput: name">
+                                            </div>
+                                            <div class="col-md-3 grid-cell">
+                                                <input title="" class="form-control" type="text" data-bind="textInput: source">
+                                            </div>
+                                            @*value*@
+                                            <div class="col-md-1 grid-cell">
+                                                <input class="form-control  data-entry-input" type="text" data-bind="textInput: value">
+                                                <span class="input-group-addon data-entry-invalid" data-bind="visible: showError">
+                                                    <i class="glyphicon glyphicon-warning-sign"></i>
+                                                </span>
+                                            </div>
+                                            <div class="col-md-1 grid-cell">
+                                                <input class="form-control  data-entry-input" type="text" data-bind="textInput: unit">
+                                                @*<span class="input-group-addon data-entry-invalid" data-bind="visible: showUnitError">
+                                                    <i class="glyphicon glyphicon-warning-sign"></i>
+                                                </span>*@
+                                            </div>
+                                            @*min max*@
+                                            <div class="col-md-1 grid-cell">
+                                                <input class="form-control  data-entry-input" type="text" data-bind="textInput: minValue">
+                                                <span class="input-group-addon data-entry-invalid" data-bind="visible: showErrorMin">
+                                                    <i class="glyphicon glyphicon-warning-sign"></i>
+                                                </span>
+                                            </div>
+                                            <div class="col-md-1 grid-cell">
+                                                <input class="form-control  data-entry-input" type="text" data-bind="textInput: maxValue">
+                                                <span class="input-group-addon data-entry-invalid" data-bind="visible: showErrorMax">
+                                                    <i class="glyphicon glyphicon-warning-sign"></i>
+                                                </span>
+                                            </div>
+                                            <div class="col-md-1 grid-cell">
+                                                <div class="vertical-center">
+                                                    <div style="text-align: center; width:100%">
+                                                        <i data-bind="click: showCommentDialog, attr: { class: icon }"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-1 grid-cell">
+                                                <div><a href="#" data-bind="click: $parent.removeAdhoc">Remove</a></div>
+                                            </div>
+                                        </div>
+                                        <!-- /ko -->
+                                    </div>
+                                    <button class="btn btn-primary" data-bind="click: addAdhoc">Add Ad-Hoc</button>
+                                </div>
+                                <div class="panel-footer clearfix">
+                                    <div class="pull-right">
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-primary" data-bind="click: hide">hide</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <hr />
+    </div>
+    <div class="row" style="padding-bottom: 1.0em">
+        <div class="col-sm-6" style="padding-left: 0px;">
+            <div>
+                <label>Notes:</label>
+            </div>
+            <div>
+                @Html.Partial("_NotesBox", new ViewDataDictionary { { "context", "reportNotes" } })
+            </div>
+        </div>
+        <div class="col-sm-6" style="padding-left: 0px;">
+            <div>
+                <label class="control-label">Attachments:</label>
+            </div>
+            <div style="display: none; padding-left: 0px;" data-bind="visible: $data.attachments.list().length === 0">
+                <span class="text-danger">At least one attachment is required to submit this report.</span>
+            </div>
+            <div data-bind="foreach: { data: $data.attachments.list, as: '$attachment' }">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a data-bind="text: $attachment.Name, click: $parent.ClickAttachment, event: { mouseout: $parent.mouseOut }, attr: { href: '/DataEntry/Attachments/Download/' + $attachment.Id }"></a>
+                        <span data-bind="ifnot: $parent.attachments.isUpdating($attachment)">
+                            <a role="button" data-bind="click: $parent.attachments.update">Update</a> |
+                            <a role="button" data-bind="click: $parent.attachments.remove">Remove</a>
+                        </span>
+                        <span data-bind="if: $parent.attachments.isUpdating($attachment)">
+                            Updating <i class="fa fa-spinner fa-spin"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <form id="uploadForm" enctype="multipart/form-data" style="display: none;">
+                <input type="file" id="file" name="file" data-bind="value: $data.attachments.fileSelected" />
+            </form>
+            <div style="padding-top: 5px;">
+                <button type="button" class="btn btn-med btn-blue pull-right" data-bind="disable: isProcessingRequest() || $data.attachments.isUploading(), click: $data.attachments.add">
+                    <span style="font-size: inherit; line-height: inherit;" data-bind="text: $data.attachments.attachLabel"></span><i class="fa fa-spinner fa-spin" data-bind="visible: $data.attachments.isUploading"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <hr />
+    </div>
+    <div data-bind="template: { name: 'main-actions', data: $root }"></div>
+    <div id="commentDialog" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Measurement Comment</h4>
+                </div>
+                <div class="modal-body">
+                    <textarea class="form-control" rows="6" data-bind="textInput: commentDialog.textBinding"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" data-bind="click: commentDialog.save">Save Comment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script type="text/html" id="main-actions">
+        <div>
+            <div class="pull-right">
+                <button type="button" class="btn btn-secondary btn-lg" data-bind="click: save, enable: canSave">Save</button>
+                <button type="button" class="btn btn-primary btn-lg" data-bind="click: submit, enable: canSubmit">Submit</button>
+            </div>
+        </div>
+    </script>
+    <script type="text/javascript">
+        require(["jquery", "knockout", "App/ViewModels/DataEntry/edit", "bootstrap", "koVal", 'App/Bindings/radioButtonGroup', 'bootstrap-datepicker', 'collapsed', 'hasFocus'], function ($, ko, ViewModel) {
+
+            var vm = new ViewModel(@Html.Raw(Json.Encode(Model)));
+
+            $(document).ready(function () {
+
+                window.onbeforeunload = vm.confirmExit;
+
+                ko.applyBindingsWithValidation(vm, $('#knockoutArea')[0],
+                    {
+                        errorMessageClass: "text-danger",
+                        decorateInputElement: true,
+                        errorElementClass: 'has-error'
+                    });
+
+            });
+        });
+    </script>
+}

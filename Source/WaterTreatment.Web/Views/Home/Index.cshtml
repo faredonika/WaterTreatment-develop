@@ -1,0 +1,52 @@
+﻿@using WaterTreatment.Web.Entities;
+@{
+    ViewBag.Title = "Home";
+    const int TilesPerRow = 3;
+
+    var actions = ViewBag.LandingActions as IEnumerable<LandingAction>;
+    int i = 0;
+}
+@for(var row = actions.Take(TilesPerRow); row.Any(); row = actions.Skip(TilesPerRow * ++i).Take(TilesPerRow))
+{
+    <div class="row" style="padding-bottom: 40px">
+        @foreach (var LandingAction in row)
+        {
+            <div class="col-md-4 text-center landing-action-container">
+                <a href="@Url.Action(LandingAction.Action, LandingAction.Controller)" class="tile">
+                    <div class="center-block">
+                        <span class="landing-action-@LandingAction.Id" ></span>
+                        <p class="name">@LandingAction.Name</p>
+                        <p class="description">
+                            @Html.Raw(LandingAction.Description)
+                        </p>
+                    </div>
+                </a>
+                <span class="landing-action-preload-@LandingAction.Id"></span>
+            </div>
+        }
+    </div>
+}
+
+@section styles {
+<style type="text/css">
+@foreach (var la in actions) {
+<text>
+    .landing-action-@la.Id {
+        display: inline-block;
+        height: 123px;
+        width: 123px;
+        margin-bottom: 10px;
+        background-image: url(Content/Images/@la.Image);
+    }
+
+    .landing-action-container:hover .landing-action-@la.Id {
+        background-image: url(Content/Images/@la.HoverImage);
+    }
+
+    .landing-action-preload-@la.Id {
+        background-image: url(Content/Images/@la.HoverImage);
+    }
+</text>
+}
+</style>
+}

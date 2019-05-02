@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "EULA";
+}
+
+<div class="container-fluid">
+    <div class="space-bottom-full">
+        <h3>End User License Agreement (EULA)</h3>
+        <p>EULA Information.</p>
+        <p>You must agree to the EULA in order to access the features of this site.</p>
+    </div>
+    @using (Html.BeginForm("AgreeToEula", "Account", new { }, FormMethod.Post, new { @class = "form-horizontal" })) {
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-primary">Agree</button>
+    }
+</div>

@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Start Report";
+}
+<div class="container-fluid" id="knockoutArea" style="display: none;" data-bind="visible: true">
+    @using (Html.BeginForm("Create", "DataEntry", new { }, FormMethod.Post, new { @class = "form-horizontal", id = "createForm" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.AntiForgeryToken()
+        <div class="container">
+            <table>
+                <tr>
+                    <td>
+                        <h4>Report Site</h4>
+                    </td>
+                    @if (ViewBag.HasMultipleUse != null && ViewBag.HasMultipleUse)
+                    {
+                        <td style="padding-left: 20px;">
+                            <h4>Report Type</h4>
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        <select name="SiteId" class="form-control" data-bind="options: $root.sites, value: siteId, optionsText: 'Name', optionsValue: 'Id', multiselect: {
+                            maxHeight: 400,
+                            includeSelectAllOption: false,
+                            enableFiltering: true,
+                            filterBehavior: 'text',
+                            enableCaseInsensitiveFiltering: true,
+                            buttonWidth: '300px' }">
+                        </select>
+                    </td>
+                    @if (ViewBag.HasMultipleUse != null && ViewBag.HasMultipleUse)
+                    {
+                        <td style="padding-left: 20px;">
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-default active">
+                                    <input type="radio" name="Use" value="Measurement" data-bind="checked: use, bsChecked: use" />Measurement
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="Use" value="Independent Quality Assurance" data-bind="checked: use, bsChecked: use" />Independent Quality Assurance
+                                </label>
+                            </div>
+                        </td>
+                    }
+                    <td style="padding-left: 20px;">
+                        <button type="button" class="btn btn-primary" data-bind="disable: isProcessingRequest, click: create">Start Report</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+</div>
+@section Scripts
+{
+    <script type="text/javascript">
+    require(["jquery", "knockout", "App/ViewModels/DataEntry/create"], function($, ko, ViewModel) {
+
+        var vm = new ViewModel(@Html.Raw(Json.Encode(ViewBag.Sites)));
+
+        $(document).ready(function () {
+
+            ko.applyBindings(vm, $('#knockoutArea')[0]);
+        });
+    });
+    </script>
+}

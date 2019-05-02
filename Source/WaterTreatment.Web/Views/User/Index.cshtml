@@ -1,0 +1,184 @@
+﻿@{
+    ViewBag.Title = "View Users";
+}
+<div class="container-fluid" style="padding-top: 1.0em" id="knockout-area">
+    <div class="row">
+        <div class="row">
+            <div class="col-md-5">
+                <label class="control-label">Filter Users</label>
+            </div>
+            <!-- ko if: managedSites().length > 0 -->
+            <div class="col-md-7 form-group" style="padding-top: 0.4em; display: none" data-bind="visible: true">
+                <label class="control-label">Select a Site to Grant/Revoke Access To</label>
+            </div>
+            <!-- /ko -->
+        </div>
+        <div class="row">
+            <div class="col-md-1 form-group" style="padding-top: 0.4em">
+                <label class="control-label">Name</label>
+            </div>
+            <div class="col-md-4 form-group">
+                <input type="text" id="Name" class="form-control" data-bind="textInput: filters.Name" placeholder="Name" />
+            </div>
+            <!-- ko if: managedSites().length > 0 -->
+            <div class="col-md-4 form-group" style="display: none" data-bind="visible: true">
+                <select class="form-control" data-bind="options: managedSites, value: siteAccess, optionsText: 'Name'"></select>
+            </div>
+            <!-- /ko -->
+        </div>
+        <div class="row">
+            <div class="col-md-1 form-group" style="padding-top: 0.4em">
+                <label class="control-label">Email</label>
+            </div>
+            <div class="col-md-4 form-group">
+                <input type="text" id="Email" class="form-control" data-bind="textInput: filters.Email" placeholder="Email" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 form-group" style="padding-top: 0.4em">
+                <label>Role</label>
+            </div>
+            <div class="col-md-4 form-group">
+                <select class="form-control" multiple="multiple" data-bind="options: roles, selectedOptions: filters.Roles, optionsText: 'Name', optionsValue: 'Id', multiselect: msOptions"></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 form-group" style="padding-top: 0.4em">
+                <label>Site</label>
+            </div>
+            <div class="col-md-4 form-group">
+                <select class="form-control" multiple="multiple" data-bind="options: sites, selectedOptions: filters.Sites, optionsText: 'Name', optionsValue: 'Id', multiselect: msOptions"></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 form-group" style="padding-top: 0.4em">
+                <label>Vendor</label>
+            </div>
+            <div class="col-md-4 form-group">
+                <select class="form-control" multiple="multiple" data-bind="options: vendors, selectedOptions: filters.Vendors, optionsText: 'Name', optionsValue: 'Id', multiselect: msOptions"></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 form-group" style="padding-top: 0.4em">
+                <label>Status</label>
+            </div>
+            <div class="col-md-4 form-group">
+                <select class="form-control" multiple="multiple" data-bind="options: statuses, selectedOptions: filters.Statuses, optionsText: 'Name', optionsValue: 'Value', multiselect: msOptions"></select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="inset-container row"> 
+            <div class="pager-row">
+                @Html.Partial("_PagerControls")
+                <div class="pull-left form-inline" style="margin-top: 1em;">
+                    <span class="form-group pager-text"><strong>Users</strong> <span style="display: none;" data-bind="visible: pager.totalResults() > 0">(<span data-bind="text: pager.totalResults"></span>)</span></span>
+                </div>
+            </div>
+            <div style="position: relative">
+                @Html.Partial("_PagerSpinner")
+                <table class="table striped-grid">
+                    <thead>
+                        <tr class="branded-header">
+                            <th>
+                                <a href="#" data-bind="click: function() { pager.sort('Name') }">Name</a>
+                                <i data-bind="attr: { class: pager.sortArrow('Name') }"></i>
+                            </th>
+                            <th>
+                                <a href="#" data-bind="click: function() { pager.sort('Email') }">Email</a>
+                                <i data-bind="attr: { class: pager.sortArrow('Email') }"></i>
+                            </th>
+                            <th>Role</th>
+                            <th>Sites</th>
+                            <th>
+                                <a href="#" data-bind="click: function() { pager.sort('Vendor') }">Vendor</a>
+                                <i data-bind="attr: { class: pager.sortArrow('Vendor') }"></i>
+                            </th>
+                            <th>Status</th>
+                            <th colspan="4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: { data: users, as: '$user' }">
+                        <tr>
+                            <td>
+                                <!-- ko if: $parent.canEdit($user) -->
+                                    <!-- ko if: $user.IsActive -->
+                                    <a data-bind="attr: { href: '/User/EditUser/' + $user.Id }, text: $user.Name"></a>
+                                    <!-- /ko -->
+                                    <!-- ko ifnot: $user.IsActive -->
+                                    <a data-bind="attr: { href: '/User/ViewUser/' + $user.Id }, text: $user.Name"></a>
+                                    <!-- /ko -->
+                                <!-- /ko -->
+                                <!-- ko ifnot: $parent.canEdit($user) -->
+                                <span data-bind="text: $user.Name"></span>
+                                <!-- /ko -->
+                            </td>
+                            <td>
+                                <span data-bind="text: $user.Email"></span>
+                            </td>
+                            <td>
+                                <span data-bind="text: $user.Role"></span>
+                            </td>
+                            <td>
+                                <div data-bind="if: $user.SiteCount == 1">
+                                      <span data-bind="text: $user.Sites"></span>
+                                </div>
+                                <div data-bind="if: $user.SiteCount > 1">
+                                    <span data-bind="text: $user.SiteCount + ' Sites', attr: { title: $user.Sites }"></span>
+                                </div>
+                            </td>
+                            <td>
+                                <span data-bind="text: $user.Vendor"></span>
+                            </td>
+                            <td>
+                                <span data-bind="text: $user.IsActive ? 'Active' : 'Deactivated'"></span>
+                            </td>
+                            <td>
+                                <div style="position: relative;">
+                                    <div class="user-actions-deactivate" style="text-align: center; width: 100%">
+                                        <button class="btn btn-sm fa fa-ban" data-bind="enable: !$root.isProcessingRequest() && $user.IsActive && $parent.canEdit($user), click: $root.deactivate, attr: {title: 'Deactivate ' + $user.Name}"></button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="position: relative;">
+                                    <div class="user-actions-unlock" style="text-align: center; width: 100%">
+                                        <button class="btn btn-sm fa fa-unlock" data-bind="enable: !$root.isProcessingRequest() && $user.IsActive && $user.IsLocked && $parent.canEdit($user), click: $root.unlock, attr: {title: 'Unlock ' + $user.Name}"></button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="position: relative;">
+                                    <div class="user-actions-grant" style="text-align: center; width: 100%">
+                                        <button class="btn btn-sm fa fa-plus" data-bind="enable: !$root.isProcessingRequest() && $user.IsActive && $parent.noSiteAccess($user), click: $parent.grantSiteAccess, attr: {title: $parent.accessLabel('Grant Access To') }"></button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="position: relative;">
+                                    <div class="user-actions-revoke" style="text-align: center; width: 100%">
+                                        <button class="btn btn-sm fa fa-minus" data-bind="enable: !$root.isProcessingRequest() && $user.IsActive && $parent.hasSiteAccess($user), click: $parent.revokeSiteAccess, attr: {title: $parent.accessLabel('Revoke Access To') }"></button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                @Html.Partial("_PagerControls")
+            </div>
+        </div>
+    </div>
+    @Html.AntiForgeryToken()
+</div>
+@section Scripts
+{
+<script type="text/javascript">
+require(['jquery', 'knockout', 'App/ViewModels/User/index', 'bootstrap', 'bootstrap-multiselect'], function ($, ko, ViewModel) {
+    $(document).ready(function () {
+        ko.applyBindings(new ViewModel(@Html.Raw(ViewBag.Sites), @Html.Raw(ViewBag.Vendors), @Html.Raw(ViewBag.Roles), @Html.Raw(ViewBag.ManagedSites), @Html.Raw(ViewBag.InitialState)), $('#knockout-area')[0]);
+    });
+});
+</script>
+}

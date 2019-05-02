@@ -1,0 +1,195 @@
+﻿@using WaterTreatment.Web.Models
+@model ViewReportModel
+@{
+    var userInfo = ViewData["UserInfo"] as UserInfoModel;
+    var measurements = Model.Buildings.SelectMany(x => x.Systems.SelectMany(y => y.Measurements)).ToDictionary(z => z.Id.ToString(), z => new
+    {
+        Name = z.Name,
+        Comment = z.Comment,
+        Minimum = z.MinDescription,
+        Maximum = z.MaxDescription
+    });
+    var buildingName = "";
+}
+<div class="row">
+    <div class="row">
+        <div class="col-md-12 reportHeader">
+            Site: <span class="name">@Model.SiteName</span>
+            <hr />
+        </div>
+    </div>
+    <div class="row center-block" style="padding-bottom: 50px;">
+        <div class="col col-md-4">
+            <label>Measured On:</label>
+            <div id="measuredDate">@Model.MeasurementDate</div>
+        </div>
+        <div class="col col-md-4">
+            <label>Created On:</label>
+            <div id="createdDate">@Model.CreatedDate</div>
+        </div>
+        <div class="col col-md-4">
+            <label>Status:</label>
+            <div>@Html.Raw(Model.SubmittedDate.HasValue ? "Submitted" : "Draft")</div>
+        </div>
+    </div>
+    @foreach (var building in Model.Buildings)
+    {
+        if (buildingName.Trim() != building.Name.Trim())
+        {
+            <div class="row">
+                <div class="col-md-12 reportHeader">
+                    Building: <span class="name">@building.Name</span>
+                    <hr />
+                </div>
+            </div>
+        }
+
+        foreach (var system in building.Systems)//.Where(s => s.ReasonSkipped == null)
+        {
+            <div class="container-fluid report" id="knockout-comment">
+                <div class="row measurement">
+                    <div class="col-md-12">
+                        <div class="row systemInfo">
+                            <div class="col col-md-4">
+                                <label>System Type:</label>
+                                <div>@system.SystemName</div>
+                            </div>
+                            <div class="col col-md-4">
+                                <label>Desciption:</label>
+                                <div>@system.Description</div>
+                            </div>
+                            <div class="col col-md-4">
+                                <label>Location:</label>
+                                <div>@system.Location</div>
+                            </div>
+                            @if (!string.IsNullOrEmpty(system.ReasonSkipped))
+                            {
+                                <hr />
+                                <div class="col col-md-12">
+                                    <label>Reason Skipped:</label>
+                                    <div>@system.ReasonSkipped</div>
+                                </div>
+                            }
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                @*system measurements*@
+                                @if (!userInfo.IsDataRecorder)
+                                {
+                                    if (userInfo.RoleName == "Audit Recorder")
+                                    {
+                                        @Html.Partial("_SystemMeasurements", system.Measurements)
+                                    }
+                                    else
+                                    {
+                                        @Html.Partial("_SystemMeasurementsWithMinMax", system.Measurements, new ViewDataDictionary { { "isAdhoc", "false" } })
+                                    }
+                                    <br />
+                                    if (system.Measurements.Any(ad => ad.IsAdhoc == true))
+                                    {
+                                        @*ad-hoc measurements*@
+                                        <div class="col-md-10">AD-HOC MEASUREMENTS</div>
+                                        <br />
+                                        @Html.Partial("_SystemMeasurementsWithMinMax", system.Measurements, new ViewDataDictionary { { "isAdhoc", "true" } })
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @Html.Partial("_Modal")
+
+        @*if (buildingName.Trim() != building.Name.Trim())
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr />
+                    </div>
+                </div>
+            }*@
+        buildingName = @building.Name;
+    }
+    <div class="row" style="padding-bottom: 1.0em">
+        <div class="col-sm-6" style="padding-left: 0px;">
+            <div style="padding-bottom: 15px;">
+                <label class="control-label" style="font-size: 22px;">Notes:</label>
+            </div>
+            <div>
+                @Html.Raw(string.IsNullOrWhiteSpace(Model.Notes) ? "No notes." : Model.Notes)
+            </div>
+        </div>
+        <div class="col-sm-6" style="padding-left: 0px;">
+            <div style="padding-bottom: 15px;">
+                <label class="control-label" style="font-size: 22px;">Attachments:</label>
+            </div>
+            <div>
+                @foreach (var attachment in Model.Attachments)
+                {
+                    <div class="row">
+                        <div class="col-md-12 report-attachment">
+                            <div>
+                                <a href="@Url.Action("Download", new { id = attachment.Id })">@Html.Raw(attachment.Name)</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    require(['jquery', 'moment', 'knockout', 'modal', 'bootstrap'], function ($, moment, ko, modal) {
+        function toLocalShortDateString(dateStr) {
+            return dateStr ? moment.utc(dateStr).local().format('M/D/YYYY') : null;
+        }
+        $(document).ready(function () {
+            var $measuredDate = $('#measuredDate');
+            $measuredDate.text(toLocalShortDateString($measuredDate.text()));
+
+            var $createdDate = $('#createdDate');
+            $createdDate.text(toLocalShortDateString($createdDate.text()));
+
+            var $submittedDate = $('#submittedDate');
+            $submittedDate.text(toLocalShortDateString($submittedDate.text()));
+
+        });
+
+        $(document).ready(function() {
+            var vm = function () {
+                var self = this;
+
+                self.modal = new modal();
+                self.measurements = @Html.Raw(Json.Encode(measurements));
+
+                self.showComment = function(id) {
+                    var measurement = self.measurements[id];
+
+                    return function() {
+                        self.modal.populate('Comments for ' + measurement.Name, measurement.Comment, 'Close', true, $.noop, $.noop, false);
+                    };
+                };
+
+                self.showOOB = function(id, bound) {
+                    var measurement = self.measurements[id];
+
+                    return function() {
+                        self.modal.populate(measurement.Name + ' is Out of Acceptable Range', bound + ' Violated: ' + measurement[bound], 'Close', true, $.noop, $.noop, false);
+                    };
+                };
+            };
+
+            var $comment = $('#knockout-comment');
+            if ($comment.length !== 0) {
+                ko.applyBindings(new vm(), $comment[0]);
+            }
+        });
+    });
+</script>

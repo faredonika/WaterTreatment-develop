@@ -1,0 +1,75 @@
+﻿@model WaterTreatment.Web.Models.VendorModel
+<div class="container-fluid" id="formContainer" style="display: none;" data-bind="visible: true">
+    @using (Html.BeginForm(ViewBag.FormAction as string, "User", new { }, FormMethod.Post, new { @class = "form-horizontal", id = "vendorForm" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.AntiForgeryToken()
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                @Html.LabelFor(m => m.Name)
+            </div>
+            <div class="col-md-6" data-bind="validationElement: name">
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", data_bind = "textInput: name" })
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                @Html.LabelFor(m => m.Address)
+            </div>
+            <div class="col-md-6" data-bind="validationElement: address">
+                @Html.TextBoxFor(m => m.Address, new { @class = "form-control", data_bind = "textInput: address" })
+                @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                @Html.LabelFor(m => m.City)
+            </div>
+            <div class="col-md-6" data-bind="validationElement: city">
+                @Html.TextBoxFor(m => m.City, new { @class = "form-control", data_bind = "textInput: city" })
+                @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                @Html.LabelFor(m => m.State)
+            </div>
+            <div class="col-md-6" data-bind="validationElement: state">
+                <select class="form-control" name="State" data-bind="options: states, value: state, optionsText: 'name', optionsValue: 'abbreviation', optionsCaption: 'Please Select'"></select>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                <label>Zip Code</label>
+            </div>
+            <div class="col-md-6" data-bind="validationElement: zipCode">
+                @Html.TextBoxFor(m => m.ZipCode, new { @class = "form-control", data_bind = "textInput: zipCode" })
+                @Html.ValidationMessageFor(m => m.ZipCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                <label>Point of Contact</label>
+            </div>
+            <div class="col-md-6" data-bind="validationElement: contact">
+                @Html.TextBoxFor(m => m.PointOfContact, new { @class = "form-control", data_bind = "textInput: contact" })
+                @Html.ValidationMessageFor(m => m.PointOfContact, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                @Html.LabelFor(m => m.Phone)
+            </div>
+            <div class="col-md-6" data-bind="validationElement: phone">
+                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", data_bind = "textInput: phone" })
+                @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <button type="button" class="btn btn-default pull-right" data-bind="enable: canSave, click: save">@ViewBag.SubmitLabel</button>
+            </div>
+        </div>
+    }
+</div>

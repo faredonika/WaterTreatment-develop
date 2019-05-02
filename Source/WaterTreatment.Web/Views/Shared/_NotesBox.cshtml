@@ -1,0 +1,40 @@
+﻿@{ var context = ViewData["context"]; }
+<!-- ko if: @(context).notesSaved() -->
+<div style="padding-bottom: 1em">
+    <div>
+        <label data-bind="visible: @(context).readOnlyLabel, text: @(context).readOnlyLabel + ': '"></label>
+        <!-- ko if: @(context).preserveReadOnlyFormat -->
+        <pre style="white-space: pre-wrap; width: 100%;" data-bind="text: @(context).notes"></pre>
+        <!-- /ko -->
+        <!-- ko ifnot: @(context).preserveReadOnlyFormat -->
+        <span data-bind="text: @(context).notes"></span>
+        <!-- /ko -->
+    </div>
+</div>
+<div class="pull-right" data-bind="if: @(context).notesSaved" style="padding-bottom: 1.0em">
+    <button type="button" class="btn btn-blue" data-bind="enable: @(context).notesSaved() && !@(context).disableActions(), click: @(context).edit, text: @(context).editLabel, visible: !@(context).hideEdit"></button>
+    <button style="margin-left: 5px;" type="button" class="btn btn-blue" data-bind="enable: @(context).notesSaved() && !@(context).disableActions(), click: @(context).undo, text: @(context).undoLabel, visible: !@(context).hideUndo"></button>
+</div>
+<!-- /ko -->
+<!-- ko ifnot: @(context).notesSaved() -->
+<div data-bind="ifnot: @(context).isEnteringNotes">
+    <div class="form-control" data-bind="hasFocus: @(context).notesHasFocus" style="height: 50px; padding-top: 0px;">
+        <div style="display: table-cell; vertical-align: middle; height: 50px;">
+            <span class="blue" style="font-weight: bold;" data-bind="text: @(context).mainPlaceholderText"></span>&nbsp;
+            <span style="color: gray;" data-bind="text: @(context).secondaryPlaceholderText"></span>
+        </div>
+    </div>
+</div>
+<div data-bind="if: @(context).isEnteringNotes">
+    <textarea class="form-control" data-bind="textInput: @(context).notesEntered, hasFocus: @(context).notesHasFocus, disable: @(context).disableActions" style="height: 50px;"></textarea>
+</div>
+<div class="row" style="padding-top: 0.4em; padding-bottom: 0.4em">
+    <div class="col-lg-6">
+        <div class="text-danger" data-bind="visible: @(context).isEnteringNotes, text: @(context).isEnteringNotesText"></div>
+    </div>
+    <div class="col-lg-6">
+        <button type="button" class="btn btn-med btn-default pull-right" data-bind="enable: @(context).isEnteringNotes() && !@(context).disableActions(), text: @(context).cancelLabel, click: @(context).cancel" style="margin-left: 5px;"></button>
+        <button type="button" class="btn btn-med btn-blue pull-right" data-bind="enable:  !@(context).disableActions() && @(context).isEnteringNotes() && @(context).notesEntered() && @(context).notesEntered().trim() != '', click: @(context).save, text: @(context).saveLabel"></button>
+    </div>
+</div>
+<!-- /ko -->

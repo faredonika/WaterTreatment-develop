@@ -1,0 +1,106 @@
+﻿
+@using WaterTreatment.Web.Models
+@model IEnumerable<MeasurementModel>
+@{bool isadhocSwitch = Convert.ToBoolean(ViewData["isAdhoc"]);}
+
+<div class="table-responsive">
+    <table class="table striped-grid">
+        <thead class="report-header">
+            <tr>
+                <th class="col-md-3">MEASUREMENT</th>
+                <th class="col-md-2">RECORDED</th>
+                <th colspan="2">MEASUREMENT RANGE</th>
+                <th class="col-md-3">COMMENTS</th>
+            </tr>
+            <tr>
+                <th class="col-md-3"> </th>
+                <th class="col-md-2">VALUE</th>
+                <th class="col-md-2">MIN</th>
+                <th class="col-md-2">MAX</th>
+                <th class="col-md-3"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var measurement in Model)
+            {
+                if (measurement.IsAdhoc == isadhocSwitch)
+                {
+                    <tr>
+                        <td>@measurement.Name</td>
+                        <td>
+                            @if (!measurement.HasBounds || measurement.Type == "Value")
+                            {
+                                <span class="pull-left">
+                                    @Html.Raw(measurement.IsApplicable ? measurement.Value + " " + measurement.Unit : "N/A")
+                                </span>
+                            }
+                            else
+                            {
+                                switch (measurement.Value)
+                                {
+                                    case "1":
+                                        <span>Light</span>
+                                        break;
+                                    case "2":
+                                        <span>Medium</span>
+                                        break;
+                                    case "3":
+                                        <span>Dark</span>
+                                        break;
+                                    default:
+                                        <span>N/A</span>
+                                        break;
+                                }
+                            }
+                        </td>
+                        <td>@measurement.MinValue</td>
+                        <td>@measurement.MaxValue</td>
+
+                        <td class="comment">
+
+                            @if (measurement.IsApplicable && measurement.HasBounds)
+                            {
+                                <div class="pull-right oob">
+                                    @{
+                                        decimal? minVal, maxVal, measurementVal;
+                                        var bound = string.Empty;
+
+                                        if (!string.IsNullOrEmpty(measurement.Value))
+                                        {
+                                            if (measurement.Type == "Value")
+                                            {
+                                                minVal = measurement.MinValue;
+                                                maxVal = measurement.MaxValue;
+                                                measurementVal = Convert.ToDecimal(measurement.Value);
+                                            }
+                                            else
+                                            {
+                                                minVal = measurement.MinValue;
+                                                maxVal = measurement.MaxValue;
+                                                measurementVal = Convert.ToInt32(measurement.Value);
+                                            }
+
+                                            if (measurementVal < minVal && measurement.Range != "Maximum")
+                                            {
+                                                bound = "Minimum";
+                                            }
+                                            if (measurementVal > maxVal && measurement.Range != "Minimum")
+                                            {
+                                                bound = "Maximum";
+                                            }
+                                        }
+
+                                        if (!string.IsNullOrEmpty(bound))
+                                        {
+                                            <span>Out of Acceptable Range</span>
+                                        }
+                                    }
+                                </div>
+                               }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

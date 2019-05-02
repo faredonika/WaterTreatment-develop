@@ -1,0 +1,68 @@
+﻿@model WaterTreatment.Web.Models.UnsubscribeModel
+@{
+    Layout = "~/Views/Shared/_LayoutBare.cshtml";
+    ViewBag.Title = "Unsubscribe Site Digest";
+}
+
+
+<div class="container-fluid" id="createPage" style="margin-top: 200px;">
+    @using (Html.BeginForm("UnsubscribeMail", "Reports", new { }, FormMethod.Post, new { @class = "form-horizontal", id = "unsubscribeForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.Token)
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Unsubscribe to Site Digest of @ViewBag.Site</h4>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row" style="padding-bottom: 1.0em">
+                <div class="col-md-2" style="padding-top: 0.4em">
+                    <label class="control-label">Email</label>
+                </div>
+                <div class="col-md-6">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", data_bind = "textInput: email" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-default" data-bind="enable: isValid">Unsubscribe</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@section Scripts
+{
+<script type="text/javascript">
+require(['jquery', 'knockout', 'koVal'], function ($, ko) {
+    var vm = function () {
+        var self = this;
+
+        self.email = ko.observable().extend({ required: true }).extend({ email: true });
+
+        self.isValid = ko.computed(function () {
+            var errors = ko.validation.group([self.email]);
+            return errors().length === 0;
+        })
+    };
+
+    ko.applyBindingsWithValidation(new vm(), $('#unsubscribeForm')[0],
+        {
+            errorMessageClass: "text-danger",
+            decorateInputElement: true,
+            errorElementClass: 'has-error'
+        });
+});
+</script>
+}

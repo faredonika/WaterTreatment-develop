@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WaterTreatment.Web.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="FileStoragePath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Nika</Value>
+    </Setting>
+    <Setting Name="MaxFailedAccessAttemptsBeforeLockout" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="DefaultAccountLockoutTimeSpan" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="FromEmailAddress" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">NBISmtpTest@gmail.com</Value>
+    </Setting>
+    <Setting Name="HostUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://localhost:44300</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

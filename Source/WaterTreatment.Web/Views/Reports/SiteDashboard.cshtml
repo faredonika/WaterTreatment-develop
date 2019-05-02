@@ -1,0 +1,103 @@
+﻿@using WaterTreatment.Web.Models
+@{
+    ViewBag.Title = "Site Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var userInfo = ViewData["UserInfo"] as UserInfoModel;
+}
+<div class="container-fluid" style="padding-top: 1.0em" id="knockout-area">
+
+    <div class="row space-bottom-full">
+        <div class="row">
+            <div class="col-md-3">
+                <label>Report Site</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <select class="form-control" multiple="multiple" data-bind="options: sites, selectedOptions: filters.Sites, optionsText: 'Name', optionsValue: 'Id', multiselect: msOptions"></select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="inset-container row">
+            <div class="pager-row">
+                @Html.Partial("_PagerControls")
+                <div class="pull-left form-inline" style="margin-top: 1em;">
+                    <span class="form-group pager-text"><strong>Submitted Reports for this cycle</strong> <span style="display: none;" data-bind="visible: pager.totalResults() > 0">(<span data-bind="text: pager.totalResults"></span>)</span></span>
+                </div>
+            </div>
+            <div>
+                @Html.Partial("_PagerSpinner")
+                <table class="table striped-grid">
+                    <thead>
+                        <tr class="branded-header">
+                            <th>
+                                <a href="#" data-bind="click: function() { pager.sort('Site') }">Site</a>
+                                <i data-bind="attr: { class: pager.sortArrow('Site') }"></i>
+                            </th>
+                            <th>
+                                <a href="#" data-bind="click: function() { pager.sort('Type') }">Type</a>
+                                <i data-bind="attr: { class: pager.sortArrow('Type') }"></i>
+                            </th>
+                            <th>
+                                <a href="#" data-bind="click: function() { pager.sort('StartedOn') }">Started</a>
+                                <i data-bind="attr: { class: pager.sortArrow('StartedOn') }"></i>
+                            </th>
+                            <th>
+                                <a href="#" data-bind="click: function() { pager.sort('MeasuredOn') }">Measured</a>
+                                <i data-bind="attr: { class: pager.sortArrow('MeasuredOn') }"></i>
+                            </th>
+                            <th>
+                                <a href="#" data-bind="click: function() { pager.sort('SubmittedOn') }">Submitted</a>
+                                <i data-bind="attr: { class: pager.sortArrow('SubmittedOn') }"></i>
+                            </th>
+                            <th data-bind="visible: showCreatedBy" style="display: none;">Created By</th>
+                            <th data-bind="visible: showCreatedBy" style="display: none;">Vendor</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: { data: reports, as: '$report' }">
+                        <tr data-bind="css: {'danger': $report.DaysElapsed > 7}">
+                            <td class="grid-cell">
+                                <a title="View report" data-bind="attr: { 'href': '/Reports/View/' + $report.Id }"><span data-bind="text: $report.Site"></span></a>
+                            </td>
+                            <td class="grid-cell">
+                                <span data-bind="text: $report.Type"></span>
+                            </td>
+                            <td class="grid-cell">
+                                <span data-bind="text: $report.StartedOn"></span>
+                            </td>
+                            <td class="grid-cell">
+                                <span data-bind="text: $report.MeasuredOn"></span>
+                            </td>
+                            <td class="grid-cell">
+                                <span data-bind="text: $report.SubmittedOn"></span>
+                            </td>
+                            <td class="grid-cell" data-bind="visible: $root.showCreatedBy" style="display: none;">
+                                <span data-bind="text: $report.CreatedBy"></span>
+                            </td>
+                            <td class="grid-cell" data-bind="visible: $root.showCreatedBy" style="display: none;">
+                                <span data-bind="text: $report.Vendor"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                @Html.Partial("_PagerControls")
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_Modal")
+    @Html.AntiForgeryToken()
+</div>
+@section Scripts
+{
+    <script type="text/javascript">
+        require(['jquery', 'knockout', 'App/ViewModels/Report/SiteDashboard', 'bootstrap', 'bootstrap-multiselect', 'bootstrap-datepicker'], function ($, ko, ViewModel) {
+    $(document).ready(function () {
+        ko.applyBindings(new ViewModel(@Html.Raw(ViewBag.Sites), @Html.Raw(ViewBag.InitialState)), $('#knockout-area')[0]);
+    });
+});
+    </script>
+}
+

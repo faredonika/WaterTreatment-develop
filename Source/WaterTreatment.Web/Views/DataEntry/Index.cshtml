@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "Data Entry - In Progress Reports";
+}
+<div class="container-fluid" style="padding-top: 1.0em" id="knockout-area">
+    <div class="row">
+        <div class="col-md-2" style="padding-top: 0.4em">
+            <label>Report Type</label>
+        </div>
+        <div class="col-md-10 form-group">
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-default">
+                    <input type="radio" name="type" value="Measurement" data-bind="checked: filters.Type, bsChecked: filters.Type" />Measurement
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="type" value="Independent Quality Assurance" data-bind="checked: filters.Type, bsChecked: filters.Type" />Independent Quality Assurance
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="type" value="Both" data-bind="checked: filters.Type, bsChecked: filters.Type" />Both
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="inset-container row">
+            <div>
+                @Html.Partial("_PagerControls")
+                <div class="pull-left form-inline" style="margin-top: 1em;">
+                    <span class="form-group pager-text"><strong>In Progress Reports</strong> <span style="display: none;" data-bind="visible: pager.totalResults() > 0">(<span data-bind="text: pager.totalResults"></span>)</span></span>
+                </div>
+            </div>
+            <div>
+                @Html.Partial("_PagerSpinner")
+                <table class="table striped-grid">
+                    <thead>
+                        <tr class="branded-header">
+                            <th>
+                                <a href="#" data-bind="click: function() { pager.sort('Site') }">Site</a>
+                                <i data-bind="attr: { class: pager.sortArrow('Site') }"></i>
+                            </th>
+                            <th>
+                                <a href="#" data-bind="click: function() { pager.sort('Type') }">Type</a>
+                                <i data-bind="attr: { class: pager.sortArrow('Type') }"></i>
+                            </th>
+                            <th>
+                                Started
+                            </th>
+                            <th>
+                                Copied From
+                            </th>
+                            <th>
+                                Days Elapsed
+                            </th>
+                            <th colspan="2">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: { data: reports, as: '$report' }">
+                        <tr data-bind="css: $parent.statusClass($report)">
+                            <td>
+                                <a data-bind="text: $report.Site, attr: { href: '/DataEntry/Edit/' + $report.Id }"></a>
+                            </td>
+                            <td>
+                                <span data-bind="text: $report.Type"></span>
+                            </td>
+                            <td>
+                                <span data-bind="text: $report.StartedOn"></span>
+                            </td>
+                            <td>
+                                <span data-bind="text: $report.Copied"></span>
+                            </td>
+                            <td>
+                                <span data-bind="text: $report.DaysElapsed"></span>
+                            </td>
+                            <td style="vertical-align: middle;" width="34">
+                                <div class="data-entry-actions-edit" style="text-align: center; width: 100%; position: relative;">
+                                    <a data-bind="attr: { href: '/DataEntry/Edit/' + $report.Id }">
+                                        <span>
+                                            <i class="btn btn-sm fa fa-pencil-square-o"></i>
+                                        </span>
+                                    </a>
+                                </div>
+                            </td>
+                            <td width="34">
+                                <div style="position: relative">
+                                    <button class="btn btn-default fa fa-trash data-entry-actions-delete" data-bind="enable: !$root.isProcessingRequest(), click: $root.delete" title="Delete"></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                @Html.Partial("_PagerControls")
+            </div>
+        </div>  
+    </div>  
+    @Html.AntiForgeryToken()
+</div>
+@section Scripts
+{
+<script type="text/javascript">
+require(['jquery', 'knockout', 'App/ViewModels/DataEntry/index', 'bootstrap', 'bootstrap-multiselect'], function ($, ko, ViewModel) {
+    $(document).ready(function () {
+        ko.applyBindings(new ViewModel(@Html.Raw(ViewBag.Sites)), $('#knockout-area')[0]);
+    });
+});
+</script>
+}

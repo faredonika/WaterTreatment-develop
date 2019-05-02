@@ -1,0 +1,130 @@
+﻿@model WaterTreatment.Web.Models.VendorModel
+@{
+    ViewBag.Title = "Edit Vendor";
+    ViewBag.FormAction = "EditVendor";
+    ViewBag.SubmitLabel = "Update";
+}
+@Html.Partial("_CreateEditVendor", Model)
+<div class="container-fluid" id="membershipContainer" style="margin-top: 2.5em">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-default pull-right" data-bind="enable: hasRemovals() && !isProcessingRequest(), click: remove"><i class="fa fa-minus"></i> Remove Selected</button>
+                </div>
+            </div>
+            <h4>Current Members</h4>
+            <div class="table-responsive" style="max-height: 250px; overflow-y: auto">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: { data: members, as: '$member' }">
+                        <tr>
+                            <td>
+                                <input type="checkbox" data-bind="value: $member.Id, checked: $parent.removals" />
+                                <span data-bind="text: $member.Username"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <button type="button" class="btn btn-default pull-right" data-bind="enable: hasAdditions() && !isProcessingRequest(), click: add"><i class="fa fa-plus"></i> Add Selected</button>
+            </div>
+            <h4>Users Not Assigned</h4>
+            <div style="padding-top: 1.0em">
+                <div class="row">
+                    <div class="col-md-1 form-group" style="padding-top: 0.4em">
+                        <label class="control-label">Name</label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <input type="text" id="Name" class="form-control" data-bind="textInput: filters.Name" placeholder="Name" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1 form-group" style="padding-top: 0.4em">
+                        <label class="control-label">Email</label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <input type="text" id="Email" class="form-control" data-bind="textInput: filters.Email" placeholder="Email" />
+                    </div>
+                </div>
+                <div class="row">
+                    @Html.Partial("_PagerControls")
+                    <div class="pull-right form-inline" style="margin-top: 0.5em; padding: 6px 18px">
+                        <span style="display: none;" data-bind="visible: pager.totalResults() > 0">Showing <strong data-bind="text: pager.currentIndicies"></strong> of <strong data-bind="text: pager.totalResults"></strong></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <a href="#" data-bind="click: function() { pager.sort('Name') }">Name</a>
+                                    <i data-bind="attr: { class: pager.sortArrow('Name') }"></i>
+                                </th>
+                                <th>
+                                    <a href="#" data-bind="click: function() { pager.sort('Email') }">Email</a>
+                                    <i data-bind="attr: { class: pager.sortArrow('Email') }"></i>
+                                </th>
+                                <th>Role</th>
+                                <th>Sites</th>
+                                <th>Vendor</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: { data: nonMembers, as: '$user' }">
+                            <tr>
+                                <td class="col-lg-2">
+                                    <input type="checkbox" data-bind="value: $user.Id, checked: $parent.additions" />
+                                    <span data-bind="text: $user.Name"></span>
+                                </td>
+                                <td class="col-lg-2">
+                                    <span data-bind="text: $user.Email"></span>
+                                </td>
+                                <td class="col-lg-2">
+                                    <span data-bind="text: $user.Role"></span>
+                                </td>
+                                <td class="col-lg-1">
+                                    <div data-bind="if: $user.SiteCount == 1">
+                                        <span data-bind="text: $user.Sites"></span>
+                                    </div>
+                                    <div data-bind="if: $user.SiteCount > 1">
+                                        <span data-bind="text: $user.SiteCount + ' Sites', attr: { title: $user.Sites }"></span>
+                                    </div>
+                                </td>
+                                <td class="col-lg-1">
+                                    <span data-bind="text: $user.Vendor"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    @Html.Partial("_PagerControls")
+                </div>
+                @Html.AntiForgeryToken()
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+<script type="text/javascript">
+require(["jquery", "knockout", "App/ViewModels/Vendor/createEdit", "App/ViewModels/Vendor/membership", "koVal"], function($, ko, vm, membership) {
+    var initialState = @Html.Raw(Json.Encode(Model));
+
+    ko.applyBindingsWithValidation(new vm(initialState), $('#formContainer')[0], {
+        errorMessageClass: "text-danger",
+        decorateInputElement: true,
+        errorElementClass: 'has-error'
+    });
+
+    ko.applyBindings(new membership(initialState), $('#membershipContainer')[0]);
+});
+</script>
+}

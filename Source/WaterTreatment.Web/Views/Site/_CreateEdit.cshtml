@@ -1,0 +1,161 @@
+﻿@model WaterTreatment.Web.Models.SiteModel
+<div class="container-fluid" id="createPage" style="display: none;" data-bind="visible: true">
+    @using (Html.BeginForm("Create", "Site", new { }, FormMethod.Post, new { @class = "form-horizontal", id = "createForm" }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.AntiForgeryToken()
+        <div class="form-group alert alert-warning" style="margin-top:25px; margin-bottom:25px;" data-bind="visible: isDirty">
+            <span>
+                Buildings and systems that are in edit mode are not saved. You must click ok and then click save to persist the data.
+            </span>
+        </div>
+        <div class="form-group">
+            @Html.Label("Site Name", new { @class = "col-md-2 control-label" })
+            <div class="col-md-10" data-bind="validationElement: $data.name">
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", data_bind = "textInput: $data.name" })
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Location, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10" data-bind="validationElement: $data.location">
+                @Html.TextBoxFor(m => m.Location, new { @class = "form-control", data_bind = "textInput: $data.location" })
+                @Html.ValidationMessageFor(m => m.Location, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Is Active</label>
+            <div class="col-md-10" data-bind="validationElement: $data.isActive">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default active">
+                        <input type="radio" name="type" value="true" data-bind="checked: isActive, bsChecked: isActive" />Active
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="type" value="false" data-bind="checked: isActive, bsChecked: isActive" />Inactive
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Buildings, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10" data-bind="foreach: { data: $data.buildings, as: '$building' }">
+                <!-- ko ifnot: $building.inEditMode -->
+                <div class="form-control-static">
+                    <span data-bind="text: $building.name"></span>
+                    <a href="#" role="button" data-bind="click: edit">Edit</a>
+                    <a href="#" role="button" data-bind="click: $parent.removeBuilding">Remove</a>
+                </div>
+                <div data-bind="foreach: { data: $building.systems, as: '$system' }">
+                    <!-- ko if: $system.inEditMode -->
+                    <div class="col-md-offset-1">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">System Type</label>
+                            <div class="col-md-10">
+                                <select class="form-control systemSelect" data-bind="options: $root.activeSystemTypes, value: $system.systemType, optionsText: 'Name', optionsValue: 'Id', multiselect: {
+                                    maxHeight: 400,
+                                    includeSelectAllOption: false,
+                                    enableFiltering: true,
+                                    filterBehavior: 'text',
+                                    enableCaseInsensitiveFiltering: true,
+                                    buttonWidth: '300px'
+                                }"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Measurement Location</label>
+                            <div class="col-md-10" data-bind="validationElement: $system.location">
+                                <input type="text" required class="form-control" data-bind="textInput: $system.location" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Description</label>
+                            <div class="col-md-10" data-bind="validationElement: $system.description">
+                                <input type="text" required class="form-control" data-bind="textInput: $system.description" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-1 form-control-static">
+                                <a href="#" role="button" data-bind="text: $system.saveLabel, click: $system.save"></a>
+                            </div>
+                            <div class="col-md-1 form-control-static">
+                                <a href="#" role="button" data-bind="click: $building.cancelSystem">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko ifnot: $system.inEditMode -->
+                    <div class="form-control-static col-md-offset-1">
+                        <div class="row">
+                            <span data-bind="text: $system.displayName"></span>
+                            <a href="#" role="button" data-bind="click: $system.edit">Edit</a>
+                            <a href="#" role="button" data-bind="click: $parent.removeSystem">Remove</a>
+                        </div>                        
+                        <div class="row" style="padding-bottom: 1.0em">
+                            <label class="control-label">Description</label>
+                            <span data-bind="text: $system.description"></span>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+                <div class="form-control-static col-md-offset-1">
+                    <a href="#" role="button" data-bind="visible: $root.systemTypes.length > 0, click: addSystem">Add System</a>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: $building.inEditMode -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Building Name</label>
+                    <div class="col-md-8" data-bind="validationElement: $building.name">
+                        <input type="text" required class="form-control" data-bind="textInput: $building.name" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Is Active</label>
+                    <div class="col-md-8" data-bind="validationElement: $data.isActive">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default active">
+                                <input type="radio" name="type" value="true" data-bind="checked: isActive, bsChecked: isActive" />Active
+                            </label>
+                            <label class="btn btn-default">
+                                <input type="radio" name="type" value="false" data-bind="checked: isActive, bsChecked: isActive" />Inactive
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Building Number</label>
+                    <div class="col-md-8">
+                        <input type="text" required class="form-control" data-bind="textInput: $building.number" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">RPUID</label>
+                    <div class="col-md-8">
+                        <input type="text" required class="form-control" data-bind="textInput: $building.RPUID" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">RPSUID</label>
+                    <div class="col-md-8">
+                        <input type="text" required class="form-control" data-bind="textInput: $building.RPSUID" />
+                    </div>
+                    <div class="col-md-1 form-control-static">
+                        <a href="#" role="button" data-bind="text: $building.saveLabel, click: $building.save"></a>
+                    </div>
+                    <div class="col-md-1 form-control-static">
+                        <a href="#" role="button" data-bind="click: $parent.cancelBuilding">Cancel</a>
+                    </div>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-2" data-bind="validationElement: $data.buildings">
+                <a href="#" role="button" data-bind="click: $data.addBuilding">Add Building</a>
+                <div class="text-danger" data-bind="validationMessage: $data.buildings"></div>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-default pull-right" data-bind="click: $data.save, disable: $root.isProcessingRequest() || !$root.isValid()">Save Site</button>
+            </div>
+        </div>
+    }
+</div>

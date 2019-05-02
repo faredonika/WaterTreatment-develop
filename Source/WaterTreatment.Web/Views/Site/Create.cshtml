@@ -1,0 +1,37 @@
+﻿@model WaterTreatment.Web.Models.SiteModel
+@{
+    ViewBag.Title = "Create Site";
+}
+@Html.Partial("_CreateEdit", Model)
+@section Scripts
+{
+<script type="text/javascript">
+require(['jquery', 'knockout', 'App/ViewModels/Site/site', 'koVal'], function($, ko, ViewModel) {
+    @if (ViewBag.Data != null) {
+    <text>
+    var vm = new ViewModel(@Html.Raw(ViewBag.SystemTypes), @Html.Raw(ViewBag.Data));
+    </text>
+    } else {
+            <text>
+    var vm = new ViewModel(@Html.Raw(ViewBag.SystemTypes));
+    </text>
+    }
+
+
+
+    $(document).ready(function () {
+        window.onbeforeunload = function () {
+            if (vm.isDirty()) {
+                return 'You have unsaved changes. Are you sure you wish to leave this page?';
+            }
+        };
+
+        ko.applyBindingsWithValidation(vm, document.getElementById('createPage'), {
+            errorMessageClass: 'text-danger',
+            decorateInputElement: true,
+            errorElementClass: 'has-error'
+        });
+    });
+});
+</script>
+}

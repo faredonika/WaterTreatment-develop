@@ -1,0 +1,53 @@
+﻿@using WaterTreatment.Web.Entities
+@model IEnumerable<SubSection>
+@{
+    string currentController = ViewContext.RouteData.Values["controller"].ToString();
+}
+
+@if (Model.Any())
+{
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            @foreach (var menu in Model.OrderBy(x => x.MainSection.Order).GroupBy(x => x.MainSection))
+            {
+                var classes = "";
+                var mainSection = menu.Key;
+                var subSections = menu.Where(x => x.Enabled);
+
+                if (subSections.Any())
+                {
+                    classes = string.Join(" ", classes, "dropdown");
+                }
+                if (mainSection.Controller == currentController)
+                {
+                    classes = string.Join(" ", classes, "active");
+                }
+                <li class="@Html.Raw(classes)">
+                    @if (subSections.Any() && mainSection.Name != "Home")
+                    {
+                        <a href="@Html.Raw(mainSection.Clickable ? String.Format("/{0}/{1}/", mainSection.Controller, mainSection.Action) : "#")" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@Html.Raw(mainSection.Name) <span class="fa fa-angle-down"></span></a>
+                        <ul class="dropdown-menu">
+                            @foreach (var subsection in subSections)
+                            {
+                                <li>
+                                    @Html.ActionLink(subsection.Name, subsection.Action, subsection.Controller)
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        @Html.ActionLink(mainSection.Name, mainSection.Action, mainSection.Controller)
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+}

@@ -1,0 +1,235 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Runtime" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ assembly name="System.IO" #>
+<#@ import namespace="System.IO" #>
+<#@ assembly name="$(TargetDir)YamlDotNet.dll" #>
+<#@ import namespace="YamlDotNet.Serialization" #>
+<#@ import namespace="YamlDotNet.Serialization.NamingConventions" #>
+<#@ assembly name="$(TargetPath)" #>
+<#@ import namespace="WaterTreatment.Web.Entities.Ref" #><# /*Updae to project specific*/ #>
+<#@ output extension=".cs" #>
+<#
+
+var projectNamespace = "WaterTreatment.Web";
+var contextName = "WTContext";
+
+var filePath = this.Host.ResolvePath("ReferenceData.yaml");
+var yamlData = File.ReadAllText(filePath);
+var reader = new StringReader(yamlData);
+
+var deserializer = new Deserializer(namingConvention: new PascalCaseNamingConvention());
+var modelData = deserializer.Deserialize<RefDataModel>(reader);
+
+var refMetaData = RefDataAnalyzer.Analyze(modelData);
+#>
+using System.Linq;
+using <#= projectNamespace #>.Entities;
+using <#= projectNamespace #>.Entity.Ref;
+
+namespace <#= projectNamespace #>
+{
+
+	public partial class <#= contextName #>
+	{
+
+		public readonly RefData Ref;
+
+        public <#= contextName #>() : base("WaterTreatment")
+        {
+            Ref = new RefData(this);
+        }
+
+	}
+
+}
+
+namespace <#= projectNamespace #>.Entity.Ref
+{
+
+	public class RefData
+	{
+
+		protected readonly <#= contextName #> Context;
+
+<#	foreach(var entityMeta in refMetaData) { #>
+		public <#= entityMeta.EntityName #>Ref <#= entityMeta.ListName #> { get; private set; }
+<# } #>
+
+		public RefData(<#= contextName #> context)
+        {
+            Context = context;
+			
+<#	foreach(var entityMeta in refMetaData) { #>
+			<#= entityMeta.ListName #> = new <#= entityMeta.EntityName #>Ref(Context);
+<# } #>
+        }
+
+	}
+<#	foreach(var entityMeta in refMetaData) { #>
+
+	#region <#= entityMeta.EntityName #> Reference Data
+
+	public class <#= entityMeta.EntityName #>Ids
+	{
+<#	foreach(var reference in entityMeta.NamedReferences) { #>
+		public readonly int <#= reference.Item1 #> = <#= reference.Item2 #>;
+<# } #>
+	}
+
+	public class <#= entityMeta.EntityName #>Ref
+	{
+
+		protected readonly <#= contextName #> Context;
+
+		public <#= entityMeta.EntityName #>Ids Id { get; private set; }
+
+        public <#= entityMeta.EntityName #>Ref(<#= contextName #> context)
+        {            
+			Context = context;
+			Id = new <#= entityMeta.EntityName #>Ids();
+        }
+		
+<#	foreach(var reference in entityMeta.NamedReferences) { #>
+		public <#= entityMeta.EntityName #> <#= reference.Item1 #> { get { return Context.Set<<#= entityMeta.EntityName #>>().First(x => x.Id == Id.<#= reference.Item1 #>); } }
+<# } #>
+
+	}
+
+	#endregion
+<# } #>
+
+}
+
+namespace <#= projectNamespace #>.Migrations
+{
+
+	using System;
+    using System.Collections.Generic;
+    using System.Data.Entity.Core.Mapping;
+    using System.Data.Entity.Core.Metadata.Edm;
+    using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Migrations;
+	using System.IO;
+	using System.Reflection;
+	using System.Web;
+	using System.Web.Hosting;
+	using <#= projectNamespace #>.Entities.Ref;
+	using YamlDotNet.Serialization;
+	using YamlDotNet.Serialization.NamingConventions;
+
+	partial class Configuration
+	{
+
+		private void RefDataSeed(<#= contextName #> context)
+		{
+
+		#if Production
+			String refName = "ReferenceData.Production";
+		#else
+			String refName = "ReferenceData";
+		#endif
+
+			var filePath = MapPath("~/Entities/Ref/" + refName + ".yaml");
+
+            if (!File.Exists(filePath))
+                filePath = MapPath("~/bin/Entities/Ref/" + refName + ".yaml");
+
+            var yamlData = File.ReadAllText(filePath);
+			var reader = new StringReader(yamlData);
+
+			var deserializer = new Deserializer(namingConvention: new PascalCaseNamingConvention());
+			var modelData = deserializer.Deserialize<RefDataModel>(reader);
+
+<#	foreach(var entityMeta in refMetaData) { #>
+			SeedDataForTable(context, modelData.<#= entityMeta.ListName #>);
+			ResetIdentity<<#= entityMeta.EntityName #>>(context);
+			context.SaveChanges();
+<# } #>
+
+			context.SaveChanges();
+
+		}
+
+		private static string GetTableName(Type type, <#= contextName #> context)
+        {
+            var metadata = ((IObjectContextAdapter)context).ObjectContext.MetadataWorkspace;
+
+            // Get the part of the model that contains info about the actual CLR types
+            var objectItemCollection = ((ObjectItemCollection)metadata.GetItemCollection(DataSpace.OSpace));
+
+            // Get the entity type from the model that maps to the CLR type
+            var entityType = metadata
+                    .GetItems<EntityType>(DataSpace.OSpace)
+                    .Single(e => objectItemCollection.GetClrType(e) == type);
+
+            // Get the entity set that uses this entity type
+            var entitySet = metadata
+                .GetItems<EntityContainer>(DataSpace.CSpace)
+                .Single()
+                .EntitySets
+                .Single(s => s.ElementType.Name == entityType.Name);
+
+            // Find the mapping between conceptual and storage model for this entity set
+            var mapping = metadata.GetItems<EntityContainerMapping>(DataSpace.CSSpace)
+                    .Single()
+                    .EntitySetMappings
+                    .Single(s => s.EntitySet == entitySet);
+
+            // Find the storage entity set (table) that the entity is mapped
+            var table = mapping
+                .EntityTypeMappings.First()
+                .Fragments.Single()
+                .StoreEntitySet;
+
+            // Return the table name from the storage entity set
+            return (string)table.MetadataProperties["Table"].Value ?? table.Name;
+        }
+
+		private void SeedDataForTable<T>(<#= contextName #> context, List<T> Data) where T : class, IEntity
+		{
+
+			var tableName = GetTableName(typeof(T), context);
+
+			var set = context.Set<T>();
+            if (!set.Any()) {   // Only do this if data doesn't already exist
+                //Insures that IDs go in like they are supposed to
+                context.Database.ExecuteSqlCommand(
+                    String.Format("DBCC CHECKIDENT([{0}], RESEED, 1)", tableName)
+                );
+
+                context.Set<T>().AddOrUpdate(Data.ToArray());
+            }
+
+		}
+
+		public void ResetIdentity<T>(<#= contextName #> context) where T : class, IEntity
+        {
+            var tableName = GetTableName(typeof(T), context);
+            var lastEntity = context.Set<T>().OrderByDescending(x => x.Id).FirstOrDefault();
+            var lastId = lastEntity == null ? 0 : lastEntity.Id;
+
+			//Resets Id to the end so there are no collissions
+            context.Database.ExecuteSqlCommand(
+                String.Format("DBCC CHECKIDENT([{0}], RESEED, {1})", tableName, lastId)
+            );
+        }
+
+		private string MapPath(string seedFile)
+		{
+			if(HttpContext.Current!=null)
+				return HostingEnvironment.MapPath(seedFile);
+
+			var absolutePath = new Uri(Assembly.GetExecutingAssembly().CodeBase).AbsolutePath;
+			var directoryName = Path.GetDirectoryName(absolutePath);
+			var path = Path.Combine(directoryName, ".." + seedFile.TrimStart('~').Replace('/','\\'));
+
+			return path;
+		}
+
+	}
+
+}

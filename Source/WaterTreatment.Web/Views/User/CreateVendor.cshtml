@@ -1,0 +1,21 @@
+﻿@model WaterTreatment.Web.Models.VendorModel
+@{
+    ViewBag.Title = "Create Vendor";
+    ViewBag.FormAction = "CreateVendor";
+    ViewBag.SubmitLabel = "Create";
+}
+@Html.Partial("_CreateEditVendor", Model)
+@section Scripts
+{
+<script type="text/javascript">
+require(["jquery", "knockout", "App/ViewModels/Vendor/createEdit", "koVal"], function($, ko, vm) {
+    var initialState = @Html.Raw(Json.Encode(Model));
+
+    ko.applyBindingsWithValidation(new vm(initialState), $('#formContainer')[0], {
+        errorMessageClass: "text-danger",
+        decorateInputElement: true,
+        errorElementClass: 'has-error'
+    });
+});
+</script>
+}

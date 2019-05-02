@@ -1,0 +1,60 @@
+﻿@model WaterTreatment.Web.Models.InviteModel
+@{
+    Layout = "~/Views/Shared/_LayoutBare.cshtml";
+    ViewBag.Title = "Complete Invitation";
+}
+
+
+<div class="container-fluid" id="createPage" style="margin-top: 200px;">
+    @using (Html.BeginForm("Invite/" + Model.InviteCode, "User", new { }, FormMethod.Post, new { @class = "form-horizontal", id = "createForm" }))
+    {
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.InviteCode)
+    <div class="form-group">
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                <label class="control-label">Username</label>
+            </div>
+            <div class="col-md-6" style="padding-top: 0.8em">@Model.Username</div>
+        </div>
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                <label class="control-label">Password</label>
+            </div>
+            <div class="col-md-6">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", data_bind = "textInput: password" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 1.0em">
+            <div class="col-md-2" style="padding-top: 0.4em">
+                <label class="control-label">Retype Password</label>
+            </div>
+            <div class="col-md-6">
+                @Html.PasswordFor(m => m.PasswordCheck, new { @class = "form-control", data_bind = "textInput: passwordCheck" })
+                @Html.ValidationMessageFor(m => m.PasswordCheck, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-default" data-bind="enable: canSave">Complete Invite</button>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+@section Scripts
+{
+<script type="text/javascript">
+require(['jquery', 'knockout', 'App/ViewModels/User/invite', 'koVal'], function ($, ko, vm) {
+    ko.applyBindingsWithValidation(new vm(), $('#createPage')[0],
+        {
+            errorMessageClass: "text-danger",
+            decorateInputElement: true,
+            errorElementClass: 'has-error'
+        });
+});
+</script>
+}

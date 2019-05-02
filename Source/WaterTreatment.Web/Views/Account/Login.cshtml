@@ -1,0 +1,43 @@
+﻿@model WaterTreatment.Web.Models.LoginViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutBare.cshtml";
+    ViewBag.Title = "Login";    
+}
+
+<section id="form" class="center-block">
+    <div class="container">
+        <div class="row text-center" id="header">
+            <span class="logo"><span class="logo-primary">WATER</span> TREATMENT</span><br />
+            <span class="sub-logo">Water System Management</span>
+        </div>
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="row" id="body">
+                <div class="form-group">
+                    <label class="control-label">User</label>
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.UserName)</span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Password</label>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.Password)</span>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-green">Sign in</button>
+                </div>
+                <div class="form-group text-center">
+                    @Html.ActionLink("Forgot password?", "ForgotPassword")
+                    <div class="text-danger">
+                        @Html.ValidationSummary(true)
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    <a href="mailto:afmsawtrsupport@nikasolutions.com">Contact Support...</a>
+                </div>
+            </div>
+        }
+    </div>
+</section>

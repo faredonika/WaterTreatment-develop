@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "View Vendors";
+}
+<div class="container-fluid" style="padding-top: 1.0em" id="knockout-area">
+    <div class="row">
+        <div class="col-md-1 form-group" style="padding-top: 0.4em">
+            <label class="control-label">Name</label>
+        </div>
+        <div class="col-md-4 form-group">
+            <input type="text" id="Name" class="form-control" data-bind="textInput: filters.Name" placeholder="Name" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 form-group" style="padding-top: 0.4em">
+            <label class="control-label">State</label>
+        </div>
+        <div class="col-md-4 form-group">
+            <select class="form-control" data-bind="options: states, value: filters.State, optionsText: 'name', optionsValue: 'abbreviation', optionsCaption: 'All States'"></select>
+        </div>
+    </div>
+    <div class="row">
+        @Html.Partial("_PagerControls")
+        <div class="pull-right form-inline" style="margin-top: 0.5em; padding: 6px 18px">
+            <span style="display: none;" data-bind="visible: pager.totalResults() > 0">Showing <strong data-bind="text: pager.currentIndicies"></strong> of <strong data-bind="text: pager.totalResults"></strong></span>
+        </div>
+    </div>
+    <div class="row">
+        @Html.Partial("_PagerSpinner")
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        <a href="#" data-bind="click: function() { pager.sort('Name') }">Name</a>
+                        <i data-bind="attr: { class: pager.sortArrow('Name') }"></i>
+                    </th>
+                    <th>
+                        <a href="#" data-bind="click: function() { pager.sort('State') }">State</a>
+                        <i data-bind="attr: { class: pager.sortArrow('State') }"></i>
+                    </th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: { data: vendors, as: '$vendor' }">
+                <tr>
+                    <td class="col-lg-2">
+                        <a data-bind="attr: { href: '/User/EditVendor/' + $vendor.Id }, text: $vendor.Name"></a>
+                    </td>
+                    <td class="col-lg-2" data-bind="text: $parent.getFullStateName($vendor.State)"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        @Html.Partial("_PagerControls")
+    </div>
+    @Html.AntiForgeryToken()
+</div>
+@section Scripts
+{
+<script type="text/javascript">
+require(['jquery', 'knockout', 'App/ViewModels/Vendor/index', 'bootstrap'], function ($, ko, ViewModel) {
+    $(document).ready(function () {
+        ko.applyBindings(new ViewModel(), $('#knockout-area')[0]);
+    });
+});
+</script>
+}

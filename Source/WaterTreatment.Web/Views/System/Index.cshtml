@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "View System Types";
+}
+<div class="container-fluid" style="padding-top: 1.0em" id="knockout-area">
+    <div class="row">
+        <div class="row">
+            <div class="form-group col-md-2">
+                <label>Name</label>
+            </div>
+            <div class="form-group col-md-4">
+                <input type="text" id="Name" class="form-control" data-bind="textInput: filters.Name" placeholder="Name" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-2">
+                <label>Has Parameters</label>
+            </div>
+            <div class="form-group col-md-4">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default active">
+                        <input type="radio" name="hasParameters" value="Any" data-bind="bsChecked: filters.HasParameters" /><span></span>Any
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="hasParameters" value="Yes" data-bind="bsChecked: filters.HasParameters" /><span></span>Yes
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="hasParameters" value="No" data-bind="bsChecked: filters.HasParameters" /><span></span>No
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-2">
+                <label>In Use</label>
+            </div>
+            <div class="form-group col-md-4">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default active">
+                        <input type="radio" name="inUse" value="Any" data-bind="bsChecked: filters.InUse" /><span></span>Any
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="inUse" value="Yes" data-bind="bsChecked: filters.InUse" /><span></span>Yes
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="inUse" value="No" data-bind="bsChecked: filters.InUse" /><span></span>No
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-2">
+                <label>Is Active</label>
+            </div>
+            <div class="form-group col-md-4">
+                <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-default active">
+                        <input type="radio" name="type" value="true" data-bind="checked: filters.IsActive, bsChecked: filters.IsActive" /><span></span>Active
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="type" value="false" data-bind="checked: filters.IsActive, bsChecked: filters.IsActive" /><span></span>Inactive
+                    </label>
+                    <label class="btn btn-default">
+                        <input type="radio" name="type" value="all" data-bind="checked: filters.IsActive, bsChecked: filters.IsActive" /><span></span>All
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="row inset-container">
+            <div class="pager-row">
+                @Html.Partial("_PagerControls")
+                <div class="pull-left form-inline" style="margin-top: 1em;">
+                    <span class="form-group pager-text"><strong>System Types</strong> <span style="display: none;" data-bind="visible: pager.totalResults() > 0">(<span data-bind="text: pager.totalResults"></span>)</span></span>
+                </div>
+            </div>
+            <div style="position: relative;">
+                @Html.Partial("_PagerSpinner")
+                <table class="table striped-grid">
+                    <thead>
+                        <tr class="branded-header">
+                            <th>
+                                <a href="#" data-bind="click: function() { pager.sort('Name') }">Name</a>
+                                <i data-bind="attr: { class: pager.sortArrow('Name') }"></i>
+                            </th>
+                            <th>
+                                <a href="#" data-bind="click: function() { pager.sort('HasParameters') }">Has Parameters</a>
+                                <i data-bind="attr: { class: pager.sortArrow('HasParameters') }"></i>
+                            </th>
+                            <th>
+                                <a href="#" data-bind="click: function() { pager.sort('InUse') }">In Use</a>
+                                <i data-bind="attr: { class: pager.sortArrow('InUse') }"></i>
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: { data: systems, as: '$system' }">
+                        <tr>
+                            <td>
+                                <a data-bind="text: $system.name, attr: { href: $system.getEditUrl }"></a>
+                            </td>
+                            <td data-bind="text: $system.hasParameters" />
+                            <td data-bind="text: $system.inUse" />
+                            <td>
+                                <div style="position: relative;">
+                                    <button type="button" class="btn btn-sm fa fa-edit system-actions-edit" data-bind="disable: $root.isProcessingRequest, click: function() { $system.edit($root.isProcessingRequest); }"></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                @Html.Partial("_PagerControls")
+            </div>
+        </div>    
+    </div>
+</div>
+@section Scripts
+{
+<script type="text/javascript">
+require(['jquery', 'knockout', 'App/ViewModels/System/index', 'bootstrap'], function ($, ko, systemViewModel) {
+
+    $(document).ready(function () {
+        ko.applyBindings(new systemViewModel(), $('#knockout-area')[0]);
+    });
+
+});
+</script>
+}

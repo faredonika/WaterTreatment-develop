@@ -1,0 +1,1303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BC12BB9B-3415-4F5C-AC19-2258A1CA8EBF}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WaterTreatment.Web</RootNamespace>
+    <AssemblyName>WaterTreatment.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK.Core">
+      <HintPath>..\..\packages\AWSSDK.Core.3.1.9.2\lib\net45\AWSSDK.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="AWSSDK.S3">
+      <HintPath>..\..\packages\AWSSDK.S3.3.1.8.2\lib\net45\AWSSDK.S3.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MoreLinq, Version=1.4.18916.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\morelinq.1.4.0\lib\net35\MoreLinq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimpleInjector, Version=3.1.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SimpleInjector.3.1.0\lib\net45\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimpleInjector.Integration.Web, Version=3.1.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SimpleInjector.Integration.Web.3.1.0\lib\net40\SimpleInjector.Integration.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimpleInjector.Integration.Web.Mvc, Version=3.1.0.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SimpleInjector.Integration.Web.Mvc.3.1.0\lib\net40\SimpleInjector.Integration.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="wnvhtmltopdf, Version=12.11.0.0, Culture=neutral, PublicKeyToken=b12703d35a33ff98, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WnvHtmlToPdf_x64.12.11\lib\net40\wnvhtmltopdf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="YamlDotNet, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\YamlDotNet.3.7.0\lib\net35\YamlDotNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-datepicker.css" />
+    <Content Include="Content\bootstrap-datepicker.min.css" />
+    <Content Include="Content\bootstrap-datepicker.standalone.css" />
+    <Content Include="Content\bootstrap-datepicker.standalone.min.css" />
+    <Content Include="Content\bootstrap-datepicker3.css" />
+    <Content Include="Content\bootstrap-datepicker3.min.css" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.css" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
+    <Content Include="Content\bootstrap-multiselect.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Images\configure-sites-hover.png" />
+    <Content Include="Content\Images\configure-sites.png" />
+    <Content Include="Content\Images\configure-system-types-hover.png" />
+    <Content Include="Content\Images\configure-system-types.png" />
+    <Content Include="Content\Images\content-background.png" />
+    <Content Include="Content\Images\continue-data-report-hover.png" />
+    <Content Include="Content\Images\continue-data-report.png" />
+    <Content Include="Content\Images\login-background.png" />
+    <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\new-data-report-hover.png" />
+    <Content Include="Content\Images\new-data-report.png" />
+    <Content Include="Content\Images\spin.gif" />
+    <Content Include="Content\Images\user-administration-hover.png" />
+    <Content Include="Content\Images\user-administration.png" />
+    <Content Include="Content\Images\view-data-reports-hover.png" />
+    <Content Include="Content\Images\view-data-reports.png" />
+    <Content Include="Content\jsTree\docs.css" />
+    <Content Include="Content\jsTree\themes\default-dark\32px.png" />
+    <Content Include="Content\jsTree\themes\default-dark\40px.png" />
+    <Content Include="Content\jsTree\themes\default-dark\style.css" />
+    <Content Include="Content\jsTree\themes\default-dark\style.min.css" />
+    <Content Include="Content\jsTree\themes\default-dark\throbber.gif" />
+    <Content Include="Content\jsTree\themes\default\32px.png" />
+    <Content Include="Content\jsTree\themes\default\40px.png" />
+    <Content Include="Content\jsTree\themes\default\style.css" />
+    <Content Include="Content\jsTree\themes\default\style.min.css" />
+    <Content Include="Content\jsTree\themes\default\throbber.gif" />
+    <Content Include="Content\ReportPDF.css">
+      <DependentUpon>ReportPDF.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\ReportPDF.min.css">
+      <DependentUpon>ReportPDF.css</DependentUpon>
+    </Content>
+    <Content Include="Content\site.css">
+      <DependentUpon>site.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\site.min.css">
+      <DependentUpon>site.css</DependentUpon>
+    </Content>
+    <Content Include="Content\titatoggle-dist-min.css" />
+    <Content Include="Content\titatoggle-dist.css" />
+    <Content Include="Content\Uploads\PlaceHolder.xml" />
+    <Content Include="Content\_bootstrap.scss" />
+    <Content Include="Content\bootstrap\mixins\_alerts.scss" />
+    <Content Include="Content\bootstrap\mixins\_background-variant.scss" />
+    <Content Include="Content\bootstrap\mixins\_border-radius.scss" />
+    <Content Include="Content\bootstrap\mixins\_buttons.scss" />
+    <Content Include="Content\bootstrap\mixins\_center-block.scss" />
+    <Content Include="Content\bootstrap\mixins\_clearfix.scss" />
+    <Content Include="Content\bootstrap\mixins\_forms.scss" />
+    <Content Include="Content\bootstrap\mixins\_gradients.scss" />
+    <Content Include="Content\bootstrap\mixins\_grid-framework.scss" />
+    <Content Include="Content\bootstrap\mixins\_grid.scss" />
+    <Content Include="Content\bootstrap\mixins\_hide-text.scss" />
+    <Content Include="Content\bootstrap\mixins\_image.scss" />
+    <Content Include="Content\bootstrap\mixins\_labels.scss" />
+    <Content Include="Content\bootstrap\mixins\_list-group.scss" />
+    <Content Include="Content\bootstrap\mixins\_nav-divider.scss" />
+    <Content Include="Content\bootstrap\mixins\_nav-vertical-align.scss" />
+    <Content Include="Content\bootstrap\mixins\_opacity.scss" />
+    <Content Include="Content\bootstrap\mixins\_pagination.scss" />
+    <Content Include="Content\bootstrap\mixins\_panels.scss" />
+    <Content Include="Content\bootstrap\mixins\_progress-bar.scss" />
+    <Content Include="Content\bootstrap\mixins\_reset-filter.scss" />
+    <Content Include="Content\bootstrap\mixins\_reset-text.scss" />
+    <Content Include="Content\bootstrap\mixins\_resize.scss" />
+    <Content Include="Content\bootstrap\mixins\_responsive-visibility.scss" />
+    <Content Include="Content\bootstrap\mixins\_size.scss" />
+    <Content Include="Content\bootstrap\mixins\_tab-focus.scss" />
+    <Content Include="Content\bootstrap\mixins\_table-row.scss" />
+    <Content Include="Content\bootstrap\mixins\_text-emphasis.scss" />
+    <Content Include="Content\bootstrap\mixins\_text-overflow.scss" />
+    <Content Include="Content\bootstrap\mixins\_vendor-prefixes.scss" />
+    <Content Include="Content\bootstrap\_alerts.scss" />
+    <Content Include="Content\bootstrap\_badges.scss" />
+    <Content Include="Content\bootstrap\_breadcrumbs.scss" />
+    <Content Include="Content\bootstrap\_button-groups.scss" />
+    <Content Include="Content\bootstrap\_buttons.scss" />
+    <Content Include="Content\bootstrap\_carousel.scss" />
+    <Content Include="Content\bootstrap\_close.scss" />
+    <Content Include="Content\bootstrap\_code.scss" />
+    <Content Include="Content\bootstrap\_component-animations.scss" />
+    <Content Include="Content\bootstrap\_dropdowns.scss" />
+    <Content Include="Content\bootstrap\_forms.scss" />
+    <Content Include="Content\bootstrap\_glyphicons.scss" />
+    <Content Include="Content\bootstrap\_grid.scss" />
+    <Content Include="Content\bootstrap\_input-groups.scss" />
+    <Content Include="Content\bootstrap\_jumbotron.scss" />
+    <Content Include="Content\bootstrap\_labels.scss" />
+    <Content Include="Content\bootstrap\_list-group.scss" />
+    <Content Include="Content\bootstrap\_media.scss" />
+    <Content Include="Content\bootstrap\_mixins.scss" />
+    <Content Include="Content\bootstrap\_modals.scss" />
+    <Content Include="Content\bootstrap\_navbar.scss" />
+    <Content Include="Content\bootstrap\_navs.scss" />
+    <Content Include="Content\bootstrap\_normalize.scss" />
+    <Content Include="Content\bootstrap\_pager.scss" />
+    <Content Include="Content\bootstrap\_pagination.scss" />
+    <Content Include="Content\bootstrap\_panels.scss" />
+    <Content Include="Content\bootstrap\_popovers.scss" />
+    <Content Include="Content\bootstrap\_print.scss" />
+    <Content Include="Content\bootstrap\_progress-bars.scss" />
+    <Content Include="Content\bootstrap\_responsive-embed.scss" />
+    <Content Include="Content\bootstrap\_responsive-utilities.scss" />
+    <Content Include="Content\bootstrap\_scaffolding.scss" />
+    <Content Include="Content\bootstrap\_tables.scss" />
+    <Content Include="Content\bootstrap\_theme.scss" />
+    <Content Include="Content\bootstrap\_thumbnails.scss" />
+    <Content Include="Content\bootstrap\_tooltip.scss" />
+    <Content Include="Content\bootstrap\_type.scss" />
+    <Content Include="Content\bootstrap\_utilities.scss" />
+    <Content Include="Content\bootstrap\_variables.scss" />
+    <Content Include="Content\bootstrap\_wells.scss" />
+    <Content Include="Content\ReportPDF.scss" />
+    <None Include="Content\_bootstrap-override.scss" />
+    <None Include="Entities\Ref\ReferenceData.Production.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>ReferenceData.yaml</DependentUpon>
+    </None>
+    <None Include="Entities\Ref\ReferenceData.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Entities\Ref\ReferenceData.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ReferenceData.cs</LastGenOutput>
+      <DependentUpon>ReferenceData.yaml</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\site.scss" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="Properties\PublishProfiles\NikaProduction.pubxml" />
+    <None Include="Properties\PublishProfiles\watertreatment.pubxml" />
+    <None Include="Properties\PublishProfiles\watertreatmentqa.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Scripts\App\notesbox.js" />
+    <Content Include="Scripts\App\ViewModels\DataEntry\adHocmeasurement.js" />
+    <Content Include="Scripts\App\ViewModels\DataEntry\commentDialog.js" />
+    <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\App\Bindings\collapsed.js" />
+    <Content Include="Scripts\App\Bindings\hasFocus.js" />
+    <Content Include="Scripts\App\ViewModels\DataEntry\CopyReport.js" />
+    <Content Include="Scripts\App\ViewModels\Report\collectionDashboard.js" />
+    <Content Include="Scripts\App\ViewModels\Report\LeadershipDashboard.js" />
+    <Content Include="Scripts\App\ViewModels\Report\measurementComparison.js" />
+    <Content Include="Scripts\App\ViewModels\Report\SiteDashboard.js" />
+    <Content Include="Scripts\App\ViewModels\Report\systemComparison.js" />
+    <Content Include="Scripts\App\ViewModels\Report\siteReport.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\App\Bindings\datePicker.js" />
+    <Content Include="Scripts\App\Bindings\dynamicHtml.js" />
+    <Content Include="Scripts\App\compareEntities.js" />
+    <Content Include="Scripts\App\Bindings\radioButtonGroup.js" />
+    <Content Include="Scripts\App\modal.js" />
+    <Content Include="Scripts\App\Models\Site\site.js" />
+    <Content Include="Scripts\App\states.js" />
+    <Content Include="Scripts\App\utilities.js" />
+    <Content Include="Scripts\App\ViewModels\Account\resetPassword.js" />
+    <Content Include="Scripts\App\ViewModels\DataEntry\attachments.js" />
+    <Content Include="Scripts\App\ViewModels\DataEntry\index.js" />
+    <Content Include="Scripts\App\ViewModels\DataEntry\measurement.js" />
+    <Content Include="Scripts\App\ViewModels\DataEntry\reportBuilding.js" />
+    <Content Include="Scripts\App\ViewModels\DataEntry\create.js" />
+    <Content Include="Scripts\App\ViewModels\DataEntry\edit.js" />
+    <Content Include="Scripts\App\ViewModels\DataEntry\reportSystem.js" />
+    <Content Include="Scripts\App\ViewModels\DataEntry\submit.js" />
+    <Content Include="Scripts\App\ViewModels\Report\index.js" />
+    <Content Include="Scripts\App\ViewModels\Report\outOfBounds.js" />
+    <Content Include="Scripts\App\ViewModels\Site\building.js" />
+    <Content Include="Scripts\App\ViewModels\Site\index.js" />
+    <Content Include="Scripts\App\ViewModels\Site\site.js" />
+    <Content Include="Scripts\App\ViewModels\Site\buildingSystem.js" />
+    <Content Include="Scripts\App\ViewModels\System\bounds.js" />
+    <Content Include="Scripts\App\ViewModels\System\createEdit.js" />
+    <Content Include="Scripts\App\ViewModels\System\index.js" />
+    <Content Include="Scripts\App\ViewModels\System\Parameter.js" />
+    <Content Include="Scripts\App\ViewModels\System\system.js" />
+    <Content Include="Scripts\App\ViewModels\Account\profile.js" />
+    <Content Include="Scripts\App\ViewModels\User\createEdit.js" />
+    <Content Include="Scripts\App\ViewModels\User\index.js" />
+    <Content Include="Scripts\App\ViewModels\User\invite.js" />
+    <Content Include="Scripts\App\ViewModels\Vendor\membership.js" />
+    <Content Include="Scripts\App\ViewModels\Vendor\createEdit.js" />
+    <Content Include="Scripts\App\ViewModels\Vendor\index.js" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap-multiselect-collapsible-groups.js" />
+    <Content Include="Scripts\bootstrap-multiselect.js" />
+    <Content Include="Scripts\jquery-2.1.4.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\jsTree3\jstree.js" />
+    <Content Include="Scripts\jsTree3\jstree.min.js" />
+    <Content Include="Scripts\knockout-3.3.0.debug.js" />
+    <Content Include="Scripts\knockout-3.3.0.js" />
+    <Content Include="Scripts\App\main.js" />
+    <Content Include="Scripts\knockout.validation.js" />
+    <Content Include="Scripts\knockout.validation.min.js" />
+    <Content Include="Scripts\App\pager.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ar.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.az.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.bg.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.bs.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ca.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.cs.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.cy.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.da.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.de.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.el.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.en-GB.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.eo.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.es.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.et.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.eu.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.fa.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.fi.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.fo.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.fr-CH.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.fr.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.gl.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.he.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.hr.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.hu.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.hy.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.id.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.is.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.it-CH.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.it.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ja.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ka.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.kh.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.kk.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ko.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.kr.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.lt.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.lv.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.me.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.mk.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.mn.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ms.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.nb.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.nl-BE.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.nl.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.no.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.pl.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.pt-BR.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.pt.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ro.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.rs-latin.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.rs.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ru.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sk.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sl.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sq.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sr-latin.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sr.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sv.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sw.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.th.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.tr.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.uk.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.vi.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.min.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.min.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\q.js" />
+    <Content Include="Scripts\q.min.js" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\regex-weburl.js" />
+    <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\App\webService.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Attributes\EmailAddressesAttribute.cs" />
+    <Compile Include="Attributes\MainSectionAuthorize.cs" />
+    <Compile Include="BaseController.cs" />
+    <Compile Include="CompositionRoot.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Controllers\DataEntryController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\SiteController.cs" />
+    <Compile Include="Controllers\SystemController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Entities\AdhocMeasurement.cs" />
+    <Compile Include="Entities\AdhocParameter.cs" />
+    <Compile Include="Entities\Attachment.cs" />
+    <Compile Include="Entities\AuditEntity.cs" />
+    <Compile Include="Entities\ExtensionWhitelist.cs" />
+    <Compile Include="Entities\Location.cs" />
+    <Compile Include="Entities\Measurement.cs" />
+    <Compile Include="Entities\Ref\EntityMetaRefData.cs" />
+    <Compile Include="Entities\Ref\RefDataAnalyzer.cs" />
+    <Compile Include="Entities\Ref\RefDataModel.cs" />
+    <Compile Include="Entities\Ref\ReferenceData.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReferenceData.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Entities\ReportSubscription.cs" />
+    <Compile Include="Entities\Setting.cs" />
+    <Compile Include="Entities\UserSiteAccess.cs" />
+    <Compile Include="Entities\SystemMeasurement.cs" />
+    <Compile Include="Entities\ParameterBound.cs" />
+    <Compile Include="Entities\Building.cs" />
+    <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\LandingAction.cs" />
+    <Compile Include="Entities\MainSection.cs" />
+    <Compile Include="Entities\NavSection.cs" />
+    <Compile Include="Entities\Parameter.cs" />
+    <Compile Include="Entities\ParameterType.cs" />
+    <Compile Include="Entities\Report.cs" />
+    <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\RoleAction.cs" />
+    <Compile Include="Entities\Site.cs" />
+    <Compile Include="Entities\SiteSection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\SubSection.cs" />
+    <Compile Include="Entities\BuildingSystem.cs" />
+    <Compile Include="Entities\SystemType.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\Vendor.cs" />
+    <Compile Include="Extensions\SortBy.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="KeyGenerator.cs" />
+    <Compile Include="Migrations\201510261535279_Initial Database.cs" />
+    <Compile Include="Migrations\201510261535279_Initial Database.Designer.cs">
+      <DependentUpon>201510261535279_Initial Database.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510281659574_ASP.NET Identity tables.cs" />
+    <Compile Include="Migrations\201510281659574_ASP.NET Identity tables.Designer.cs">
+      <DependentUpon>201510281659574_ASP.NET Identity tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510291911375_SiteSection.cs" />
+    <Compile Include="Migrations\201510291911375_SiteSection.Designer.cs">
+      <DependentUpon>201510291911375_SiteSection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510310945076_FullName.cs" />
+    <Compile Include="Migrations\201510310945076_FullName.Designer.cs">
+      <DependentUpon>201510310945076_FullName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511032012101_NavigationRefactor.cs" />
+    <Compile Include="Migrations\201511032012101_NavigationRefactor.Designer.cs">
+      <DependentUpon>201511032012101_NavigationRefactor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511032229137_AddSystemType.cs" />
+    <Compile Include="Migrations\201511032229137_AddSystemType.Designer.cs">
+      <DependentUpon>201511032229137_AddSystemType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511032355355_Role-MainNavLinking.cs" />
+    <Compile Include="Migrations\201511032355355_Role-MainNavLinking.Designer.cs">
+      <DependentUpon>201511032355355_Role-MainNavLinking.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511040101073_RequireName.cs" />
+    <Compile Include="Migrations\201511040101073_RequireName.Designer.cs">
+      <DependentUpon>201511040101073_RequireName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511050732295_Sites.cs" />
+    <Compile Include="Migrations\201511050732295_Sites.Designer.cs">
+      <DependentUpon>201511050732295_Sites.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511101431552_MissingChanges.cs" />
+    <Compile Include="Migrations\201511101431552_MissingChanges.Designer.cs">
+      <DependentUpon>201511101431552_MissingChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511101920350_SeparationOfConcernsFix.cs" />
+    <Compile Include="Migrations\201511101920350_SeparationOfConcernsFix.Designer.cs">
+      <DependentUpon>201511101920350_SeparationOfConcernsFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511122129152_OnlyLocationIsNecessary.cs" />
+    <Compile Include="Migrations\201511122129152_OnlyLocationIsNecessary.Designer.cs">
+      <DependentUpon>201511122129152_OnlyLocationIsNecessary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511171818269_ParameterBounds.cs" />
+    <Compile Include="Migrations\201511171818269_ParameterBounds.Designer.cs">
+      <DependentUpon>201511171818269_ParameterBounds.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511200355448_RenamedParameterBoundTypetoRange.cs" />
+    <Compile Include="Migrations\201511200355448_RenamedParameterBoundTypetoRange.Designer.cs">
+      <DependentUpon>201511200355448_RenamedParameterBoundTypetoRange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511200423172_AddedType.cs" />
+    <Compile Include="Migrations\201511200423172_AddedType.Designer.cs">
+      <DependentUpon>201511200423172_AddedType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511201757280_BuildingSystemsDescription.cs" />
+    <Compile Include="Migrations\201511201757280_BuildingSystemsDescription.Designer.cs">
+      <DependentUpon>201511201757280_BuildingSystemsDescription.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511302110095_AddVendor.cs" />
+    <Compile Include="Migrations\201511302110095_AddVendor.Designer.cs">
+      <DependentUpon>201511302110095_AddVendor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512011649087_BoundLocalAndGlobal.cs" />
+    <Compile Include="Migrations\201512011649087_BoundLocalAndGlobal.Designer.cs">
+      <DependentUpon>201512011649087_BoundLocalAndGlobal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512011726114_Reports.cs" />
+    <Compile Include="Migrations\201512011726114_Reports.Designer.cs">
+      <DependentUpon>201512011726114_Reports.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511302224129_AddSiteAccess.cs" />
+    <Compile Include="Migrations\201511302224129_AddSiteAccess.Designer.cs">
+      <DependentUpon>201511302224129_AddSiteAccess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512012200551_MergeReportVendor.cs" />
+    <Compile Include="Migrations\201512012200551_MergeReportVendor.Designer.cs">
+      <DependentUpon>201512012200551_MergeReportVendor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512012209018_BuildingSystem.cs" />
+    <Compile Include="Migrations\201512012209018_BuildingSystem.Designer.cs">
+      <DependentUpon>201512012209018_BuildingSystem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512021712399_BuildingReport.cs" />
+    <Compile Include="Migrations\201512021712399_BuildingReport.Designer.cs">
+      <DependentUpon>201512021712399_BuildingReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512022227034_SkippedSystemReports.cs" />
+    <Compile Include="Migrations\201512022227034_SkippedSystemReports.Designer.cs">
+      <DependentUpon>201512022227034_SkippedSystemReports.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512030127216_AddAttachmentStorageId.cs" />
+    <Compile Include="Migrations\201512030127216_AddAttachmentStorageId.Designer.cs">
+      <DependentUpon>201512030127216_AddAttachmentStorageId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512031859182_SystemMeasurement.cs" />
+    <Compile Include="Migrations\201512031859182_SystemMeasurement.Designer.cs">
+      <DependentUpon>201512031859182_SystemMeasurement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512032204338_AddMeasurementReasonSkipped.cs" />
+    <Compile Include="Migrations\201512032204338_AddMeasurementReasonSkipped.Designer.cs">
+      <DependentUpon>201512032204338_AddMeasurementReasonSkipped.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512041735008_Whitelist.cs" />
+    <Compile Include="Migrations\201512041735008_Whitelist.Designer.cs">
+      <DependentUpon>201512041735008_Whitelist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512071854446_ReportDates.cs" />
+    <Compile Include="Migrations\201512071854446_ReportDates.Designer.cs">
+      <DependentUpon>201512071854446_ReportDates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512082016013_ParameterUseField.cs" />
+    <Compile Include="Migrations\201512082016013_ParameterUseField.Designer.cs">
+      <DependentUpon>201512082016013_ParameterUseField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512091644100_ReportType.cs" />
+    <Compile Include="Migrations\201512091644100_ReportType.Designer.cs">
+      <DependentUpon>201512091644100_ReportType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512091833172_DataEntryAccessControl.cs" />
+    <Compile Include="Migrations\201512091833172_DataEntryAccessControl.Designer.cs">
+      <DependentUpon>201512091833172_DataEntryAccessControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512112209049_MoreUserSiteRefactors.cs" />
+    <Compile Include="Migrations\201512112209049_MoreUserSiteRefactors.Designer.cs">
+      <DependentUpon>201512112209049_MoreUserSiteRefactors.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512141713113_BoundDescriptions.cs" />
+    <Compile Include="Migrations\201512141713113_BoundDescriptions.Designer.cs">
+      <DependentUpon>201512141713113_BoundDescriptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512150951066_UserIsActive.cs" />
+    <Compile Include="Migrations\201512150951066_UserIsActive.Designer.cs">
+      <DependentUpon>201512150951066_UserIsActive.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512151719198_InviteCode.cs" />
+    <Compile Include="Migrations\201512151719198_InviteCode.Designer.cs">
+      <DependentUpon>201512151719198_InviteCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512152319307_AddReportCreationDate.cs" />
+    <Compile Include="Migrations\201512152319307_AddReportCreationDate.Designer.cs">
+      <DependentUpon>201512152319307_AddReportCreationDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512172111509_LinkRolestoSubSectionsNotMain.cs" />
+    <Compile Include="Migrations\201512172111509_LinkRolestoSubSectionsNotMain.Designer.cs">
+      <DependentUpon>201512172111509_LinkRolestoSubSectionsNotMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512222053528_AuditReportLogging.cs" />
+    <Compile Include="Migrations\201512222053528_AuditReportLogging.Designer.cs">
+      <DependentUpon>201512222053528_AuditReportLogging.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512231903232_AddReportNotes.cs" />
+    <Compile Include="Migrations\201512231903232_AddReportNotes.Designer.cs">
+      <DependentUpon>201512231903232_AddReportNotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512241446231_BuildingExtraFields.cs" />
+    <Compile Include="Migrations\201512241446231_BuildingExtraFields.Designer.cs">
+      <DependentUpon>201512241446231_BuildingExtraFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512292048033_UpdateVendor.cs" />
+    <Compile Include="Migrations\201512292048033_UpdateVendor.Designer.cs">
+      <DependentUpon>201512292048033_UpdateVendor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512300831227_AddUnsubmitRequestedDateToReport.cs" />
+    <Compile Include="Migrations\201512300831227_AddUnsubmitRequestedDateToReport.Designer.cs">
+      <DependentUpon>201512300831227_AddUnsubmitRequestedDateToReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601041836137_SoftSiteAndSystemDeletes.cs" />
+    <Compile Include="Migrations\201601041836137_SoftSiteAndSystemDeletes.Designer.cs">
+      <DependentUpon>201601041836137_SoftSiteAndSystemDeletes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601051728386_SoftDeleteBuildigs.cs" />
+    <Compile Include="Migrations\201601051728386_SoftDeleteBuildigs.Designer.cs">
+      <DependentUpon>201601051728386_SoftDeleteBuildigs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601052012095_BakedOOBField.cs" />
+    <Compile Include="Migrations\201601052012095_BakedOOBField.Designer.cs">
+      <DependentUpon>201601052012095_BakedOOBField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601052017444_BoolNotString.cs" />
+    <Compile Include="Migrations\201601052017444_BoolNotString.Designer.cs">
+      <DependentUpon>201601052017444_BoolNotString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601052203433_SomethingChanged.cs" />
+    <Compile Include="Migrations\201601052203433_SomethingChanged.Designer.cs">
+      <DependentUpon>201601052203433_SomethingChanged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601072109236_PasswordResetCode.cs" />
+    <Compile Include="Migrations\201601072109236_PasswordResetCode.Designer.cs">
+      <DependentUpon>201601072109236_PasswordResetCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601080048385_ResetCodeExpiration.cs" />
+    <Compile Include="Migrations\201601080048385_ResetCodeExpiration.Designer.cs">
+      <DependentUpon>201601080048385_ResetCodeExpiration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601121536236_IsApplicable.cs" />
+    <Compile Include="Migrations\201601121536236_IsApplicable.Designer.cs">
+      <DependentUpon>201601121536236_IsApplicable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601121633539_UpdateMeasurementDate.cs" />
+    <Compile Include="Migrations\201601121633539_UpdateMeasurementDate.Designer.cs">
+      <DependentUpon>201601121633539_UpdateMeasurementDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601122322267_MeasurementFrequency.cs" />
+    <Compile Include="Migrations\201601122322267_MeasurementFrequency.Designer.cs">
+      <DependentUpon>201601122322267_MeasurementFrequency.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601131908341_NextDigestField.cs" />
+    <Compile Include="Migrations\201601131908341_NextDigestField.Designer.cs">
+      <DependentUpon>201601131908341_NextDigestField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601131936045_FrequencyMOve.cs" />
+    <Compile Include="Migrations\201601131936045_FrequencyMOve.Designer.cs">
+      <DependentUpon>201601131936045_FrequencyMOve.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601132139488_AddReportSubscription.cs" />
+    <Compile Include="Migrations\201601132139488_AddReportSubscription.Designer.cs">
+      <DependentUpon>201601132139488_AddReportSubscription.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601142229463_AddSettings.cs" />
+    <Compile Include="Migrations\201601142229463_AddSettings.Designer.cs">
+      <DependentUpon>201601142229463_AddSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601151729135_AddUnsubscribeToken.cs" />
+    <Compile Include="Migrations\201601151729135_AddUnsubscribeToken.Designer.cs">
+      <DependentUpon>201601151729135_AddUnsubscribeToken.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601192216316_ClickableMainSections.cs" />
+    <Compile Include="Migrations\201601192216316_ClickableMainSections.Designer.cs">
+      <DependentUpon>201601192216316_ClickableMainSections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601261645475_AddImage.cs" />
+    <Compile Include="Migrations\201601261645475_AddImage.Designer.cs">
+      <DependentUpon>201601261645475_AddImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601261952479_MeasurementComments.cs" />
+    <Compile Include="Migrations\201601261952479_MeasurementComments.Designer.cs">
+      <DependentUpon>201601261952479_MeasurementComments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601280743022_EulaAgreedOn.cs" />
+    <Compile Include="Migrations\201601280743022_EulaAgreedOn.Designer.cs">
+      <DependentUpon>201601280743022_EulaAgreedOn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601280942447_LandingActionHoverImage.cs" />
+    <Compile Include="Migrations\201601280942447_LandingActionHoverImage.Designer.cs">
+      <DependentUpon>201601280942447_LandingActionHoverImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604210621171_CopyMinAndMaxValuesToNewDecimalColumn.cs" />
+    <Compile Include="Migrations\201604210621171_CopyMinAndMaxValuesToNewDecimalColumn.Designer.cs">
+      <DependentUpon>201604210621171_CopyMinAndMaxValuesToNewDecimalColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604210639039_DropOldMinAndMaxColumns.cs" />
+    <Compile Include="Migrations\201604210639039_DropOldMinAndMaxColumns.Designer.cs">
+      <DependentUpon>201604210639039_DropOldMinAndMaxColumns.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604210652028_RenameNewMinAndMaxColumns.cs" />
+    <Compile Include="Migrations\201604210652028_RenameNewMinAndMaxColumns.Designer.cs">
+      <DependentUpon>201604210652028_RenameNewMinAndMaxColumns.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608251453510_RemoveSiteIdFromParameterBound.cs" />
+    <Compile Include="Migrations\201608251453510_RemoveSiteIdFromParameterBound.Designer.cs">
+      <DependentUpon>201608251453510_RemoveSiteIdFromParameterBound.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608251505104_RemoveSiteIdFromUser.cs" />
+    <Compile Include="Migrations\201608251505104_RemoveSiteIdFromUser.Designer.cs">
+      <DependentUpon>201608251505104_RemoveSiteIdFromUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608251508168_RemoveUsersFromSite.cs" />
+    <Compile Include="Migrations\201608251508168_RemoveUsersFromSite.Designer.cs">
+      <DependentUpon>201608251508168_RemoveUsersFromSite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608251915031_RemoveBuildingReportTablefromSchema.cs" />
+    <Compile Include="Migrations\201608251915031_RemoveBuildingReportTablefromSchema.Designer.cs">
+      <DependentUpon>201608251915031_RemoveBuildingReportTablefromSchema.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608291925193_AddBuildingSystemUserTable.cs" />
+    <Compile Include="Migrations\201608291925193_AddBuildingSystemUserTable.Designer.cs">
+      <DependentUpon>201608291925193_AddBuildingSystemUserTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609081812084_UserSiteAccess.cs" />
+    <Compile Include="Migrations\201609081812084_UserSiteAccess.Designer.cs">
+      <DependentUpon>201609081812084_UserSiteAccess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609092003414_AddIsActiveFlagToBuildingSystemTable.cs" />
+    <Compile Include="Migrations\201609092003414_AddIsActiveFlagToBuildingSystemTable.Designer.cs">
+      <DependentUpon>201609092003414_AddIsActiveFlagToBuildingSystemTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609092059065_AddIsActiveFlagToBuildingSystemTable1.cs" />
+    <Compile Include="Migrations\201609092059065_AddIsActiveFlagToBuildingSystemTable1.Designer.cs">
+      <DependentUpon>201609092059065_AddIsActiveFlagToBuildingSystemTable1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610131425327_AddLocationData.cs" />
+    <Compile Include="Migrations\201610131425327_AddLocationData.Designer.cs">
+      <DependentUpon>201610131425327_AddLocationData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706191941368_AdhocMesurementTables.cs" />
+    <Compile Include="Migrations\201706191941368_AdhocMesurementTables.Designer.cs">
+      <DependentUpon>201706191941368_AdhocMesurementTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706281824040_AddadhocmeasurementsToSystemMeasurements.cs" />
+    <Compile Include="Migrations\201706281824040_AddadhocmeasurementsToSystemMeasurements.Designer.cs">
+      <DependentUpon>201706281824040_AddadhocmeasurementsToSystemMeasurements.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710291944226_ReportCopiedFrom.cs" />
+    <Compile Include="Migrations\201710291944226_ReportCopiedFrom.Designer.cs">
+      <DependentUpon>201710291944226_ReportCopiedFrom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\BoundModel.cs" />
+    <Compile Include="Models\BuildingModel.cs" />
+    <Compile Include="Models\BuildingSystemModel.cs" />
+    <Compile Include="Models\CollectionsModel.cs" />
+    <Compile Include="Models\MeasurementComparisonModel.cs" />
+    <Compile Include="Models\SiteReportModel.cs" />
+    <Compile Include="Models\InviteModel.cs" />
+    <Compile Include="Models\jsTree3Node.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\OOBModel.cs" />
+    <Compile Include="Models\ParameterModel.cs" />
+    <Compile Include="Models\ReportModel.cs" />
+    <Compile Include="Models\ReportStartModel.cs" />
+    <Compile Include="Models\ReportViewModel.cs" />
+    <Compile Include="Models\SearchModel.cs" />
+    <Compile Include="Models\SearchResult.cs" />
+    <Compile Include="Models\SiteModel.cs" />
+    <Compile Include="Models\SiteSearchModel.cs" />
+    <Compile Include="Models\SystemComparisonModel.cs" />
+    <Compile Include="Models\SystemCreateModel.cs" />
+    <Compile Include="Models\SystemModel.cs" />
+    <Compile Include="Models\UnsubscribeModel.cs" />
+    <Compile Include="Models\UserInfoModel.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\UserEditModel.cs" />
+    <Compile Include="Models\VendorModel.cs" />
+    <Compile Include="Models\VendorViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Services\AWSS3.cs" />
+    <Compile Include="Services\EmailService.cs" />
+    <Compile Include="Services\FileStorage.cs" />
+    <Compile Include="Services\Interface\IAWSS3.cs" />
+    <Compile Include="Services\Interface\IFileStorage.cs" />
+    <Compile Include="Services\PDFService.cs" />
+    <Compile Include="Services\ReportService.cs" />
+    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="WTContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="packages.config" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="Views\Shared\_MainNavbar.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\System\Edit.cshtml" />
+    <Content Include="Views\Site\Create.cshtml" />
+    <Content Include="Views\Reports\View.cshtml" />
+    <Content Include="Views\User\CreateUser.cshtml" />
+    <Content Include="Views\User\ViewVendors.cshtml" />
+    <Content Include="Views\User\EditVendor.cshtml" />
+    <Content Include="Views\DataEntry\Index.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
+    <Content Include="Views\Site\Index.cshtml" />
+    <Content Include="Views\System\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutBare.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Site\Edit.cshtml" />
+    <Content Include="Views\Account\UserProfile.cshtml" />
+    <Content Include="Views\System\Create.cshtml" />
+    <Content Include="Scripts\knockout.validation.min.js.map" />
+    <Content Include="Views\Shared\_Banner.cshtml" />
+    <Content Include="Views\Shared\_PagerControls.cshtml" />
+    <Content Include="Views\Shared\_PagerSpinner.cshtml" />
+    <Content Include="Views\Site\_CreateEdit.cshtml" />
+    <Content Include="Views\System\_CreateEdit.cshtml" />
+    <Content Include="Views\DataEntry\Create.cshtml" />
+    <Content Include="Views\User\_CreateEditVendor.cshtml" />
+    <Content Include="Views\DataEntry\Edit.cshtml" />
+    <Content Include="Views\DataEntry\Submit.cshtml" />
+    <Content Include="Views\User\EditUser.cshtml" />
+    <Content Include="Views\User\Invite.cshtml" />
+    <Content Include="Views\Shared\_ReportViewer.cshtml" />
+    <Content Include="Views\User\CreateVendor.cshtml" />
+    <Content Include="Views\Reports\OutOfBounds.cshtml" />
+    <Content Include="Views\Reports\ReportPDF.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\User\ViewUser.cshtml" />
+    <Content Include="Views\Shared\_Modal.cshtml" />
+    <Content Include="Views\Reports\Unsubscribe.cshtml" />
+    <Content Include="Views\Reports\AnalyticsLanding.cshtml" />
+    <Content Include="Views\Account\EULA.cshtml" />
+    <Content Include="Views\Shared\_NotesBox.cshtml" />
+    <Content Include="Views\Shared\_LayoutPDF.cshtml" />
+    <Content Include="Views\Reports\Frequency.cshtml" />
+    <Content Include="Views\Reports\SiteReport.cshtml" />
+    <Content Include="Views\Reports\SystemComparison.cshtml" />
+    <Content Include="Views\Reports\CollectionDashboard.cshtml" />
+    <Content Include="Views\Reports\MeasurementComparison.cshtml" />
+    <Content Include="Views\Shared\_ReportViewer2.cshtml" />
+    <Content Include="Views\Shared\_SystemMeasurements.cshtml" />
+    <Content Include="Views\Shared\_SystemMeasurementsWithMinMax.cshtml" />
+    <Content Include="Views\Reports\HighCommandDashboard.cshtml" />
+    <Content Include="Views\Reports\SRMPMDashboard.cshtml" />
+    <Content Include="Views\Reports\SiteDashboard.cshtml" />
+    <Content Include="Views\DataEntry\CopyReport.cshtml" />
+    <Content Include="Views\Reports\ReportPDF2.cshtml" />
+    <Content Include="Views\Shared\_SystemMeasurementsWithMinMaxPDF.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Production.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Regression.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Scripts\App\ViewModels\Shared\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201510261535279_Initial Database.resx">
+      <DependentUpon>201510261535279_Initial Database.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510281659574_ASP.NET Identity tables.resx">
+      <DependentUpon>201510281659574_ASP.NET Identity tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510291911375_SiteSection.resx">
+      <DependentUpon>201510291911375_SiteSection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510310945076_FullName.resx">
+      <DependentUpon>201510310945076_FullName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511032012101_NavigationRefactor.resx">
+      <DependentUpon>201511032012101_NavigationRefactor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511032229137_AddSystemType.resx">
+      <DependentUpon>201511032229137_AddSystemType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511032355355_Role-MainNavLinking.resx">
+      <DependentUpon>201511032355355_Role-MainNavLinking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511040101073_RequireName.resx">
+      <DependentUpon>201511040101073_RequireName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511050732295_Sites.resx">
+      <DependentUpon>201511050732295_Sites.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511101431552_MissingChanges.resx">
+      <DependentUpon>201511101431552_MissingChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511101920350_SeparationOfConcernsFix.resx">
+      <DependentUpon>201511101920350_SeparationOfConcernsFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511122129152_OnlyLocationIsNecessary.resx">
+      <DependentUpon>201511122129152_OnlyLocationIsNecessary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511171818269_ParameterBounds.resx">
+      <DependentUpon>201511171818269_ParameterBounds.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511200355448_RenamedParameterBoundTypetoRange.resx">
+      <DependentUpon>201511200355448_RenamedParameterBoundTypetoRange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511200423172_AddedType.resx">
+      <DependentUpon>201511200423172_AddedType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511201757280_BuildingSystemsDescription.resx">
+      <DependentUpon>201511201757280_BuildingSystemsDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511302110095_AddVendor.resx">
+      <DependentUpon>201511302110095_AddVendor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512011649087_BoundLocalAndGlobal.resx">
+      <DependentUpon>201512011649087_BoundLocalAndGlobal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512011726114_Reports.resx">
+      <DependentUpon>201512011726114_Reports.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511302224129_AddSiteAccess.resx">
+      <DependentUpon>201511302224129_AddSiteAccess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512012200551_MergeReportVendor.resx">
+      <DependentUpon>201512012200551_MergeReportVendor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512012209018_BuildingSystem.resx">
+      <DependentUpon>201512012209018_BuildingSystem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512021712399_BuildingReport.resx">
+      <DependentUpon>201512021712399_BuildingReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512022227034_SkippedSystemReports.resx">
+      <DependentUpon>201512022227034_SkippedSystemReports.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512030127216_AddAttachmentStorageId.resx">
+      <DependentUpon>201512030127216_AddAttachmentStorageId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512031859182_SystemMeasurement.resx">
+      <DependentUpon>201512031859182_SystemMeasurement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512032204338_AddMeasurementReasonSkipped.resx">
+      <DependentUpon>201512032204338_AddMeasurementReasonSkipped.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512041735008_Whitelist.resx">
+      <DependentUpon>201512041735008_Whitelist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512071854446_ReportDates.resx">
+      <DependentUpon>201512071854446_ReportDates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512082016013_ParameterUseField.resx">
+      <DependentUpon>201512082016013_ParameterUseField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512091644100_ReportType.resx">
+      <DependentUpon>201512091644100_ReportType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512091833172_DataEntryAccessControl.resx">
+      <DependentUpon>201512091833172_DataEntryAccessControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512112209049_MoreUserSiteRefactors.resx">
+      <DependentUpon>201512112209049_MoreUserSiteRefactors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512141713113_BoundDescriptions.resx">
+      <DependentUpon>201512141713113_BoundDescriptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512150951066_UserIsActive.resx">
+      <DependentUpon>201512150951066_UserIsActive.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512151719198_InviteCode.resx">
+      <DependentUpon>201512151719198_InviteCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512152319307_AddReportCreationDate.resx">
+      <DependentUpon>201512152319307_AddReportCreationDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512172111509_LinkRolestoSubSectionsNotMain.resx">
+      <DependentUpon>201512172111509_LinkRolestoSubSectionsNotMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512222053528_AuditReportLogging.resx">
+      <DependentUpon>201512222053528_AuditReportLogging.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512231903232_AddReportNotes.resx">
+      <DependentUpon>201512231903232_AddReportNotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512241446231_BuildingExtraFields.resx">
+      <DependentUpon>201512241446231_BuildingExtraFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512292048033_UpdateVendor.resx">
+      <DependentUpon>201512292048033_UpdateVendor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512300831227_AddUnsubmitRequestedDateToReport.resx">
+      <DependentUpon>201512300831227_AddUnsubmitRequestedDateToReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601041836137_SoftSiteAndSystemDeletes.resx">
+      <DependentUpon>201601041836137_SoftSiteAndSystemDeletes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601051728386_SoftDeleteBuildigs.resx">
+      <DependentUpon>201601051728386_SoftDeleteBuildigs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601052012095_BakedOOBField.resx">
+      <DependentUpon>201601052012095_BakedOOBField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601052017444_BoolNotString.resx">
+      <DependentUpon>201601052017444_BoolNotString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601052203433_SomethingChanged.resx">
+      <DependentUpon>201601052203433_SomethingChanged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601072109236_PasswordResetCode.resx">
+      <DependentUpon>201601072109236_PasswordResetCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601080048385_ResetCodeExpiration.resx">
+      <DependentUpon>201601080048385_ResetCodeExpiration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601121536236_IsApplicable.resx">
+      <DependentUpon>201601121536236_IsApplicable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601121633539_UpdateMeasurementDate.resx">
+      <DependentUpon>201601121633539_UpdateMeasurementDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601122322267_MeasurementFrequency.resx">
+      <DependentUpon>201601122322267_MeasurementFrequency.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601131908341_NextDigestField.resx">
+      <DependentUpon>201601131908341_NextDigestField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601131936045_FrequencyMOve.resx">
+      <DependentUpon>201601131936045_FrequencyMOve.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601132139488_AddReportSubscription.resx">
+      <DependentUpon>201601132139488_AddReportSubscription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601142229463_AddSettings.resx">
+      <DependentUpon>201601142229463_AddSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601151729135_AddUnsubscribeToken.resx">
+      <DependentUpon>201601151729135_AddUnsubscribeToken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601192216316_ClickableMainSections.resx">
+      <DependentUpon>201601192216316_ClickableMainSections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601261645475_AddImage.resx">
+      <DependentUpon>201601261645475_AddImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601261952479_MeasurementComments.resx">
+      <DependentUpon>201601261952479_MeasurementComments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601280743022_EulaAgreedOn.resx">
+      <DependentUpon>201601280743022_EulaAgreedOn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601280942447_LandingActionHoverImage.resx">
+      <DependentUpon>201601280942447_LandingActionHoverImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604210621171_CopyMinAndMaxValuesToNewDecimalColumn.resx">
+      <DependentUpon>201604210621171_CopyMinAndMaxValuesToNewDecimalColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604210639039_DropOldMinAndMaxColumns.resx">
+      <DependentUpon>201604210639039_DropOldMinAndMaxColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604210652028_RenameNewMinAndMaxColumns.resx">
+      <DependentUpon>201604210652028_RenameNewMinAndMaxColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608251453510_RemoveSiteIdFromParameterBound.resx">
+      <DependentUpon>201608251453510_RemoveSiteIdFromParameterBound.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608251505104_RemoveSiteIdFromUser.resx">
+      <DependentUpon>201608251505104_RemoveSiteIdFromUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608251508168_RemoveUsersFromSite.resx">
+      <DependentUpon>201608251508168_RemoveUsersFromSite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608251915031_RemoveBuildingReportTablefromSchema.resx">
+      <DependentUpon>201608251915031_RemoveBuildingReportTablefromSchema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608291925193_AddBuildingSystemUserTable.resx">
+      <DependentUpon>201608291925193_AddBuildingSystemUserTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609081812084_UserSiteAccess.resx">
+      <DependentUpon>201609081812084_UserSiteAccess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609092003414_AddIsActiveFlagToBuildingSystemTable.resx">
+      <DependentUpon>201609092003414_AddIsActiveFlagToBuildingSystemTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609092059065_AddIsActiveFlagToBuildingSystemTable1.resx">
+      <DependentUpon>201609092059065_AddIsActiveFlagToBuildingSystemTable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610131425327_AddLocationData.resx">
+      <DependentUpon>201610131425327_AddLocationData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706191941368_AdhocMesurementTables.resx">
+      <DependentUpon>201706191941368_AdhocMesurementTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706281824040_AddadhocmeasurementsToSystemMeasurements.resx">
+      <DependentUpon>201706281824040_AddadhocmeasurementsToSystemMeasurements.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710291944226_ReportCopiedFrom.resx">
+      <DependentUpon>201710291944226_ReportCopiedFrom.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Production|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;Production</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Regression|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49052</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44300/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>https://localhost:44300/</IISAppRootUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,21 @@
+﻿@model WaterTreatment.Web.Models.ViewReportModel
+@{
+    ViewBag.Title = "View Single Reports";
+}
+@if (!Model.SubmittedDate.HasValue) {
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="alert alert-warning">This report is currently in draft mode and may not be ready for review.</div>
+        </div>
+    </div>
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12" style="padding-bottom: 1em">
+            <div class="pull-right">
+                <a href="@Url.Action("GetReportPDF", new { id = Model.Id })" role="button" class="btn btn-primary btn-lg">Export to PDF</a>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_ReportViewer2", Model)
+</div>

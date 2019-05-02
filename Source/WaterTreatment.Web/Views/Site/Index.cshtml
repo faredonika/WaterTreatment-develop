@@ -1,0 +1,129 @@
+﻿@{
+    ViewBag.Title = "Site Configuration";
+}
+<div class="container-fluid" style="padding-top: 1.0em" id="knockout-area">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label>Name</label>
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="text" id="Name" class="form-control" data-bind="textInput: filters.Name" placeholder="Name" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label>Location</label>
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="text" id="Location" class="form-control" data-bind="textInput: filters.Location" placeholder="Location" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label>Building Name</label>
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="text" id="BuildingName" class="form-control" data-bind="textInput: filters.BuildingName" placeholder="Building Name" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label>System Type</label>
+                </div>
+                <div class="form-group col-md-4">
+                    <select class="form-control systemSelect" multiple="multiple" data-bind="options: systemTypes, selectedOptions: filters.SystemTypes, optionsText: 'Name', optionsValue: 'Id', multiselect: {
+                    maxHeight: 400,
+                    includeSelectAllOption: true,
+                    enableFiltering: true,
+                    filterBehavior: 'text',
+                    enableCaseInsensitiveFiltering: true,
+                    nonSelectedText: 'Any',
+                    numberDisplayed: 1,
+                    buttonWidth: '100%'
+                }"></select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <label>Is Active</label>
+                </div>
+                <div class="form-group col-md-4">
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-default active">
+                            <input type="radio" name="type" value="true" data-bind="checked: filters.IsActive, bsChecked: filters.IsActive" />Active
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" name="type" value="false" data-bind="checked: filters.IsActive, bsChecked: filters.IsActive" />Inactive
+                        </label>
+                        <label class="btn btn-default">
+                            <input type="radio" name="type" value="all" data-bind="checked: filters.IsActive, bsChecked: filters.IsActive" />All
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="inset-container row">
+            <div class="pager-row">
+                @Html.Partial("_PagerControls")
+                <div class="pull-left form-inline" style="margin-top: 1em;">
+                    <span class="form-group pager-text"><strong>Sites</strong> <span style="display: none;" data-bind="visible: pager.totalResults() > 0">(<span data-bind="text: pager.totalResults"></span>)</span></span>
+                </div>
+            </div>
+            <div style="position: relative">
+                @Html.Partial("_PagerSpinner")
+                <table class="table striped-grid">
+                    <thead>
+                        <tr class="branded-header">
+                            <th>
+                                <a href="#" data-bind="click: function() { pager.sort('Name') }">Name</a>
+                                <i data-bind="attr: { class: pager.sortArrow('Name') }"></i>
+                            </th>
+                            <th>
+                                <a href="#" data-bind="click: function() { pager.sort('Location') }">Location</a>
+                                <i data-bind="attr: { class: pager.sortArrow('Location') }"></i>
+                            </th>
+                            <th>
+                                <a href="#" data-bind="click: function() { pager.sort('BuildingCount') }">Building Count</a>
+                                <i data-bind="attr: { class: pager.sortArrow('BuildingCount') }"></i>
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: { data: sites, as: '$site' }">
+                        <tr>
+                            <td class="col-lg-6">
+                                <a data-bind="text: $site.name, attr: { href: $site.getEditUrl }"></a>
+                            </td>
+                            <td class="col-lg-2" data-bind="text: $site.location" />
+                            <td class="col-lg-2" data-bind="text: $site.buildingCount" />
+                            <td class="col-lg-2">
+                                <div style="position: relative">
+                                    <button type="button" class="btn btn-sm fa fa-edit site-actions-edit" data-bind="disable: $root.isProcessingRequest, click: function() { $site.edit($root.isProcessingRequest); }"></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                @Html.Partial("_PagerControls")
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script type="text/javascript">
+require(['jquery', 'knockout', 'App/ViewModels/Site/index', 'bootstrap'], function ($, ko, siteViewModel) {
+
+    $(document).ready(function () {
+        ko.applyBindings(new siteViewModel(@Html.Raw(ViewBag.SystemTypes)), $('#knockout-area')[0]);
+    });
+
+});
+    </script>
+}

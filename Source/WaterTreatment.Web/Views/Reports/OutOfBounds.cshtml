@@ -1,0 +1,142 @@
+﻿@{
+    ViewBag.Title = "Out of Acceptable Range Report";
+}
+<div style="padding-top: 1.0em" id="knockout-area">
+    <div class="row">
+        <div class="form-group col-md-2">
+            <label>System Type</label>
+        </div>
+        <div class="form-group col-md-4">
+            <select class="form-control systemSelect" multiple="multiple" data-bind="options: systemTypes, selectedOptions: filters.SystemTypes, optionsText: 'Name', optionsValue: 'Id', multiselect: {
+                maxHeight: 400,
+                includeSelectAllOption: true,
+                enableFiltering: true,
+                filterBehavior: 'text',
+                enableCaseInsensitiveFiltering: true,
+                nonSelectedText: 'Any',
+                buttonWidth: '350px'
+            }"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-2">
+            <label>Site</label>
+        </div>
+        <div class="form-group col-md-4">
+            <select class="form-control systemSelect" data-bind="options: sites, value: filters.Site, optionsText: 'Name', optionsValue: 'Id', multiselect: {
+                maxHeight: 400,
+                includeSelectAllOption: false,
+                enableFiltering: true,
+                filterBehavior: 'text',
+                enableCaseInsensitiveFiltering: true,
+                buttonWidth: '300px'
+            }"></select>
+        </div>
+    </div>
+    <div class="row" data-bind="visible: hasBuildings">
+        <div class="form-group col-md-2">
+            <label>Buildings</label>
+        </div>
+        <div class="form-group col-md-4">
+            <select class="form-control systemSelect" multiple="multiple" data-bind="options: buildings, selectedOptions: filters.Buildings, optionsText: 'Name', optionsValue: 'Id', multiselect: {
+                maxHeight: 400,
+                includeSelectAllOption: true,
+                enableFiltering: true,
+                filterBehavior: 'text',
+                enableCaseInsensitiveFiltering: true,
+                nonSelectedText: 'Any',
+                buttonWidth: '350px'
+            }"></select>
+        </div>
+    </div>
+    <div class="row">
+        @Html.Partial("_PagerControls")
+        <div class="pull-right form-inline" style="margin-top: 0.5em; padding: 6px 18px">
+            <span style="display: none;" data-bind="visible: pager.totalResults() > 0">Showing <strong data-bind="text: pager.currentIndicies"></strong> of <strong data-bind="text: pager.totalResults"></strong></span>
+        </div>
+    </div>
+    <div class="row">
+        @Html.Partial("_PagerSpinner")
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        <a href="#" data-bind="click: function() { pager.sort('Name') }">Name</a>
+                        <i data-bind="attr: { class: pager.sortArrow('Name') }"></i>
+                    </th>
+                    <th>
+                        <a href="#" data-bind="click: function() { pager.sort('SystemType') }">System Type</a>
+                        <i data-bind="attr: { class: pager.sortArrow('SystemType') }"></i>
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: { data: outOfBoundMeasurements, as: 'oobm' }">
+                <tr>
+                    <td class="col-lg-6">
+                        <span data-bind="text: Name"></span>
+                    </td>
+                    <td class="col-lg-4">
+                        <span data-bind="text: SystemName"></span>
+                    </td>
+                    <td class="col-lg-2">
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button type="button" class="btn btn-default" data-bind="click: $parent.viewReportModel">View Reports</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        @Html.Partial("_PagerControls")
+    </div>
+    <div class="modal fade" id="reportsModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-bind="with: reportListVM">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Out of Bound Reports</h4>
+                </div>
+                <div class="modal-body">                    
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr>
+                                <td>Report ID:</td>
+                                <td>Measurement Date</td>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: { data: reports, as: 'report'}">
+                            <tr class="editable-row">
+                                <td>
+                                    <span data-bind="text: Id"></span>
+                                </td>
+                                <td>
+                                    <span data-bind="text: MeasurementDate"></span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-primary" data-bind="click: $parent.viewReport">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+<script type="text/javascript">
+    require(['jquery', 'knockout', 'App/ViewModels/Report/outOfBounds', 'bootstrap', 'moment'], function ($, ko, oobViewModel) {
+
+    $(document).ready(function () {
+        ko.applyBindings(new oobViewModel(@Html.Raw(Json.Encode(ViewBag.SystemTypes)),@Html.Raw(Json.Encode(ViewBag.Sites)), @Html.Raw(ViewBag.InitialState)), $('#knockout-area')[0]);
+    });
+
+});
+</script>
+}

@@ -1,0 +1,52 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/app")
+
+</head>
+<body class="anonymous-layout">
+    <div class="container">
+        <div id="bannerContainer" class="center-block" style="padding-bottom: 1.0em">
+            @Html.Partial("_Banner")
+        </div>
+        @RenderBody()
+        <div id="knockout-area-footer">
+            <div class="footer">
+                <div class="container">
+                    <div class="col-sm-12 text-center navbar-text">
+                        <span class="pull-left"><a href="#" data-toggle="modal" data-target="#modalDialog" data-bind="click: showTerms">Terms and conditions | Privacy Policy</a></span><span class="pull-right">&copy; @DateTime.Now.Year NIKA</span>
+                    </div>
+                </div>
+            </div>
+            @Html.Partial("_Modal")
+        </div>
+    </div>
+    <script type="text/javascript">
+        require(['jquery', 'knockout', 'modal', 'bootstrap'], function ($, ko, modal)
+        {
+            var vm = function () {
+                var self = this;
+
+                self.modal = new modal();
+
+                self.showTerms = function () {
+                    self.modal.populate('Terms and Conditions', 'Text Needed', 'Close', true, function () {
+                    }, function () {
+                    }, false);
+                };
+            };
+
+            ko.applyBindings(new vm(), $('#knockout-area-footer')[0]);
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

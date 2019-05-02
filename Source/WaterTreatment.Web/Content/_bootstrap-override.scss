@@ -1,0 +1,39 @@
+﻿$icon-font-path: "../fonts/";
+
+$brand-primary:         #e82941 !default; // #337ab7
+
+
+$normal-text-size: 15px;
+$large-text-size: 18px;
+$giant-text-size: 24px;
+
+$normal-line-height: 15px;
+$large-line-height: 18px;
+$giant-line-height: 32px;
+
+$input-height: 45px;
+
+$border-radius-base:        0px !default;
+$border-radius-large:       0px !default;
+$border-radius-small:       0px !default;
+
+$main-gray: #eaeaea;
+$border-gray: #ddd;
+
+$btn-default-color:              #000 !default;
+$btn-default-bg:                 $main-gray;
+$btn-default-border:             $main-gray;
+
+$btn-primary-color:              #fff;
+$btn-primary-bg:                 $brand-primary;
+$btn-primary-border:             $btn-primary-bg;
+
+$input-border:                   $border-gray;
+
+$nav-active-bg-color:              #fff;
+$nav-active-color:                 #e82941;
+$nav-bg-color:              #000;
+$nav-color:              #ccc;
+
+$disabled-gray: #eeeeee;
+$light-gray-fill: #F7F7F7;

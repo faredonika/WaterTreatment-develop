@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Leadership Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="padding-top: 1.0em" id="knockout-area">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="piechart" style="width: 900px; height: 500px;"></div>
+        </div>
+        <div class="ajaxFeedback" data-bind="visible: isProcessingRequest">
+            <img src="~/Content/images/spin.gif" />
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-6" data-bind="visible: showNoDataMessage()">
+                <h4><span class="label label-default">No measurements to display.</span></h4>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal --> 
+    <div class="modal fade" id="siteModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Following sites are in <span data-bind="text:selectedGroup"></span></h4>
+                </div>
+
+                <div class="row" style="padding-bottom: 1.0em" data-bind="visible: !showNoDataMessage()">
+                    <div class="col-md-1" style="padding-top: 0.4em">
+                        <label class="control-label">Sites</label>
+                    </div>
+                    <div class="col-md-6">
+                        <select class="form-control" multiple="multiple" data-bind="options: sites, optionsText: 'siteName', optionsValue: 'siteId', value: selectedSite, event: {change: onChange}"></select>
+                    </div>
+                </div>
+                <label class="control-label">Following sites have no data for this cycle</label>
+                <div class="row" style="padding-bottom: 1.0em" data-bind="visible: !showNoDataMessage()">
+                    <div class="col-md-1" style="padding-top: 0.4em">
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <select class="form-control" multiple="multiple" data-bind="options: NotMeasuredSites, optionsText: 'siteName', optionsValue: 'siteId', value: selectedSite, event: {change: onChange}"></select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@Html.AntiForgeryToken()
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+        require(['jquery', 'knockout', 'App/ViewModels/Report/LeadershipDashboard', 'bootstrap', 'moment'], function ($, ko, ViewModel) {
+            $(document).ready(function () {
+                ko.applyBindings(new ViewModel(@Html.Raw(ViewBag.dashboard), @Html.Raw(ViewBag.complience)), $('#knockout-area')[0]);
+            });
+        });
+    </script>
+}
+

@@ -1,0 +1,134 @@
+﻿@using WaterTreatment.Web.Models
+@model ViewReportModel
+@{
+    var measurements = Model.Buildings.SelectMany(x => x.Systems.SelectMany(y => y.Measurements)).ToDictionary(z => z.Id.ToString(), z => new
+    {
+        Name = z.Name,
+        Comment = z.Comment,
+        Minimum = z.MinDescription,
+        Maximum = z.MaxDescription
+    });
+    var buildingName = "";
+    BundleTable.EnableOptimizations = false;
+    Layout = "~/Views/Shared/_LayoutPDF.cshtml";
+}
+<div class="row">
+    <div class="row">
+        <div class="col-md-6 header pull-left" style="margin-bottom: 50px; padding-left: 0px">
+            <span class="logo"><span class="logo-primary">WATER</span> TREATMENT</span><br />
+            <span class="sub-logo">Water System Management</span>
+        </div>
+        <div class="pull-right text-right">
+            <div><b>Report Review</b></div>
+            <div>@DateTime.UtcNow.ToString("MM/dd/yyyy")</div>
+        </div>
+    </div>
+    <div class="row" style="padding-bottom: 10px;">
+        <div class="col-md-12 site-name">
+            <span>Site: @Model.SiteName</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table table-outer">
+                <thead>
+                    <tr>
+                        <th class="col-md-4 text-left">Measurement Date</th>
+                        <th class="col-md-4 text-left">Created On</th>
+                        <th class="col-md-4 text-left">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-left">@Model.MeasurementDate</td>
+                        <td class="text-left">@Model.CreatedDate.ToShortDateString()</td>
+                        <td class="text-left">@Html.Raw(Model.SubmittedDate.HasValue ? "Submitted" : "Draft")</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @foreach (var building in Model.Buildings)
+    {
+        if (buildingName.Trim() != building.Name.Trim())
+        {
+            <div class="row">
+                <div class="building-name">@building.Name</div>
+            </div>
+        }
+        <div class="row">
+            <div>
+                <table class="table table-outer" style="margin-top: 15px;margin-bottom: 0px !important;">
+                    <tbody>
+                        @foreach (var system in building.Systems.Where(s => s.ReasonSkipped == null))
+                        {
+                            <tr>
+                                <td style="padding: 0px; border: 0px !important">
+                                    <table class="table table-bordered" style="margin-bottom: 0px !important; border: 0px !important">
+                                        <thead>
+                                            <tr style="background-color: #eee;">
+                                                <th class="col-md-4 text-left">System Type</th>
+                                                <th class="col-md-4 text-left">Description</th>
+                                                <th class="col-md-4 text-left">Location</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-left">@system.SystemName</td>
+                                                <td class="text-left">@system.Description</td>
+                                                <td class="text-left">@system.Location</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @*system measurements*@
+
+                                    @Html.Partial("_SystemMeasurementsWithMinMaxPDF", system.Measurements, new ViewDataDictionary { { "isAdhoc", "false" } })
+                                    @if (system.Measurements.Any(ad => ad.IsAdhoc == true))
+                                    {
+                                        <br />
+                                        @*ad-hoc measurements*@
+                                        <div class="col-md-10">AD-HOC MEASUREMENTS</div>
+                                        <br />
+                                        @Html.Partial("_SystemMeasurementsWithMinMaxPDF", system.Measurements, new ViewDataDictionary { { "isAdhoc", "true" } })
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        if (buildingName.Trim() != building.Name.Trim())
+        {
+            <div class="row">
+                <div style="margin: 0px 0px 3px 0px; width: 100%;">
+                    <hr style="border: 3px solid black;" />
+                </div>
+            </div>
+        }
+        buildingName = @building.Name;
+
+    }
+
+
+    <div class="row" style="padding-bottom: 1.0em">
+        <div class="col-sm-6" style="padding-left: 0px;">
+            <div style="padding-bottom: 15px;">
+                <label class="control-label" style="font-size: 22px;">Notes:</label>
+            </div>
+            <div>
+                @Html.Raw(string.IsNullOrWhiteSpace(Model.Notes) ? "" : Model.Notes)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <hr />
+        </div>
+    </div>
+</div>

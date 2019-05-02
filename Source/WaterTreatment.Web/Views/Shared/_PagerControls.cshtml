@@ -1,0 +1,15 @@
+﻿<div class="pull-right form-inline" style="margin-top: 0.5em">
+    <div class="form-group pager-text">
+        <span>Results per Page:</span>
+        @Html.DropDownList("__defaultPagerValue", new SelectList(new[] { 10, 25, 50, 100, 250 }, 10), new { id = "pager-results", @class = "form-control", data_bind = "value: pager.maxResults" })
+    </div>
+    <div class="form-group pager-text">
+        <span style="display: none;" data-bind="visible: pager.totalResults() > 0">Showing <strong data-bind="text: pager.currentIndicies"></strong> of <strong data-bind="text: pager.totalResults"></strong></span>
+    </div>
+    <div class="form-group">
+        <div class="btn-group pager-control" role="group">
+            <button class="btn btn-default" data-bind="enable: pager.IsPrevEnabled, click: pager.prev"><i class="fa fa-angle-left"></i></button>
+            <button class="btn btn-default" data-bind="enable: pager.IsNextEnabled, click: pager.next"><i class="fa fa-angle-right"></i></button>
+        </div>
+    </div>
+</div>

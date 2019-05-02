@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "System Comparison";
+}
+<div style="padding-top: 1.0em" id="knockout-area">
+    <div class="row" style="padding-bottom: 1.0em">
+        <div class="col-md-1" style="padding-top: 0.4em">
+            <label class="control-label">System Type</label>
+        </div>
+        <div class="col-md-6">
+            <select class="form-control" data-bind="options: systemTypes, value: selectedSystemTypeId, optionsText: 'Name', optionsValue: 'Id', optionsCaption: 'Please Select System Type'"></select>
+        </div>
+    </div>
+    <div class="row" style="padding-bottom: 1.0em">
+        <div class="col-md-1" style="padding-top: 0.4em">
+            <label class="control-label">Sites</label>
+        </div>
+        <div class="col-md-6">
+            <select class="form-control" multiple="multiple" data-bind="options: sites, selectedOptions: selectedSites, optionsText: 'Name', optionsValue: 'Id', multiselect: msOptions"></select>
+        </div>
+        <div class="col-md-5">
+           <span><u>Note</u>: Sites relevant to the selected System are displayed. (The Site configuration determines the Systems that are measured.)</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>Submitted From</label>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group has-feedback">
+                <input type="text" id="submittedFrom" class="input-sm form-control datepicker" data-bind="datepicker: submitFrom" />
+                <i class="glyphicon glyphicon-calendar form-control-feedback" style="line-height: 45px;"></i>
+            </div>
+        </div>
+        <div class="col-md-1"><label>To</label></div>
+        <div class="col-md-3">
+            <div class="form-group has-feedback">
+                <input type="text" id="submittedTo" class="input-sm form-control datepicker" data-bind="datepicker: submitTo" />
+                <i class="glyphicon glyphicon-calendar form-control-feedback" style="line-height: 45px;"></i>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="ajaxFeedback" data-bind="visible: isProcessingRequest">
+            <img src="~/Content/images/spin.gif" />
+        </div>
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table striped-grid">
+                    <thead>
+                        <tr class="branded-header">
+                            <th scope="colgroup"></th>
+                            <th colspan="2" scope="colgroup">Required Range</th>
+                            <!-- ko foreach: { data: Object.keys(inverseOrder()), as: '$key' } -->
+                            <!-- ko with: $root.systemMetaData() && $root.systemMetaData()[$root.inverseOrder()[$index()]] -->
+                            <th><div style="width: 100%;" data-bind="text: SiteName"></div> <div style="width: 100%;" data-bind="text: '(' + ReportDate + ')'"></div> </th>
+                            <!-- /ko -->
+                            <!-- /ko -->
+                        </tr>
+                        <tr class="branded-header">
+                            <th>Measurement</th>
+                            <th>Minimum</th>
+                            <th>Maximum</th>
+                            <!-- ko foreach: { data: Object.keys(inverseOrder()), as: '$key' } -->
+                                <!-- ko with: $root.systemMetaData() && $root.systemMetaData()[$root.inverseOrder()[$index()]] -->
+                                <th>@*<div style="width: 100%;" data-bind="text: SiteName"></div> <div style="width: 100%;" data-bind="text: '(' + ReportDate + ')'"></div>*@ <div style="width: 100%;" data-bind="text: '(' + BuildingName + ' - ' + Location + ')'"></div></th>
+                                <!-- /ko -->
+                            <!-- /ko -->
+                        </tr>
+                    </thead>
+                    <tbody style="display: none;" data-bind="visible: rows() != undefined, foreach: { data: rows, as: '$row'}">
+                        <tr>
+                            <td data-bind="text: $row.ParameterName"></td>
+                            <td data-bind="text: $row.MinBound"></td>
+                            <td data-bind="text: $row.MaxBound"></td>
+                            <!-- ko foreach: { data: Object.keys($root.order()), as: '$key' } -->
+                                <!-- ko with: $row[$index()] -->
+                                <td data-bind="text: Value, css: {'oob-error':  IsOutOfBounds }, attr: { 'title': ReportDate }"></td>
+                                <!-- /ko -->
+                                <!-- ko ifnot: $row[$index()] -->
+                                <td></td>
+                                <!-- /ko -->
+                            <!-- /ko -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+<script type="text/javascript">
+require(['jquery', 'knockout', 'App/ViewModels/Report/systemComparison', 'bootstrap', 'moment'], function ($, ko, ViewModel) {
+    $(document).ready(function () {
+        ko.applyBindings(new ViewModel(@Html.Raw(ViewBag.SystemTypes), @Html.Raw(ViewBag.SitesBySystemType)), $('#knockout-area')[0]);
+    });
+});
+</script>
+}

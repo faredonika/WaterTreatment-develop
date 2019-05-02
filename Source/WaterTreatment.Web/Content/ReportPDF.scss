@@ -1,0 +1,250 @@
+﻿
+// Winnovative cannot handle CSS3's media queries so directly inject the Bootstrap styles needed
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 0px;
+  padding-right: 0px; }
+  .container:before, .container:after {
+    content: " ";
+    display: table; }
+  .container:after {
+    clear: both; }
+  .container {
+      width: 90%; }
+
+.row {
+  margin-left: -15px;
+  margin-right: -15px; }
+  .row:before, .row:after {
+    content: " ";
+    display: table; }
+  .row:after {
+    clear: both; }
+
+.col-md-12, .col-md-6, .col-md-4 {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px; }
+
+.col-md-4 {
+    width: 33.33333%;
+}
+
+.col-md-6 {
+    width: 50%;
+}
+
+.col-md-12 {
+    width: 100%;
+}
+
+.header { display: inline; }
+
+.pull-right {
+  float: right !important; }
+
+.pull-left {
+  float: left !important; }
+
+.table {
+    border-collapse: collapse !important; }
+.table td,
+.table th {
+    background-color: #fff !important; }
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #ddd !important; }
+
+.table-responsive {
+  overflow-x: auto;
+  min-height: 0.01%;
+      width: 100%;
+      margin-bottom: 15px;
+      overflow-y: hidden;
+      -ms-overflow-style: -ms-autohiding-scrollbar;
+      border: 1px solid #ddd; }
+
+.table-responsive > .table {
+    margin-bottom: 0; }
+    .table-responsive > .table > thead > tr > th,
+    .table-responsive > .table > thead > tr > td,
+    .table-responsive > .table > tbody > tr > th,
+    .table-responsive > .table > tbody > tr > td,
+    .table-responsive > .table > tfoot > tr > th,
+    .table-responsive > .table > tfoot > tr > td {
+        white-space: nowrap; }
+.table-responsive > .table-bordered {
+    border: 0; }
+.table-responsive > .table-bordered > thead > tr > th:first-child,
+.table-responsive > .table-bordered > thead > tr > td:first-child,
+.table-responsive > .table-bordered > tbody > tr > th:first-child,
+.table-responsive > .table-bordered > tbody > tr > td:first-child,
+.table-responsive > .table-bordered > tfoot > tr > th:first-child,
+.table-responsive > .table-bordered > tfoot > tr > td:first-child {
+        border-left: 0; }
+.table-responsive > .table-bordered > thead > tr > th:last-child,
+.table-responsive > .table-bordered > thead > tr > td:last-child,
+.table-responsive > .table-bordered > tbody > tr > th:last-child,
+.table-responsive > .table-bordered > tbody > tr > td:last-child,
+.table-responsive > .table-bordered > tfoot > tr > th:last-child,
+.table-responsive > .table-bordered > tfoot > tr > td:last-child {
+        border-right: 0; }
+.table-responsive > .table-bordered > tbody > tr:last-child > th,
+.table-responsive > .table-bordered > tbody > tr:last-child > td,
+.table-responsive > .table-bordered > tfoot > tr:last-child > th,
+.table-responsive > .table-bordered > tfoot > tr:last-child > td {
+        border-bottom: 0; }
+
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px; }
+  .table > thead > tr > th,
+  .table > thead > tr > td,
+  .table > tbody > tr > th,
+  .table > tbody > tr > td,
+  .table > tfoot > tr > th,
+  .table > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.42857;
+    vertical-align: top;
+    border-top: 1px solid #ddd; }
+  .table > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd; }
+  .table > caption + thead > tr:first-child > th,
+  .table > caption + thead > tr:first-child > td,
+  .table > colgroup + thead > tr:first-child > th,
+  .table > colgroup + thead > tr:first-child > td,
+  .table > thead:first-child > tr:first-child > th,
+  .table > thead:first-child > tr:first-child > td {
+    border-top: 0; }
+  .table > tbody + tbody {
+    border-top: 2px solid #ddd; }
+  .table .table {
+    background-color: #fff; }
+
+.table-bordered {
+  border: 1px solid #ddd; }
+  .table-bordered > thead > tr > th,
+  .table-bordered > thead > tr > td,
+  .table-bordered > tbody > tr > th,
+  .table-bordered > tbody > tr > td,
+  .table-bordered > tfoot > tr > th,
+  .table-bordered > tfoot > tr > td {
+    border: 1px solid #ddd; }
+  .table-bordered > thead > tr > th,
+  .table-bordered > thead > tr > td {
+    border-bottom-width: 2px; }
+
+.text-left           { text-align: left; }
+
+// End Bootstrap Direct Injection
+
+* {    
+    font-size: 15px;
+    line-height: 15px;
+    font-family: Arial;
+}
+
+.pdf-container {
+    .logo {
+        font-size: 26px;
+        font-family: 'Lato', sans-serif;
+        font-weight: 300;
+        .logo-primary {
+            font-weight: 700;
+            font-size: 26px;
+        }
+    }
+
+    .sub-logo {
+        font-size: 20px;
+        font-family: Calibri;
+        font-style: italic;
+        font-weight: 100;
+        color: gray;
+    }
+
+    .building-name {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 0px 0px 5px 0px;
+        padding-bottom: 5px;
+        border-bottom: 3px solid black;
+        width: 100%;
+    }
+
+    .site-name {
+        padding: 0px 0px 3px 0px;
+        border-bottom: 3px solid lightgray;
+
+        span {
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 3px solid black;
+        }
+    }
+
+    .table-responsive {
+        border: 0px !important;
+    }
+
+    .table-outer {
+        border: 0.5px solid #666;
+
+        tr > th {
+            background-color: lightgray !important;
+        }
+    }
+
+    .table-inner {
+        border: 0.5px solid #999;
+        margin-bottom: 0px;
+
+        tr > th {
+            background-color: gray !important;
+            color: white !important;
+        }
+
+        .measurement > td {
+            background-color: #eee !important;
+            font-weight: bold;
+        }
+    }
+
+    .measurement-info {
+        padding: 25px 25px 25px 50px;
+    }
+
+    .oob {
+        background-color: #eee;
+        margin-bottom: 10px;
+        padding: 15px;
+
+        i {
+            margin-right: 15px;
+        }
+    }
+
+    .table-inner > thead > tr > th,
+    .table-inner > tbody > tr > th,
+    .table-inner > tfoot > tr > th,
+    .table-inner > thead > tr > td,
+    .table-inner > tbody > tr > td,
+    .table-inner > tfoot > tr > td {
+        border: 0.5px solid #999;
+    }
+
+    .table-outer > thead > tr > th,
+    .table-outer > tbody > tr > th,
+    .table-outer > tfoot > tr > th,
+    .table-outer > thead > tr > td,
+    .table-outer > tbody > tr > td,
+    .table-outer > tfoot > tr > td {
+       border: 0.5px solid #666;
+    }
+}
