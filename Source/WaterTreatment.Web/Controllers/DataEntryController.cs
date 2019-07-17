@@ -112,6 +112,7 @@ namespace WaterTreatment.Web.Controllers
                                 M.Comment = String.Empty;
                                 M.Parameter = parameter;
                                 M.IsApplicable = true;
+                               // M.Parameter.AltParameter = -1;
                                 SM.Measurements.Add(M);
                             }
 
@@ -308,12 +309,12 @@ namespace WaterTreatment.Web.Controllers
             }
 
         }
-
+       
 
         [HttpGet]
         public ActionResult Edit(int? Id)
         {
-
+    // var xxx=   GetParameterNamebyID(326);
             if (!Id.HasValue)
             {
                 return RedirectToAction("Index");
@@ -362,7 +363,7 @@ namespace WaterTreatment.Web.Controllers
                 TempData["Error"] = "This report has already been submitted";
                 return RedirectToAction("Index");
             }
-
+             
             if (Report.User.Id != CurrentUser.Id)
             {
                 TempData["Error"] = "You cannot edit someone else's report";

@@ -10,6 +10,8 @@
         self.hasBounds = ko.observable(data.HasBounds);
         self.type = ko.observable(data.Type || 'Value');
         self.unit = ko.observable(data.Unit);
+        self.AltParameter = ko.observable(data.AltParameter);
+        self.ParaId = ko.observable(data.ParaId);
         self.range = ko.observable(data.Range);
         self.minValue = ko.observable(data.MinValue).extend({ pattern: '^[a-z0-9].$' });
         self.maxValue = ko.observable(data.MaxValue).extend({ pattern: '^[a-z0-9].$' });
@@ -17,12 +19,17 @@
         self.comment = ko.observable(data.Comment);
         self.isAdhoc = ko.observable(data.IsAdhoc);
         self.Delete = ko.observable(data.Delete);
-
+self.AltParaName = ko.observable(data.AltParaName);
+self.optionValues = ko.observable([{ text: self.name, value: self.ParaId }, { text: self.AltParaName, value: self.AltParameter } ]);
+        self.selectedOptionValue = ko.observable(self.name);
+       
         self.emptyCheck = function (val) {
             return val === undefined
                 || val === null
                 || val.trim() === '';
         };
+
+    
 
         var initial = data.Value;
         self.immediatelyValidate = true;
@@ -60,7 +67,82 @@
         self.isEmpty = ko.computed(function () {
             return self.emptyCheck(self.value());
         }, self);
+        var count;
 
+
+        self.selectedText = ko.computed(function () {
+            var pop = self.optionValues();
+            var value = self.value();
+            var id = self.id();
+            var alt = self.AltParameter();
+            var xxx = self.name();
+            var para = self.ParaId();
+            var divid = document.getElementById(alt);
+            if (alt != null && divid != null ) {
+                toggle_visibility(para, alt)
+               
+               
+           //     divid.style.display = 'none';
+               // document.getElementById(para).style.display = 'block';
+           // } else if (alt != null && divid != null ) {
+             
+             //   $("#" + alt + " input[type='checkbox']").click();
+              //  divid.style.display = 'block';
+              //  document.getElementById(para).style.display = 'none';
+            }
+            return self.selectedOptionValue() && self.selectedOptionValue().name;
+        });
+
+        function toggle_visibility(id, altid) {
+
+            var e = document.getElementById(id);
+            var a = document.getElementById(altid);
+            if (e.style.display == 'block') {
+               if( $("#" + id + " input[type='checkbox']").prop("checked") == true)
+                    $("#" + id + " input[type='checkbox']").click();
+               if ($("#" + altid + " input[type='checkbox']").prop("checked") != true)
+                   $("#" + altid + " input[type='checkbox']").click();
+                e.style.display = 'none';
+                a.style.display = 'block';
+            }                
+            else {
+                if ($("#" + id + " input[type='checkbox']").prop("checked") == true)
+                    $("#" + id + " input[type='checkbox']").click();
+                if ($("#" + altid + " input[type='checkbox']").prop("checked") != true)
+                    $("#" + altid + " input[type='checkbox']").click();
+                e.style.display = 'block';
+               a.style.display = 'none';
+            }
+                
+        }
+
+
+        self.IsDropdownchanged = ko.computed(function () {
+            var pop = self.optionValues();
+            return (pop);
+
+        });
+        
+        self.isAlt = ko.computed(function () {
+            var value = self.value();
+            var id = self.id();
+            var alt = self.AltParameter(); 
+            var xxx = self.name();
+            var divid = document.getElementById(alt);
+       
+     
+            
+            if (alt != null && divid != null && value.length > 0 && count!=1) {
+                count = 1;
+             //   self.name(' <div><input type="checkbox" value="cherry"  /> Cherry</div>');
+                $("#" + alt + " input[type='checkbox']").click();
+            } else if (alt != null && divid != null && value.length <= 0 && count==1){
+                count = 0;
+            $("#" + alt + " input[type='checkbox']").click();
+                }
+            return false;
+        });
+       
         self.value.extend({ required: true }).extend({ number: true });
 
         if (self.immediatelyValidate) {
@@ -146,7 +228,6 @@
         self.textClass = ko.computed(function () {
             return self.isApplicable() ? '' : 'text-disabled'
         });
-
         self.bake = function () {
             return {
                 Id: self.id(),
@@ -163,9 +244,14 @@
                 Value: self.value(),
                 IsApplicable: self.isApplicable(),
                 Comment: self.comment(),
+                AltParameter: self.AltParameter(),
+                ParaId: self.ParaId(),
+                AltParaName:self.AltParaName(),
+         
             };
         };
 
     };
 
 });
+

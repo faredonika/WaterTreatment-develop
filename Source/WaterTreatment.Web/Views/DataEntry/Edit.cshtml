@@ -25,7 +25,7 @@
     </div>
     <div class="form-group container-fluid" data-bind="foreach: { data: buildings, as: '$building' }">
         <div class="row" style="padding-bottom: 1.0em">
-            <div class="row">
+            <div class="row" style="display:none">
                 <h3 style="font-weight: bold;">Building: <span class="branded inherit" data-bind="text: name"></span></h3>
                 <hr class="underline" />
             </div>
@@ -99,24 +99,33 @@
                                             <div class="col-md-3 branded-header">
                                                 Measurement Instructions
                                             </div>
-                                            <div class="col-md-4 branded-header">
+                                            <div class="col-md-2 branded-header">
                                                 Recorded Value
                                             </div>
                                             <div style="text-align:center" class="col-md-2 branded-header">
                                                 Action
                                             </div>
+                                            <div style="text-align:center; display:none" class="col-md-2 branded-header" >
+                                               Altrnative
+                                            </div>
                                         </div>
                                     </div>
                                     <div data-bind="foreach: { data: measurements, as: '$measurement' }" class="striped-grid">
                                         <!-- ko ifnot: isAdhoc -->
-                                        <div class="grid-row" style="height: 75px;">
-                                            <div class="col-md-3 grid-cell">
-                                                <div data-bind="text: name, attr: { class: textClass }"></div>
+                                        <div class="grid-row" style="height: 75px;" data-bind="attr: { id: ParaId}" >
+                                            <div class="col-md-4 grid-cell">
+                                                <div data-bind="text: name, attr: { class: textClass },style: { display: AltParameter() != null ? 'none' : 'block' }"></div>
+                                                <div data-bind="style: { display: AltParameter() == null ? 'none' : 'block' }">
+                                                    <span>Scale (select one): </span>
+                                                <select data-bind="options: optionValues, value: selectedOptionValue,  optionsText: 'text',  optionsValue: 'value',attr: { id: id} " style="max-width:330px;"></select>
+                                                    <input data-bind="value: selectedOptionValue,style: { visibility: 'hidden' }">
+                                                    <span data-bind="text: selectedText" style="visibility:hidden"></span>
+                                                </div>
                                             </div>
                                             <div class="col-md-3 grid-cell">
                                                 <div data-bind="text: source, attr: { class: textClass }"></div>
                                             </div>
-                                            <div class="col-md-4 grid-cell">
+                                            <div class="col-md-2 grid-cell">
                                                 <div class="form-group has-feedback" data-bind="validationElement: value">
                                                     <!-- ko if: valueType -->
                                                     <div class="input-group">
@@ -161,8 +170,13 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class=" grid-cell" style="display:none">
+                                                <span data-bind="text:AltParameter"></span> <br />
+                                                <span data-bind="text:ParaId"></span>
+                                            </div>
                                         </div>
                                         <!-- /ko -->
+                                        
                                     </div>
                                     <div class="row " style="padding-left: 19px;">
                                     </div>

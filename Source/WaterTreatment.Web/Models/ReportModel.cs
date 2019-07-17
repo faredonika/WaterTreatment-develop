@@ -78,7 +78,9 @@ namespace WaterTreatment.Web.Models
         public string Source { get; set; }
         public bool HasBounds { get; set; }
         public string Unit { get; set; }
-
+        public int? AltParameter { get; set; }
+        public string AltParaName { get; set; }
+        public int? ParaId { get; set; }
         public string Type { get; set; }
         public string Range { get; set; }
         public decimal? MinValue { get; set; }
@@ -87,8 +89,8 @@ namespace WaterTreatment.Web.Models
         public string MaxDescription { get; set; }
         public bool IsEnforced { get; set; }
         public bool IsApplicable { get; set; }
-
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
+       
+    [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Comment { get; set; }
 
         public string Value { get; set; }

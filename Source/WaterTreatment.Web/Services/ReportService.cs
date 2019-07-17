@@ -42,7 +42,14 @@ namespace WaterTreatment.Web.Services
                 _storage = storage;
             }
         }
+        public string GetParameterNamebyID(int? ParaId)
+        {
+            Parameter para = new Parameter();
 
+            var name = Context.Parameters.Where(m => m.Id == ParaId).FirstOrDefault().Name;
+
+            return name;
+        }
         public ReportModel BuildReportModel(Report Report)
         {
             var Model = new ViewReportModel();
@@ -77,7 +84,10 @@ namespace WaterTreatment.Web.Services
                     measurementModel.IsApplicable = measurement.IsApplicable;
                     measurementModel.Comment = measurement.Comment;
                     measurementModel.IsAdhoc = false; // this is a regular measurement
-
+                    measurementModel.AltParameter = measurement.Parameter.AltParameter;
+                    measurementModel.ParaId = measurement.Parameter.Id;
+                    measurementModel.AltParaName = (measurementModel.AltParameter!=null)? GetParameterNamebyID(measurementModel.AltParameter):null;
+                    // measurementModel.ParameterId = measurement.Parameter.Id;
                     //Despite being able to enter multiple of these only grab the first
                     //<Todo>: Restrict adding multiple global or local of the same site
                     //Grab the global scoped parameter if it actually exists
@@ -192,7 +202,10 @@ namespace WaterTreatment.Web.Services
                         measurementModel.Unit = measurement.Parameter.Unit;
                         measurementModel.IsApplicable = measurement.IsApplicable;
                         measurementModel.Comment = measurement.Comment;
-
+                     //   measurementModel.ParameterId = measurement.Parameter.Id;
+                        measurementModel.AltParameter =measurement.Parameter.AltParameter;
+                        measurementModel.ParaId = measurement.Parameter.Id;
+                   measurementModel.AltParaName = (measurementModel.AltParameter != null) ? GetParameterNamebyID(measurementModel.AltParameter) : null;
                         //Despite being able to enter multiple of these only grab the first
                         //<Todo>: Restrict adding multiple global or local of the same site
                         //Grab the global scoped parameter if it actually exists
@@ -332,5 +345,7 @@ namespace WaterTreatment.Web.Services
             var report = Context.Reports.Find(reportId);
             Delete(report);
         }
+
+        
     }
 }

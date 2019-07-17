@@ -22,6 +22,7 @@ namespace WaterTreatment.Web
             );
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                "~/Scripts/jquery-2.1.4.min.js",
                 "~/Scripts/require.js",
                 "~/Scripts/App/main.js"));
 

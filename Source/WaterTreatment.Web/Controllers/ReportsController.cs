@@ -1831,5 +1831,11 @@ namespace WaterTreatment.Web.Controllers
 
         }
 
+        public  ActionResult PowerBiReport()
+        {
+
+            return View();
+        }
+
     }
 }

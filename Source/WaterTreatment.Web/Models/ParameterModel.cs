@@ -29,7 +29,8 @@ namespace WaterTreatment.Web.Models
         public string Link { get; set; }
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Use { get; set; }
-
+        public int? AltParameter { get; set; }
+      
         public List<BoundModel> Bounds { get; set; }
 
     }

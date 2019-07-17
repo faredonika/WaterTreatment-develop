@@ -53,7 +53,9 @@ namespace WaterTreatment.Web.Controllers
                         Unit = p.Unit,
                         Source = p.Source,
                         Link = p.Link,
-                        Use = p.Use
+                        Use = p.Use,
+                      
+                        
                     };
 
                     foreach (var b in p.Bounds)

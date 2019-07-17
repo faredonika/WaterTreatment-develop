@@ -16,7 +16,8 @@
             source: '',
             link: '',
             use: 'Measurement',
-            bounds: []
+            bounds: [],
+            altrenate:0
         };
 
         self.savedData = {
@@ -28,7 +29,8 @@
             source: '',
             link: '',
             use: 'Measurement',
-            bounds: []
+            bounds: [],
+            altrenate: 0
         };
 
         self.saveLabel = ko.observable('Add');
@@ -42,6 +44,7 @@
             self.initialState.source = data.Source;
             self.initialState.link = data.Link;
             self.initialState.use = data.Use || 'Measurement';
+            self.initialState.altrenate = data.altrenate;
             self.initialState.bounds = data.Bounds.map(function (b) { return new bound(self, b); });
             
             self.savedData.id = data.Id;
